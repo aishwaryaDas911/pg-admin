@@ -606,6 +606,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
+          ) : title === 'Bank' ? (
+            <BankForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Bank has been created successfully",
+                });
+                console.log('Bank data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Bank creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Bank fields have been cleared",
+                });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
