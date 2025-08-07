@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
 import { ProgramManagerForm } from './ProgramManagerForm';
+import { ISOForm } from './ISOForm';
 import { 
   Table, 
   TableBody, 
