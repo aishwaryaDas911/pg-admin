@@ -83,7 +83,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Dropdown options from constants
-  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS } = DROPDOWN_OPTIONS;
+  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS, ROUTING_PROFILES, ACCOUNT_TYPES, PAYMENT_TYPES } = DROPDOWN_OPTIONS;
 
 
   const handleInputChange = (field: keyof MerchantGroupData, value: string) => {
