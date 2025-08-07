@@ -583,6 +583,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
+          ) : title === 'Sub-Merchant' ? (
+            <SubMerchantForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Sub-Merchant has been created successfully",
+                });
+                console.log('Sub-Merchant data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Sub-Merchant creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Sub-Merchant fields have been cleared",
+                });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
