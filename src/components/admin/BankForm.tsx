@@ -169,9 +169,9 @@ export const BankForm: React.FC<BankFormProps> = ({
             <Landmark className="h-6 w-6 text-mb-blue" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Create Bank</h2>
+            <h2 className="text-2xl font-bold text-foreground">{ADMIN_STRINGS.PAGES.CREATE_BANK}</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Configure a new bank with contact and account details
+              {ADMIN_STRINGS.DESCRIPTIONS.BANK_DESC}
             </p>
           </div>
         </CardTitle>
