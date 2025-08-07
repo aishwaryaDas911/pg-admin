@@ -200,7 +200,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </SheetTrigger>
         <SheetContent side="left" className="w-72 p-0">
           <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-lg font-semibold">Menu</h2>
+            <h2 className="text-lg font-semibold">{ADMIN_STRINGS.NAVIGATION.DASHBOARD}</h2>
           </div>
           <ScrollArea className="h-[calc(100vh-80px)]">
             <SidebarContent 
