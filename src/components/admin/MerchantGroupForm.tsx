@@ -82,19 +82,8 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' },
-    { value: 'IT', label: 'Italy' },
-    { value: 'ES', label: 'Spain' },
-    { value: 'AU', label: 'Australia' },
-    { value: 'JP', label: 'Japan' },
-    { value: 'IN', label: 'India' }
-  ];
+  // Dropdown options from constants
+  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS } = DROPDOWN_OPTIONS;
 
   const states = [
     { value: 'AL', label: 'Alabama' },
