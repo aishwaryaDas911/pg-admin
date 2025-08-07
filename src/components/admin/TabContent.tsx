@@ -537,6 +537,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
+          ) : title === 'Merchant Group' ? (
+            <MerchantGroupForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Merchant Group has been created successfully",
+                });
+                console.log('Merchant Group data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Merchant Group creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Merchant Group fields have been cleared",
+                });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
