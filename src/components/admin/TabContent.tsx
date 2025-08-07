@@ -271,11 +271,11 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
           <TabsTrigger value="search" className="flex items-center space-x-2">
             <Search className="h-4 w-4" />
-            <span>Search</span>
+            <span>{ADMIN_STRINGS.ACTIONS.SEARCH}</span>
           </TabsTrigger>
           <TabsTrigger value="create" className="flex items-center space-x-2">
             <Plus className="h-4 w-4" />
-            <span>Create</span>
+            <span>{ADMIN_STRINGS.ACTIONS.CREATE}</span>
           </TabsTrigger>
         </TabsList>
 
