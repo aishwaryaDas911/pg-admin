@@ -318,7 +318,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
             <h3 className="text-lg font-semibold">Basic Information</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             <div className="space-y-2">
               <Label htmlFor="programManagerName" className="text-sm font-medium">
                 Program Manager Name <span className="text-red-500">*</span>
@@ -391,7 +391,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
             <Badge variant="outline" className="bg-mb-silver/10">Contact Details</Badge>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             <div className="space-y-2">
               <Label htmlFor="phoneNumber" className="text-sm font-medium">
                 Phone Number <span className="text-red-500">*</span>
@@ -466,7 +466,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
             <Badge variant="outline" className="bg-mb-blue/10">Location & Configuration</Badge>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             <div className="space-y-2">
               <Label htmlFor="country" className="text-sm font-medium">
                 Country <span className="text-red-500">*</span>
@@ -555,7 +555,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
             <h3 className="text-lg font-semibold">Scheduler & Logo</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div className="space-y-2">
               <Label htmlFor="schedulerRunTime" className="text-sm font-medium">
                 Scheduler Run Time <span className="text-red-500">*</span>
@@ -639,16 +639,16 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-end space-x-4 pt-8 border-t">
-          <Button variant="outline" onClick={onCancel} className="min-w-[100px]">
+        <div className="flex flex-col sm:flex-row items-center justify-end space-y-2 sm:space-y-0 sm:space-x-4 pt-6 md:pt-8 border-t">
+          <Button variant="outline" onClick={onCancel} className="w-full sm:w-auto min-w-[100px]">
             <X className="mr-2 h-4 w-4" />
             Cancel
           </Button>
-          <Button variant="outline" onClick={handleReset} className="min-w-[100px]">
+          <Button variant="outline" onClick={handleReset} className="w-full sm:w-auto min-w-[100px]">
             <RotateCcw className="mr-2 h-4 w-4" />
             Reset
           </Button>
-          <Button onClick={handleSubmit} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
+          <Button onClick={handleSubmit} className="w-full sm:w-auto min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
             <Plus className="mr-2 h-4 w-4" />
             Create
           </Button>
