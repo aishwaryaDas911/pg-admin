@@ -501,21 +501,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <ProgramManagerForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "Program Manager has been created successfully",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATED,
                 });
                 console.log('Program Manager data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "Program Manager creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All Program Manager fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_FIELDS_CLEARED,
                 });
               }}
             />
