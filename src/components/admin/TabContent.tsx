@@ -523,21 +523,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <ISOForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "ISO has been created successfully",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.ISO_CREATED,
                 });
                 console.log('ISO data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "ISO creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.ISO_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All ISO fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.ISO_FIELDS_CLEARED,
                 });
               }}
             />
