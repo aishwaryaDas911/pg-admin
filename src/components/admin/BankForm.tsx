@@ -441,10 +441,10 @@ export const BankForm: React.FC<BankFormProps> = ({
               </Label>
               <Select value={formData.localCurrency} onValueChange={(value) => handleInputChange('localCurrency', value)}>
                 <SelectTrigger className={errors.localCurrency ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {currencies.map((currency) => (
+                  {CURRENCIES.map((currency) => (
                     <SelectItem key={currency.value} value={currency.value}>
                       {currency.label}
                     </SelectItem>
