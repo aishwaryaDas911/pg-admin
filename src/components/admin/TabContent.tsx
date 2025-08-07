@@ -10,6 +10,7 @@ import { ISOForm } from './ISOForm';
 import { MerchantGroupForm } from './MerchantGroupForm';
 import { MerchantForm } from './MerchantForm';
 import { SubMerchantForm } from './SubMerchantForm';
+import { BankForm } from './BankForm';
 import { 
   Table, 
   TableBody, 
