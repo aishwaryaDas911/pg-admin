@@ -486,7 +486,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {countries.map((country) => (
+                    {COUNTRIES.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
                         {country.label}
                       </SelectItem>
@@ -507,7 +507,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {states.map((state) => (
+                    {STATES.map((state) => (
                       <SelectItem key={state.value} value={state.value}>
                         {state.label}
                       </SelectItem>
@@ -745,7 +745,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {countries.map((country) => (
+                    {COUNTRIES.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
                         {country.label}
                       </SelectItem>
@@ -766,7 +766,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {states.map((state) => (
+                    {STATES.map((state) => (
                       <SelectItem key={state.value} value={state.value}>
                         {state.label}
                       </SelectItem>
