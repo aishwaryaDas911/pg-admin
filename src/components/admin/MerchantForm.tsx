@@ -7,9 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { 
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS } from '@/constants/adminConstants';
+import {
   Store,
-  RotateCcw, 
+  RotateCcw,
   X,
   Plus,
   ChevronRight,
