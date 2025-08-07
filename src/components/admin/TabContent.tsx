@@ -514,6 +514,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
+          ) : title === 'ISO' ? (
+            <ISOForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "ISO has been created successfully",
+                });
+                console.log('ISO data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "ISO creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All ISO fields have been cleared",
+                });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
