@@ -434,6 +434,14 @@ export const DROPDOWN_OPTIONS = {
     { value: 'savings', label: 'Savings' },
     { value: 'business', label: 'Business' },
     { value: 'corporate', label: 'Corporate' }
+  ],
+
+  PAYMENT_TYPES: [
+    { value: 'credit', label: 'Credit' },
+    { value: 'debit', label: 'Debit' },
+    { value: 'ach', label: 'ACH' },
+    { value: 'wire', label: 'Wire Transfer' },
+    { value: 'check', label: 'Check' }
   ]
 };
 
