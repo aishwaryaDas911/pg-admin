@@ -257,13 +257,13 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
     if (validateStep(1) && validateStep(2) && validateStep(3)) {
       onSubmit(formData);
       toast({
-        title: "Sub-Merchant Created",
-        description: "Sub-Merchant has been created successfully",
+        title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+        description: ADMIN_STRINGS.TOAST.SUB_MERCHANT_CREATED,
       });
     } else {
       toast({
-        title: "Validation Error",
-        description: "Please check all steps for errors",
+        title: ADMIN_STRINGS.TOAST.VALIDATION_ERROR,
+        description: ADMIN_STRINGS.VALIDATION.CHECK_ALL_STEPS,
         variant: "destructive"
       });
     }
