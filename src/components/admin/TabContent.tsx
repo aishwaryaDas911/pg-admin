@@ -263,7 +263,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
         <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
-          Mercedes-Benz Admin
+          {ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}
         </Badge>
       </div>
 
