@@ -81,40 +81,40 @@ export const BankForm: React.FC<BankFormProps> = ({
     const newErrors: Record<string, string> = {};
 
     const requiredFields = {
-      bankName: 'Bank Name',
-      bankCode: 'Bank Code',
-      settlementRoutingNumber: 'Settlement Routing Number',
-      settlementAccountNumber: 'Settlement Account Number',
-      address1: 'Address 1',
-      city: 'City',
-      country: 'Country',
-      state: 'State',
-      zipCode: 'Zip Code',
-      primaryContactName: 'Primary Contact Name',
-      contactPhoneNumber: 'Contact Phone Number',
-      emailAddress: 'Email Address',
-      localCurrency: 'Local Currency'
+      bankName: ADMIN_STRINGS.FORM_LABELS.BANK_NAME,
+      bankCode: ADMIN_STRINGS.FORM_LABELS.BANK_CODE,
+      settlementRoutingNumber: ADMIN_STRINGS.FORM_LABELS.SETTLEMENT_ROUTING_NUMBER,
+      settlementAccountNumber: ADMIN_STRINGS.FORM_LABELS.SETTLEMENT_ACCOUNT_NUMBER,
+      address1: ADMIN_STRINGS.FORM_LABELS.ADDRESS_1,
+      city: ADMIN_STRINGS.FORM_LABELS.CITY,
+      country: ADMIN_STRINGS.FORM_LABELS.COUNTRY,
+      state: ADMIN_STRINGS.FORM_LABELS.STATE,
+      zipCode: ADMIN_STRINGS.FORM_LABELS.ZIP_CODE,
+      primaryContactName: ADMIN_STRINGS.FORM_LABELS.PRIMARY_CONTACT_NAME,
+      contactPhoneNumber: ADMIN_STRINGS.FORM_LABELS.CONTACT_PHONE_NUMBER,
+      emailAddress: ADMIN_STRINGS.FORM_LABELS.EMAIL_ADDRESS,
+      localCurrency: ADMIN_STRINGS.FORM_LABELS.LOCAL_CURRENCY
     };
 
     Object.entries(requiredFields).forEach(([field, label]) => {
       if (!formData[field as keyof BankData]) {
-        newErrors[field] = `${label} is required`;
+        newErrors[field] = `${label} ${ADMIN_STRINGS.VALIDATION.REQUIRED}`;
       }
     });
 
     // Email validation
     if (formData.emailAddress && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.emailAddress)) {
-      newErrors.emailAddress = 'Please enter a valid email address';
+      newErrors.emailAddress = ADMIN_STRINGS.VALIDATION.INVALID_EMAIL;
     }
 
     // Phone validation
     if (formData.contactPhoneNumber && !/^\+?[\d\s-()]+$/.test(formData.contactPhoneNumber)) {
-      newErrors.contactPhoneNumber = 'Please enter a valid phone number';
+      newErrors.contactPhoneNumber = ADMIN_STRINGS.VALIDATION.INVALID_PHONE;
     }
 
     // Mobile validation
     if (formData.contactMobileNumber && !/^\+?[\d\s-()]+$/.test(formData.contactMobileNumber)) {
-      newErrors.contactMobileNumber = 'Please enter a valid mobile number';
+      newErrors.contactMobileNumber = ADMIN_STRINGS.VALIDATION.INVALID_MOBILE;
     }
 
     setErrors(newErrors);
