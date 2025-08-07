@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-white font-bold text-sm">MB</span>
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight">Admin Portal</h1>
+              <h1 className="text-lg font-bold tracking-tight">{ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}</h1>
               <span className="text-xs text-muted-foreground">Mercedes-Benz</span>
             </div>
           </div>
