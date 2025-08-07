@@ -491,6 +491,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
+          ) : title === 'Program Manager' ? (
+            <ProgramManagerForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Program Manager has been created successfully",
+                });
+                console.log('Program Manager data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Program Manager creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Program Manager fields have been cleared",
+                });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
