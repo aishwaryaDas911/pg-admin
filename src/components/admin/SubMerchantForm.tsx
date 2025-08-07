@@ -1058,9 +1058,9 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
             <Store className="h-6 w-6 text-mb-blue" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Create Sub-Merchant</h2>
+            <h2 className="text-2xl font-bold text-foreground">{ADMIN_STRINGS.PAGES.CREATE_SUB_MERCHANT}</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Complete the multi-step process to configure a new sub-merchant
+              {ADMIN_STRINGS.DESCRIPTIONS.SUB_MERCHANT_DESC}
             </p>
           </div>
         </CardTitle>
