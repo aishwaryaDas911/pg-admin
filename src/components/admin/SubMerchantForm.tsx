@@ -556,7 +556,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Choose a Type..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {businessTypes.map((type) => (
+                    {BUSINESS_TYPES.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         {type.label}
                       </SelectItem>
