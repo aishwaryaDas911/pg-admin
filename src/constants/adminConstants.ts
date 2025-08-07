@@ -1,0 +1,438 @@
+// Admin UI Constants
+export const ADMIN_STRINGS = {
+  // Common Actions
+  ACTIONS: {
+    CREATE: 'Create',
+    CANCEL: 'Cancel',
+    RESET: 'Reset',
+    SEARCH: 'Search',
+    CONTINUE: 'Continue',
+    PREVIOUS: 'Previous',
+    SUBMIT: 'Submit',
+    SAVE: 'Save',
+    DELETE: 'Delete',
+    EDIT: 'Edit',
+    VIEW: 'View',
+    SUSPEND: 'Suspend',
+    EXPORT: 'Export',
+    SEARCHING: 'Searching...',
+    CREATING: 'Creating...',
+    LOADING: 'Loading...',
+  },
+
+  // Navigation & Menu
+  NAVIGATION: {
+    DASHBOARD: 'Dashboard',
+    ADMIN_PORTAL: 'Mercedes-Benz Admin',
+    PAGE_NOT_FOUND: 'Page Not Found',
+    PAGE_NOT_FOUND_DESC: 'The requested page could not be found.',
+  },
+
+  // Form Labels & Placeholders
+  FORM_LABELS: {
+    // Common Fields
+    NAME: 'Name',
+    EMAIL: 'Email',
+    PHONE: 'Phone',
+    ADDRESS: 'Address',
+    CITY: 'City',
+    STATE: 'State',
+    COUNTRY: 'Country',
+    ZIP_CODE: 'Zip Code',
+    CURRENCY: 'Currency',
+    DESCRIPTION: 'Description',
+    
+    // Bank Form
+    BANK_NAME: 'Bank Name',
+    BANK_CODE: 'Bank Code',
+    SETTLEMENT_ROUTING_NUMBER: 'Settlement Routing Number',
+    SETTLEMENT_ACCOUNT_NUMBER: 'Settlement Account Number',
+    ADDRESS_1: 'Address 1',
+    ADDRESS_2: 'Address 2',
+    PRIMARY_CONTACT_NAME: 'Primary Contact Name',
+    CONTACT_MOBILE_NUMBER: 'Contact Mobile Number',
+    CONTACT_PHONE_NUMBER: 'Contact Phone Number',
+    EXTENSION: 'Extension',
+    FAX: 'Fax',
+    EMAIL_ADDRESS: 'Email Address',
+    LOCAL_CURRENCY: 'Local Currency',
+
+    // Merchant Form
+    MERCHANT_NAME: 'Merchant Name',
+    COMPANY_NAME: 'Company Name',
+    FIRST_NAME: 'First Name',
+    LAST_NAME: 'Last Name',
+    MOBILE_PHONE: 'Mobile Phone',
+    EMAIL_ID: 'E-Mail ID',
+    BUSINESS_URL: 'Business URL',
+    USER_NAME: 'User Name',
+    BUSINESS_TYPE: 'Business Type',
+    APPLICATION_MODE: 'Application Mode',
+    LOOKING_FOR: 'Looking For?',
+
+    // Sub-Merchant Form
+    SUB_MERCHANT_CODE: 'Sub Merchant Code',
+    MERCHANT_CODE: 'Merchant Code',
+
+    // Bank Info
+    BANK_ROUTING_NUMBER: 'Bank Routing Number',
+    BANK_ACCOUNT_NUMBER: 'Bank Account Number',
+    BANK_TYPE: 'Type',
+    NAME_ON_ACCOUNT: 'Name on Account',
+
+    // Configuration Fields
+    CATEGORY: 'Category',
+    AUTO_TRANSFER_LIMIT: 'Auto Transfer Limit',
+    AUTO_PAYMENT_METHOD: 'Auto Payment Method',
+    AUTO_TRANSFER_PERIOD: 'Auto Transfer Period',
+    MERCHANT_TYPE: 'Merchant Type',
+
+    // ISO Form
+    ISO_NAME: 'ISO Name',
+    ISO_CODE: 'ISO Code',
+    CONTACT_PERSON: 'Contact Person',
+    PROCESSOR: 'Processor',
+    ISO_LOGO: 'ISO Logo',
+
+    // Program Manager Form
+    PROGRAM_MANAGER_NAME: 'Program Manager Name',
+    PROGRAM_MANAGER_CODE: 'Program Manager Code',
+    ASSOCIATED_BANK_NAMES: 'Associated Bank Name(s)',
+    SCHEDULER_RUN_TIME: 'Scheduler Run Time',
+
+    // Merchant Group Form
+    MERCHANT_GROUP_NAME: 'Merchant Group Name',
+    CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
+    ROUTING_PROFILE: 'Routing Profile',
+    PAYMENT_TYPE: 'Payment Type',
+    BRANCH_NAME: 'Branch Name',
+    SWIFT_CODE: 'Swift Code',
+    ACCOUNT_NUMBER: 'Account Number',
+    ACCOUNT_TYPE: 'Account Type',
+
+    // Virtual Terminal Options
+    VIRTUAL_TERMINAL_OPTIONS: 'Virtual Terminal Options',
+    SALE: 'Sale',
+    REFUND: 'Refund',
+    PRE_AUTH: 'Pre Auth',
+    VOID: 'Void',
+    ONLINE: 'Online',
+  },
+
+  // Placeholders
+  PLACEHOLDERS: {
+    // Common
+    ENTER_NAME: 'Enter name',
+    ENTER_EMAIL: 'Enter email address',
+    ENTER_PHONE: 'Enter phone number',
+    ENTER_ADDRESS: 'Enter address',
+    ENTER_CITY: 'Enter city',
+    SELECT_COUNTRY: 'Select country',
+    SELECT_STATE: 'Select state',
+    ENTER_ZIP_CODE: 'Enter zip code',
+    SELECT_CURRENCY: 'Select currency',
+    SELECT: 'Select...',
+
+    // Bank Form
+    ENTER_BANK_NAME: 'Enter bank name',
+    ENTER_BANK_CODE: 'Enter bank code',
+    ENTER_SETTLEMENT_ROUTING: 'Enter settlement routing number',
+    ENTER_SETTLEMENT_ACCOUNT: 'Enter settlement account number',
+    ENTER_ADDRESS_1: 'Enter address line 1',
+    ENTER_ADDRESS_2: 'Enter address line 2',
+    ENTER_PRIMARY_CONTACT: 'Enter primary contact name',
+    ENTER_MOBILE_NUMBER: 'Enter contact mobile number',
+    ENTER_PHONE_NUMBER: 'Enter contact phone number',
+    ENTER_EXTENSION: 'Enter extension',
+    ENTER_FAX: 'Enter fax number',
+    ENTER_EMAIL: 'Enter email address',
+
+    // Merchant Forms
+    ENTER_MERCHANT_NAME: 'Enter merchant name',
+    ENTER_COMPANY_NAME: 'Enter company name',
+    ENTER_FIRST_NAME: 'Enter first name',
+    ENTER_LAST_NAME: 'Enter last name',
+    ENTER_BUSINESS_URL: 'Enter business URL',
+    ENTER_USER_NAME: 'Enter user name',
+    ENTER_SUB_MERCHANT_CODE: 'Enter sub merchant code',
+    WHAT_LOOKING_FOR: 'What are you looking for?',
+    CHOOSE_TYPE: 'Choose a Type...',
+    SELECT_MODE: 'Select mode',
+    SELECT_METHOD: 'Select method',
+    SELECT_PERIOD: 'Select period',
+    SELECT_CATEGORY: 'Select category',
+    SELECT_TYPE: 'Select type',
+
+    // Search & Table
+    ENTER_MANUFACTURER: 'Enter manufacturer',
+    ENTER_MODEL_NAME: 'Enter model name',
+    ENTER_APPLICATION_TYPE: 'Enter application type',
+    ENTER_PACKAGE_NAME: 'Enter package name',
+    ENTER_APPLICATION_NAME: 'Enter application name',
+    ENTER_VERSION: 'Enter version',
+  },
+
+  // Validation Messages
+  VALIDATION: {
+    REQUIRED: 'is required',
+    INVALID_EMAIL: 'Please enter a valid email address',
+    INVALID_PHONE: 'Please enter a valid phone number',
+    INVALID_MOBILE: 'Please enter a valid mobile number',
+    FILE_TOO_LARGE: 'Please select an image smaller than 5MB',
+    INVALID_FILE_TYPE: 'Please select an image file',
+    FIX_ERRORS: 'Please fix the errors before proceeding',
+    FIX_ERRORS_AND_TRY_AGAIN: 'Please fix the errors and try again',
+    CHECK_ALL_STEPS: 'Please check all steps for errors',
+  },
+
+  // Toast Messages
+  TOAST: {
+    // Success Messages
+    CREATED_SUCCESS: 'Created Successfully',
+    SEARCH_COMPLETED: 'Search Completed',
+    PDF_EXPORT_SUCCESS: 'PDF Export Successful',
+    CSV_EXPORT_SUCCESS: 'CSV Export Successful',
+    
+    // Success Descriptions
+    BANK_CREATED: 'Bank has been created successfully',
+    MERCHANT_CREATED: 'Merchant has been created successfully',
+    SUB_MERCHANT_CREATED: 'Sub-Merchant has been created successfully',
+    MERCHANT_GROUP_CREATED: 'Merchant Group has been created successfully',
+    ISO_CREATED: 'ISO has been created successfully',
+    PROGRAM_MANAGER_CREATED: 'Program Manager has been created successfully',
+    ACQUIRER_PROTOCOL_CREATED: 'Acquirer Protocol Parameter has been created',
+    NEW_RECORD_CREATED: 'New record has been created',
+    
+    // Cancel Messages
+    CANCELLED: 'Cancelled',
+    BANK_CREATION_CANCELLED: 'Bank creation was cancelled',
+    MERCHANT_CREATION_CANCELLED: 'Merchant creation was cancelled',
+    SUB_MERCHANT_CREATION_CANCELLED: 'Sub-Merchant creation was cancelled',
+    MERCHANT_GROUP_CREATION_CANCELLED: 'Merchant Group creation was cancelled',
+    ISO_CREATION_CANCELLED: 'ISO creation was cancelled',
+    PROGRAM_MANAGER_CREATION_CANCELLED: 'Program Manager creation was cancelled',
+    FORM_CREATION_CANCELLED: 'Form creation was cancelled',
+
+    // Reset Messages
+    FORM_RESET: 'Form Reset',
+    ALL_FIELDS_CLEARED: 'All fields have been cleared',
+    BANK_FIELDS_CLEARED: 'All Bank fields have been cleared',
+    MERCHANT_FIELDS_CLEARED: 'All Merchant fields have been cleared',
+    SUB_MERCHANT_FIELDS_CLEARED: 'All Sub-Merchant fields have been cleared',
+    MERCHANT_GROUP_FIELDS_CLEARED: 'All Merchant Group fields have been cleared',
+    ISO_FIELDS_CLEARED: 'All ISO fields have been cleared',
+    PROGRAM_MANAGER_FIELDS_CLEARED: 'All Program Manager fields have been cleared',
+
+    // Error Messages
+    VALIDATION_ERROR: 'Validation Error',
+    INVALID_FILE_TYPE: 'Invalid File Type',
+    FILE_TOO_LARGE: 'File Too Large',
+
+    // Export Messages
+    EXPORTED_RECORDS_PDF: 'records to PDF',
+    EXPORTED_RECORDS_CSV: 'records to CSV',
+    FOUND_RESULTS: 'results',
+  },
+
+  // Page Titles & Headers
+  PAGES: {
+    CREATE_BANK: 'Create Bank',
+    CREATE_MERCHANT: 'Create Merchant',
+    CREATE_SUB_MERCHANT: 'Create Sub-Merchant',
+    CREATE_MERCHANT_GROUP: 'Create Merchant Group',
+    CREATE_ISO: 'Create ISO',
+    CREATE_PROGRAM_MANAGER: 'Create Program Manager',
+    CREATE_ACQUIRER_PROTOCOL: 'Create Acquirer Protocol Parameter',
+    CREATE_NEW_RECORD: 'Create New Record',
+  },
+
+  // Page Descriptions
+  DESCRIPTIONS: {
+    BANK_DESC: 'Configure a new bank with contact and account details',
+    MERCHANT_DESC: 'Complete the multi-step process to configure a new merchant',
+    SUB_MERCHANT_DESC: 'Complete the multi-step process to configure a new sub-merchant',
+    MERCHANT_GROUP_DESC: 'Configure a new merchant group with contact and account details',
+    ISO_DESC: 'Configure a new ISO with contact and banking details',
+    PROGRAM_MANAGER_DESC: 'Configure a new program manager with associated details',
+    ACQUIRER_PROTOCOL_DESC: 'Configure new acquirer protocol parameters',
+  },
+
+  // Section Titles
+  SECTIONS: {
+    BASIC_INFO: 'Basic Info',
+    BANK_INFO: 'Bank Info',
+    CONFIGURATIONS: 'Configurations',
+    CONFIRMATION: 'Confirmation',
+    CONTACT_BANKING: 'Contact & Banking',
+    PAYMENT_PROCESSING: 'Payment & Processing',
+    ADDRESS_INFORMATION: 'Address Information',
+    MERCHANT_GROUP_DETAILS: 'Merchant Group Details',
+    ACCOUNT_DETAILS: 'Account Details',
+    CONTACT_DETAILS: 'Contact Details',
+    PAN_IIN_RANGE: 'Pan IIN Range',
+    SUPPORT_TERMINALS: 'Support Terminals',
+    SEARCH_FILTERS: 'Search Filters',
+    SEARCH_RESULTS: 'Search Results',
+  },
+
+  // Step Titles
+  STEPS: {
+    BASIC_INFO: 'Basic Info',
+    BANK_INFO: 'Bank Info', 
+    CONFIGURATIONS: 'Configurations',
+    CONFIRMATION: 'Confirmation',
+  },
+
+  // Table Headers
+  TABLE_HEADERS: {
+    DEVICE_MANUFACTURER: 'Device Manufacturer',
+    MODEL_NAME: 'Model Name',
+    APPLICATION_TYPE: 'Application Type',
+    PACKAGE_NAME: 'Package Name',
+    APPLICATION_NAME: 'Application Name',
+    VERSION: 'Version',
+    ACTIONS: 'Actions',
+  },
+
+  // Action Tooltips
+  TOOLTIPS: {
+    VIEW_DETAILS: 'View Details',
+    SUSPEND: 'Suspend',
+    EDIT: 'Edit',
+    DELETE: 'Delete',
+    EXPORT_PDF: 'Export to PDF',
+    EXPORT_CSV: 'Export to CSV',
+  },
+
+  // File Management
+  FILES: {
+    CHOOSE_FILE: 'Choose File',
+    REMOVE_FILE: 'Remove',
+    LOGO_PREVIEW: 'Logo preview',
+    KB: 'KB',
+    ADD_RANGE: 'Add Range',
+    REMOVE_RANGE: 'Remove',
+  },
+
+  // Dashboard
+  DASHBOARD: {
+    TOTAL_USERS: 'Total Users',
+    ACTIVE_DEVICES: 'Active Devices',
+    APPLICATIONS: 'Applications',
+    SYSTEM_STATUS: 'System Status',
+    TRANSACTION_VOLUME: 'Transaction Volume',
+    SUCCESS_RATE: 'Success Rate',
+    RESPONSE_TIME: 'Response Time',
+    ERROR_RATE: 'Error Rate',
+    RECENT_ACTIVITY: 'Recent Activity',
+    SYSTEM_HEALTH: 'System Health',
+    DEVICE_DISTRIBUTION: 'Device Distribution',
+    TRANSACTION_TRENDS: 'Transaction Trends',
+  },
+
+  // Generic Messages
+  GENERIC: {
+    REQUIRED_FIELD: '*',
+    REQUIRED_FIELD_INDICATOR: 'Required field',
+    NO_DATA: 'No data available',
+    LOADING: 'Loading...',
+    EXPORT_REPORT: 'Export Report',
+    GENERATED_ON: 'Generated on:',
+    FOUND: 'found',
+    RECORDS: 'records',
+  }
+};
+
+// Dropdown Options
+export const DROPDOWN_OPTIONS = {
+  COUNTRIES: [
+    { value: 'US', label: 'United States' },
+    { value: 'CA', label: 'Canada' },
+    { value: 'IN', label: 'India' },
+    { value: 'GB', label: 'United Kingdom' },
+    { value: 'DE', label: 'Germany' },
+    { value: 'FR', label: 'France' },
+    { value: 'IT', label: 'Italy' },
+    { value: 'ES', label: 'Spain' },
+    { value: 'AU', label: 'Australia' },
+    { value: 'JP', label: 'Japan' }
+  ],
+
+  STATES: [
+    { value: 'AL', label: 'Alabama' },
+    { value: 'CA', label: 'California' },
+    { value: 'FL', label: 'Florida' },
+    { value: 'NY', label: 'New York' },
+    { value: 'TX', label: 'Texas' },
+    { value: 'KA', label: 'Karnataka' }
+  ],
+
+  CURRENCIES: [
+    { value: 'USD', label: 'USD' },
+    { value: 'EUR', label: 'EUR' },
+    { value: 'GBP', label: 'GBP' },
+    { value: 'INR', label: 'INR' },
+    { value: 'AUD', label: 'AUD' },
+    { value: 'CAD', label: 'CAD' }
+  ],
+
+  BANK_TYPES: [
+    { value: 'savings', label: 'Savings' },
+    { value: 'checking', label: 'Checking' },
+    { value: 'business', label: 'Business' },
+    { value: 'corporate', label: 'Corporate' }
+  ],
+
+  BUSINESS_TYPES: [
+    { value: 'retail', label: 'Retail' },
+    { value: 'ecommerce', label: 'E-commerce' },
+    { value: 'restaurant', label: 'Restaurant' },
+    { value: 'drugStores', label: 'Drug Stores' },
+    { value: 'gasStation', label: 'Gas Station' }
+  ],
+
+  APPLICATION_MODES: [
+    { value: 'demo', label: 'DEMO' },
+    { value: 'live', label: 'LIVE' },
+    { value: 'test', label: 'TEST' }
+  ],
+
+  MERCHANT_TYPES: [
+    { value: 'individual', label: 'Individual' },
+    { value: 'corporate', label: 'Corporate' },
+    { value: 'partnership', label: 'Partnership' }
+  ],
+
+  CATEGORIES: [
+    { value: 'primary', label: 'Primary' },
+    { value: 'secondary', label: 'Secondary' },
+    { value: 'tertiary', label: 'Tertiary' }
+  ],
+
+  PAYMENT_METHODS: [
+    { value: 'cheque', label: 'Cheque' },
+    { value: 'eft', label: 'EFT' },
+    { value: 'ach', label: 'ACH' },
+    { value: 'wire', label: 'Wire Transfer' }
+  ],
+
+  TRANSFER_PERIODS: [
+    { value: 'daily', label: 'Daily' },
+    { value: 'weekly', label: 'Weekly' },
+    { value: 'monthly', label: 'Monthly' }
+  ]
+};
+
+// File size and type constraints
+export const FILE_CONSTRAINTS = {
+  MAX_SIZE_MB: 5,
+  MAX_SIZE_BYTES: 5 * 1024 * 1024,
+  ACCEPTED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+};
+
+// Export file naming
+export const EXPORT_CONFIG = {
+  PDF_FILENAME_SUFFIX: '_export_',
+  CSV_FILENAME_SUFFIX: '_export_',
+  DATE_FORMAT: 'YYYY-MM-DD'
+};
