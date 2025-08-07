@@ -141,66 +141,8 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'IN', label: 'India' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' }
-  ];
-
-  const states = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'CA', label: 'California' },
-    { value: 'FL', label: 'Florida' },
-    { value: 'NY', label: 'New York' },
-    { value: 'TX', label: 'Texas' },
-    { value: 'KA', label: 'Karnataka' }
-  ];
-
-  const businessTypes = [
-    { value: 'retail', label: 'Retail' },
-    { value: 'ecommerce', label: 'E-commerce' },
-    { value: 'restaurant', label: 'Restaurant' },
-    { value: 'drugStores', label: 'Drug Stores' },
-    { value: 'gasStation', label: 'Gas Station' }
-  ];
-
-  const currencies = [
-    { value: 'USD', label: 'USD' },
-    { value: 'EUR', label: 'EUR' },
-    { value: 'GBP', label: 'GBP' },
-    { value: 'INR', label: 'INR' },
-    { value: 'AUD', label: 'AUD' },
-    { value: 'CAD', label: 'CAD' }
-  ];
-
-  const bankTypes = [
-    { value: 'savings', label: 'Savings' },
-    { value: 'checking', label: 'Checking' },
-    { value: 'business', label: 'Business' }
-  ];
-
-  const categories = [
-    { value: 'primary', label: 'Primary' },
-    { value: 'secondary', label: 'Secondary' },
-    { value: 'tertiary', label: 'Tertiary' }
-  ];
-
-  const paymentMethods = [
-    { value: 'cheque', label: 'Cheque' },
-    { value: 'eft', label: 'EFT' },
-    { value: 'ach', label: 'ACH' },
-    { value: 'wire', label: 'Wire Transfer' }
-  ];
-
-  const transferPeriods = [
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly' }
-  ];
+  // Dropdown options from constants
+  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS } = DROPDOWN_OPTIONS;
 
   const handleInputChange = (field: keyof SubMerchantData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
