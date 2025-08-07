@@ -1369,9 +1369,9 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
             <Store className="h-6 w-6 text-mb-blue" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Create Merchant</h2>
+            <h2 className="text-2xl font-bold text-foreground">{ADMIN_STRINGS.PAGES.CREATE_MERCHANT}</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              Complete the multi-step process to configure a new merchant
+              {ADMIN_STRINGS.DESCRIPTIONS.MERCHANT_DESC}
             </p>
           </div>
         </CardTitle>
