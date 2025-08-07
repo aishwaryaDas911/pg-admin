@@ -1421,11 +1421,11 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
           <div className="flex space-x-2">
             <Button variant="outline" onClick={onCancel} className="min-w-[100px]">
               <X className="mr-2 h-4 w-4" />
-              Cancel
+              {ADMIN_STRINGS.ACTIONS.CANCEL}
             </Button>
             <Button variant="outline" onClick={handleReset} className="min-w-[100px]">
               <RotateCcw className="mr-2 h-4 w-4" />
-              Reset
+              {ADMIN_STRINGS.ACTIONS.RESET}
             </Button>
           </div>
 
@@ -1433,19 +1433,19 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
             {currentStep > 1 && (
               <Button variant="outline" onClick={prevStep} className="min-w-[100px]">
                 <ChevronLeft className="mr-2 h-4 w-4" />
-                Previous
+                {ADMIN_STRINGS.ACTIONS.PREVIOUS}
               </Button>
             )}
-            
+
             {currentStep < steps.length ? (
               <Button onClick={nextStep} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
-                Continue
+                {ADMIN_STRINGS.ACTIONS.CONTINUE}
                 <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
               <Button onClick={handleSubmit} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
                 <Plus className="mr-2 h-4 w-4" />
-                Create
+                {ADMIN_STRINGS.ACTIONS.CREATE}
               </Button>
             )}
           </div>
