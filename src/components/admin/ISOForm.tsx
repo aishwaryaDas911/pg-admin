@@ -391,7 +391,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select program manager" />
                 </SelectTrigger>
                 <SelectContent>
-                  {programManagers.map((pm) => (
+                  {PROGRAM_MANAGERS.map((pm) => (
                     <SelectItem key={pm.value} value={pm.value}>
                       {pm.label}
                     </SelectItem>
@@ -491,7 +491,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select processor" />
                 </SelectTrigger>
                 <SelectContent>
-                  {processors.map((processor) => (
+                  {PROCESSORS.map((processor) => (
                     <SelectItem key={processor.value} value={processor.value}>
                       {processor.label}
                     </SelectItem>
