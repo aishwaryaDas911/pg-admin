@@ -46,6 +46,7 @@ import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import { FilterFields, CreateFields, TableRow as TableRowType, ActionType, ActionConfig } from '@/types/admin';
 import { useToast } from '@/hooks/use-toast';
+import { ADMIN_STRINGS } from '@/constants/adminConstants';
 
 interface TabContentProps {
   title: string;
