@@ -160,108 +160,24 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'IN', label: 'India' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' }
-  ];
-
-  const states = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'CA', label: 'California' },
-    { value: 'FL', label: 'Florida' },
-    { value: 'NY', label: 'New York' },
-    { value: 'TX', label: 'Texas' },
-    { value: 'KA', label: 'Karnataka' }
-  ];
-
-  const applicationModes = [
-    { value: 'demo', label: 'DEMO' },
-    { value: 'live', label: 'LIVE' },
-    { value: 'test', label: 'TEST' }
-  ];
-
-  const businessTypes = [
-    { value: 'retail', label: 'Retail' },
-    { value: 'ecommerce', label: 'E-commerce' },
-    { value: 'restaurant', label: 'Restaurant' },
-    { value: 'drugStores', label: 'Drug Stores' },
-    { value: 'gasStation', label: 'Gas Station' }
-  ];
-
-  const currencies = [
-    { value: 'USD', label: 'USD' },
-    { value: 'EUR', label: 'EUR' },
-    { value: 'GBP', label: 'GBP' },
-    { value: 'INR', label: 'INR' },
-    { value: 'AUD', label: 'AUD' },
-    { value: 'CAD', label: 'CAD' },
-    { value: 'COP', label: 'COP' }
-  ];
-
-  const bankTypes = [
-    { value: 'savings', label: 'Savings' },
-    { value: 'checking', label: 'Checking' },
-    { value: 'business', label: 'Business' }
-  ];
-
-  const merchantTypes = [
-    { value: 'individual', label: 'Individual' },
-    { value: 'corporate', label: 'Corporate' },
-    { value: 'partnership', label: 'Partnership' }
-  ];
-
-  const categories = [
-    { value: 'primary', label: 'Primary' },
-    { value: 'secondary', label: 'Secondary' },
-    { value: 'tertiary', label: 'Tertiary' }
-  ];
-
-  const paymentMethods = [
-    { value: 'eft', label: 'EFT' },
-    { value: 'ach', label: 'ACH' },
-    { value: 'wire', label: 'Wire Transfer' }
-  ];
-
-  const transferPeriods = [
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly' }
-  ];
-
-  const banks = [
-    { value: 'axis', label: 'Axis' },
-    { value: 'hdfc', label: 'HDFC' },
-    { value: 'icici', label: 'ICICI' },
-    { value: 'sbi', label: 'SBI' }
-  ];
-
-  const mccNames = [
-    { value: '1604-school', label: '1604-school' },
-    { value: '5411-grocery', label: '5411-grocery' },
-    { value: '5812-restaurant', label: '5812-restaurant' }
-  ];
-
-  const feePrograms = [
-    { value: 'education', label: 'Education' },
-    { value: 'retail', label: 'Retail' },
-    { value: 'healthcare', label: 'Healthcare' }
-  ];
-
-  const routingProfiles = [
-    { value: 'jioRoutingProfile', label: 'JioRoutingProfile' },
-    { value: 'defaultProfile', label: 'DefaultProfile' }
-  ];
-
-  const isoOptions = [
-    { value: 'robinson', label: 'Robinson ISO' },
-    { value: 'first', label: 'First ISO' },
-    { value: 'global', label: 'Global ISO' }
-  ];
+  // Dropdown options from constants
+  const {
+    COUNTRIES,
+    STATES,
+    APPLICATION_MODES,
+    BUSINESS_TYPES,
+    CURRENCIES,
+    BANK_TYPES,
+    MERCHANT_TYPES,
+    CATEGORIES,
+    PAYMENT_METHODS,
+    TRANSFER_PERIODS,
+    BANKS,
+    MCC_NAMES,
+    FEE_PROGRAMS,
+    ROUTING_PROFILES,
+    ISO_OPTIONS
+  } = DROPDOWN_OPTIONS;
 
   const handleInputChange = (field: keyof MerchantData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
