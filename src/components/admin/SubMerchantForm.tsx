@@ -6,9 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { 
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS } from '@/constants/adminConstants';
+import {
   Store,
-  RotateCcw, 
+  RotateCcw,
   X,
   Plus,
   ChevronRight,
