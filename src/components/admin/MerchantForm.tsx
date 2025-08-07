@@ -585,7 +585,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select mode" />
                   </SelectTrigger>
                   <SelectContent>
-                    {applicationModes.map((mode) => (
+                    {APPLICATION_MODES.map((mode) => (
                       <SelectItem key={mode.value} value={mode.value}>
                         {mode.label}
                       </SelectItem>
@@ -634,7 +634,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Choose a Type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {businessTypes.map((type) => (
+                    {BUSINESS_TYPES.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         {type.label}
                       </SelectItem>
@@ -758,7 +758,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {bankTypes.map((type) => (
+                    {BANK_TYPES.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         {type.label}
                       </SelectItem>
@@ -914,7 +914,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select ISO" />
                   </SelectTrigger>
                   <SelectContent>
-                    {isoOptions.map((iso) => (
+                    {ISO_OPTIONS.map((iso) => (
                       <SelectItem key={iso.value} value={iso.value}>
                         {iso.label}
                       </SelectItem>
@@ -939,7 +939,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
-                    {merchantTypes.map((type) => (
+                    {MERCHANT_TYPES.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         {type.label}
                       </SelectItem>
@@ -960,7 +960,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
+                    {CATEGORIES.map((category) => (
                       <SelectItem key={category.value} value={category.value}>
                         {category.label}
                       </SelectItem>
@@ -993,7 +993,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select method" />
                   </SelectTrigger>
                   <SelectContent>
-                    {paymentMethods.map((method) => (
+                    {PAYMENT_METHODS.map((method) => (
                       <SelectItem key={method.value} value={method.value}>
                         {method.label}
                       </SelectItem>
@@ -1014,7 +1014,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select period" />
                   </SelectTrigger>
                   <SelectContent>
-                    {transferPeriods.map((period) => (
+                    {TRANSFER_PERIODS.map((period) => (
                       <SelectItem key={period.value} value={period.value}>
                         {period.label}
                       </SelectItem>
@@ -1032,7 +1032,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select bank" />
                   </SelectTrigger>
                   <SelectContent>
-                    {banks.map((bank) => (
+                    {BANKS.map((bank) => (
                       <SelectItem key={bank.value} value={bank.value}>
                         {bank.label}
                       </SelectItem>
@@ -1053,7 +1053,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select MCC" />
                   </SelectTrigger>
                   <SelectContent>
-                    {mccNames.map((mcc) => (
+                    {MCC_NAMES.map((mcc) => (
                       <SelectItem key={mcc.value} value={mcc.value}>
                         {mcc.label}
                       </SelectItem>
@@ -1074,7 +1074,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select program" />
                   </SelectTrigger>
                   <SelectContent>
-                    {feePrograms.map((program) => (
+                    {FEE_PROGRAMS.map((program) => (
                       <SelectItem key={program.value} value={program.value}>
                         {program.label}
                       </SelectItem>
@@ -1095,7 +1095,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select profile" />
                   </SelectTrigger>
                   <SelectContent>
-                    {routingProfiles.map((profile) => (
+                    {ROUTING_PROFILES.map((profile) => (
                       <SelectItem key={profile.value} value={profile.value}>
                         {profile.label}
                       </SelectItem>
