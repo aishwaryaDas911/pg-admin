@@ -198,11 +198,11 @@ export const BankForm: React.FC<BankFormProps> = ({
 
             <div className="space-y-2">
               <Label htmlFor="bankCode" className="text-sm font-medium">
-                Bank Code <span className="text-red-500">*</span>
+                {ADMIN_STRINGS.FORM_LABELS.BANK_CODE} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="bankCode"
-                placeholder="Enter bank code"
+                placeholder={ADMIN_STRINGS.PLACEHOLDERS.ENTER_BANK_CODE}
                 value={formData.bankCode}
                 onChange={(e) => handleInputChange('bankCode', e.target.value)}
                 className={errors.bankCode ? 'border-red-500' : ''}
