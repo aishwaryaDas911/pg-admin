@@ -67,33 +67,8 @@ export const BankForm: React.FC<BankFormProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'IN', label: 'India' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' }
-  ];
-
-  const states = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'CA', label: 'California' },
-    { value: 'FL', label: 'Florida' },
-    { value: 'NY', label: 'New York' },
-    { value: 'TX', label: 'Texas' },
-    { value: 'KA', label: 'Karnataka' }
-  ];
-
-  const currencies = [
-    { value: 'USD', label: 'USD' },
-    { value: 'EUR', label: 'EUR' },
-    { value: 'GBP', label: 'GBP' },
-    { value: 'INR', label: 'INR' },
-    { value: 'AUD', label: 'AUD' },
-    { value: 'CAD', label: 'CAD' }
-  ];
+  // Dropdown options from constants
+  const { COUNTRIES, STATES, CURRENCIES } = DROPDOWN_OPTIONS;
 
   const handleInputChange = (field: keyof BankData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
