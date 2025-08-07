@@ -310,7 +310,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-8 space-y-8">
+      <CardContent className="p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8">
         {/* Basic Information Section */}
         <div className="space-y-6">
           <div className="flex items-center space-x-2 pb-2 border-b">
