@@ -447,7 +447,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
                   <SelectValue placeholder="Select currency" />
                 </SelectTrigger>
                 <SelectContent>
-                  {currencies.map((currency) => (
+                  {CURRENCIES.map((currency) => (
                     <SelectItem key={currency.value} value={currency.value}>
                       {currency.label}
                     </SelectItem>
@@ -477,7 +477,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
-                  {countries.map((country) => (
+                  {COUNTRIES.map((country) => (
                     <SelectItem key={country.value} value={country.value}>
                       {country.label}
                     </SelectItem>
@@ -498,7 +498,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
