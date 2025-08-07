@@ -77,10 +77,10 @@ interface SubMerchantFormProps {
 }
 
 const steps = [
-  { id: 1, title: 'Basic Info', icon: User },
-  { id: 2, title: 'Bank Info', icon: Landmark },
-  { id: 3, title: 'Configurations', icon: Settings },
-  { id: 4, title: 'Confirmation', icon: FileCheck }
+  { id: 1, title: ADMIN_STRINGS.STEPS.BASIC_INFO, icon: User },
+  { id: 2, title: ADMIN_STRINGS.STEPS.BANK_INFO, icon: Landmark },
+  { id: 3, title: ADMIN_STRINGS.STEPS.CONFIGURATIONS, icon: Settings },
+  { id: 4, title: ADMIN_STRINGS.STEPS.CONFIRMATION, icon: FileCheck }
 ];
 
 export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
