@@ -611,7 +611,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
                   <SelectContent>
-                    {countries.map((country) => (
+                    {COUNTRIES.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
                         {country.label}
                       </SelectItem>
@@ -632,7 +632,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select state" />
                   </SelectTrigger>
                   <SelectContent>
-                    {states.map((state) => (
+                    {STATES.map((state) => (
                       <SelectItem key={state.value} value={state.value}>
                         {state.label}
                       </SelectItem>
@@ -763,7 +763,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                   DCC Supported Currency <span className="text-red-500">*</span>
                 </Label>
                 <div className="border rounded-lg p-3 max-h-32 overflow-y-auto">
-                  {currencies.map((currency) => (
+                  {CURRENCIES.map((currency) => (
                     <div key={currency.value} className="flex items-center space-x-2 py-1">
                       <Checkbox
                         id={`currency-${currency.value}`}
@@ -907,7 +907,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select country" />
                   </SelectTrigger>
                   <SelectContent>
-                    {countries.map((country) => (
+                    {COUNTRIES.map((country) => (
                       <SelectItem key={country.value} value={country.value}>
                         {country.label}
                       </SelectItem>
@@ -928,7 +928,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select state" />
                   </SelectTrigger>
                   <SelectContent>
-                    {states.map((state) => (
+                    {STATES.map((state) => (
                       <SelectItem key={state.value} value={state.value}>
                         {state.label}
                       </SelectItem>
@@ -977,7 +977,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     <SelectValue placeholder="Select currency" />
                   </SelectTrigger>
                   <SelectContent>
-                    {currencies.map((currency) => (
+                    {CURRENCIES.map((currency) => (
                       <SelectItem key={currency.value} value={currency.value}>
                         {currency.label}
                       </SelectItem>
