@@ -583,7 +583,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 });
               }}
             />
-          ) : title === 'Sub-Merchant' ? (
+          ) : title === 'Sub Merchant' ? (
             <SubMerchantForm
               onSubmit={(data) => {
                 toast({
