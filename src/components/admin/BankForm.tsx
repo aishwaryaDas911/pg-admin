@@ -294,10 +294,10 @@ export const BankForm: React.FC<BankFormProps> = ({
               </Label>
               <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
                 <SelectTrigger className={errors.country ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {countries.map((country) => (
+                  {COUNTRIES.map((country) => (
                     <SelectItem key={country.value} value={country.value}>
                       {country.label}
                     </SelectItem>
