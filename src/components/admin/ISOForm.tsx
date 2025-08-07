@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { ADMIN_STRINGS, DROPDOWN_OPTIONS, FILE_CONSTRAINTS } from '@/constants/adminConstants';
+
+const { COUNTRIES, STATES, CURRENCIES, PROCESSORS, PROGRAM_MANAGERS } = DROPDOWN_OPTIONS;
 import {
   Building,
   Upload,
