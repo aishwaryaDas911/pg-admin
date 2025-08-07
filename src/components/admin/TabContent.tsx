@@ -5,6 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
+import { ProgramManagerForm } from './ProgramManagerForm';
+import { ISOForm } from './ISOForm';
+import { MerchantGroupForm } from './MerchantGroupForm';
+import { MerchantForm } from './MerchantForm';
 import { 
   Table, 
   TableBody, 
@@ -487,6 +491,94 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 toast({
                   title: "Form Reset",
                   description: "All fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'Program Manager' ? (
+            <ProgramManagerForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Program Manager has been created successfully",
+                });
+                console.log('Program Manager data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Program Manager creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Program Manager fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'ISO' ? (
+            <ISOForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "ISO has been created successfully",
+                });
+                console.log('ISO data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "ISO creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All ISO fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'Merchant Group' ? (
+            <MerchantGroupForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Merchant Group has been created successfully",
+                });
+                console.log('Merchant Group data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Merchant Group creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Merchant Group fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'Merchant' ? (
+            <MerchantForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Merchant has been created successfully",
+                });
+                console.log('Merchant data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Merchant creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Merchant fields have been cleared",
                 });
               }}
             />
