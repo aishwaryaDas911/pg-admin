@@ -117,8 +117,8 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       setLoading(false);
       setCreateData({});
       toast({
-        title: "Created Successfully",
-        description: "New record has been created",
+        title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+        description: ADMIN_STRINGS.TOAST.NEW_RECORD_CREATED,
       });
     }, 1000);
   };
