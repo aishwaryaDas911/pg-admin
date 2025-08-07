@@ -462,16 +462,16 @@ export const BankForm: React.FC<BankFormProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 sm:space-x-4 pt-6 md:pt-8 border-t">
           <div className="flex space-x-2">
             <Button variant="outline" onClick={onCancel} className="min-w-[100px]">
-              Cancel
+              {ADMIN_STRINGS.ACTIONS.CANCEL}
             </Button>
             <Button variant="outline" onClick={handleReset} className="min-w-[100px]">
-              Reset
+              {ADMIN_STRINGS.ACTIONS.RESET}
             </Button>
           </div>
 
           <div className="flex space-x-2">
             <Button onClick={handleSubmit} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
-              Create
+              {ADMIN_STRINGS.ACTIONS.CREATE}
             </Button>
           </div>
         </div>
