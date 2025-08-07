@@ -125,13 +125,13 @@ export const BankForm: React.FC<BankFormProps> = ({
     if (validateForm()) {
       onSubmit(formData);
       toast({
-        title: "Bank Created",
-        description: "Bank has been created successfully",
+        title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+        description: ADMIN_STRINGS.TOAST.BANK_CREATED,
       });
     } else {
       toast({
-        title: "Validation Error",
-        description: "Please fix the errors before proceeding",
+        title: ADMIN_STRINGS.TOAST.VALIDATION_ERROR,
+        description: ADMIN_STRINGS.VALIDATION.FIX_ERRORS,
         variant: "destructive"
       });
     }
