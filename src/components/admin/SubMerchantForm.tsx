@@ -680,7 +680,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {bankTypes.map((type) => (
+                    {BANK_TYPES.map((type) => (
                       <SelectItem key={type.value} value={type.value}>
                         {type.label}
                       </SelectItem>
@@ -839,7 +839,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Primary" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
+                    {CATEGORIES.map((category) => (
                       <SelectItem key={category.value} value={category.value}>
                         {category.label}
                       </SelectItem>
@@ -872,7 +872,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {paymentMethods.map((method) => (
+                    {PAYMENT_METHODS.map((method) => (
                       <SelectItem key={method.value} value={method.value}>
                         {method.label}
                       </SelectItem>
@@ -893,7 +893,7 @@ export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {transferPeriods.map((period) => (
+                    {TRANSFER_PERIODS.map((period) => (
                       <SelectItem key={period.value} value={period.value}>
                         {period.label}
                       </SelectItem>
