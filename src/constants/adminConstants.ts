@@ -442,6 +442,31 @@ export const DROPDOWN_OPTIONS = {
     { value: 'ach', label: 'ACH' },
     { value: 'wire', label: 'Wire Transfer' },
     { value: 'check', label: 'Check' }
+  ],
+
+  BANKS: [
+    { value: 'axis', label: 'Axis' },
+    { value: 'hdfc', label: 'HDFC' },
+    { value: 'icici', label: 'ICICI' },
+    { value: 'sbi', label: 'SBI' }
+  ],
+
+  MCC_NAMES: [
+    { value: '1604-school', label: '1604-school' },
+    { value: '5411-grocery', label: '5411-grocery' },
+    { value: '5812-restaurant', label: '5812-restaurant' }
+  ],
+
+  FEE_PROGRAMS: [
+    { value: 'education', label: 'Education' },
+    { value: 'retail', label: 'Retail' },
+    { value: 'healthcare', label: 'Healthcare' }
+  ],
+
+  ISO_OPTIONS: [
+    { value: 'robinson', label: 'Robinson ISO' },
+    { value: 'first', label: 'First ISO' },
+    { value: 'global', label: 'Global ISO' }
   ]
 };
 
