@@ -420,6 +420,20 @@ export const DROPDOWN_OPTIONS = {
     { value: 'daily', label: 'Daily' },
     { value: 'weekly', label: 'Weekly' },
     { value: 'monthly', label: 'Monthly' }
+  ],
+
+  ROUTING_PROFILES: [
+    { value: 'profile1', label: 'Routing Profile 1' },
+    { value: 'profile2', label: 'Routing Profile 2' },
+    { value: 'profile3', label: 'Routing Profile 3' },
+    { value: 'profile4', label: 'Routing Profile 4' }
+  ],
+
+  ACCOUNT_TYPES: [
+    { value: 'checking', label: 'Checking' },
+    { value: 'savings', label: 'Savings' },
+    { value: 'business', label: 'Business' },
+    { value: 'corporate', label: 'Corporate' }
   ]
 };
 
