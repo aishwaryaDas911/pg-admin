@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
 import { ProgramManagerForm } from './ProgramManagerForm';
 import { ISOForm } from './ISOForm';
+import { MerchantGroupForm } from './MerchantGroupForm';
 import { 
   Table, 
   TableBody, 
