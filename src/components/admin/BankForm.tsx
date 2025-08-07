@@ -315,10 +315,10 @@ export const BankForm: React.FC<BankFormProps> = ({
               </Label>
               <Select value={formData.state} onValueChange={(value) => handleInputChange('state', value)}>
                 <SelectTrigger className={errors.state ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
