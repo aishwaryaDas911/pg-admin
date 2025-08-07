@@ -104,8 +104,8 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       setSearchResults(mockData);
       setLoading(false);
       toast({
-        title: "Search Completed",
-        description: `Found ${mockData.length} results`,
+        title: ADMIN_STRINGS.TOAST.SEARCH_COMPLETED,
+        description: `${ADMIN_STRINGS.GENERIC.FOUND} ${mockData.length} ${ADMIN_STRINGS.TOAST.FOUND_RESULTS}`,
       });
     }, 1000);
   };
