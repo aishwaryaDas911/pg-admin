@@ -8,6 +8,7 @@ import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
 import { ProgramManagerForm } from './ProgramManagerForm';
 import { ISOForm } from './ISOForm';
 import { MerchantGroupForm } from './MerchantGroupForm';
+import { MerchantForm } from './MerchantForm';
 import { 
   Table, 
   TableBody, 
