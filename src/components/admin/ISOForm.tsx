@@ -6,10 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { 
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS, FILE_CONSTRAINTS } from '@/constants/adminConstants';
+import {
   Building,
-  Upload, 
-  RotateCcw, 
+  Upload,
+  RotateCcw,
   X,
   Plus,
   Minus,
