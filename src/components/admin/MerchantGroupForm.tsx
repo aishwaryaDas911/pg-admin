@@ -348,7 +348,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
@@ -440,7 +440,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select routing profile" />
                 </SelectTrigger>
                 <SelectContent>
-                  {routingProfiles.map((profile) => (
+                  {ROUTING_PROFILES.map((profile) => (
                     <SelectItem key={profile.value} value={profile.value}>
                       {profile.label}
                     </SelectItem>
@@ -471,7 +471,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select payment type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {paymentTypes.map((type) => (
+                  {PAYMENT_TYPES.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
@@ -540,7 +540,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select account type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {accountTypes.map((type) => (
+                  {ACCOUNT_TYPES.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
@@ -593,7 +593,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
