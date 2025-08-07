@@ -467,6 +467,20 @@ export const DROPDOWN_OPTIONS = {
     { value: 'robinson', label: 'Robinson ISO' },
     { value: 'first', label: 'First ISO' },
     { value: 'global', label: 'Global ISO' }
+  ],
+
+  PROGRAM_MANAGERS: [
+    { value: 'pm1', label: 'Program Manager 1' },
+    { value: 'pm2', label: 'Program Manager 2' },
+    { value: 'pm3', label: 'Program Manager 3' }
+  ],
+
+  PROCESSORS: [
+    { value: 'visa', label: 'Visa' },
+    { value: 'mastercard', label: 'Mastercard' },
+    { value: 'amex', label: 'American Express' },
+    { value: 'discover', label: 'Discover' },
+    { value: 'jcb', label: 'JCB' }
   ]
 };
 
