@@ -479,21 +479,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <AcquirerProtocolParameterForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "Acquirer Protocol Parameter has been created",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.ACQUIRER_PROTOCOL_CREATED,
                 });
                 console.log('Form data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "Form creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.FORM_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.ALL_FIELDS_CLEARED,
                 });
               }}
             />
