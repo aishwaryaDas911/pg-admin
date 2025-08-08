@@ -385,7 +385,7 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
 
         {/* Configuration Sections */}
         {formData.configurations.map((config, configIndex) => (
-          <div key={config.id} className="space-y-6 border rounded-lg p-4 bg-mb-blue/5">
+          <div key={config.id} className="space-y-4 border rounded-lg p-4 bg-mb-blue/5">
             <div className="flex items-center justify-between border-b pb-2">
               <h3 className="text-lg font-semibold">{ADMIN_STRINGS.SECTIONS.CONFIGURATION}</h3>
               {formData.configurations.length > 1 && (
@@ -401,14 +401,14 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
               )}
             </div>
 
-            {/* Configuration Header */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Configuration Header Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 border-b pb-4">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">
                   {ADMIN_STRINGS.FORM_LABELS.SCHEME} <span className="text-red-500">*</span>
                 </Label>
-                <Select 
-                  value={config.scheme} 
+                <Select
+                  value={config.scheme}
                   onValueChange={(value) => handleConfigurationChange(config.id, 'scheme', value)}
                 >
                   <SelectTrigger>
@@ -428,8 +428,8 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
                 <Label className="text-sm font-medium">
                   {ADMIN_STRINGS.FORM_LABELS.TXN_TYPE} <span className="text-red-500">*</span>
                 </Label>
-                <Select 
-                  value={config.txnType} 
+                <Select
+                  value={config.txnType}
                   onValueChange={(value) => handleConfigurationChange(config.id, 'txnType', value)}
                 >
                   <SelectTrigger>
@@ -449,8 +449,8 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
                 <Label className="text-sm font-medium">
                   {ADMIN_STRINGS.FORM_LABELS.TXN_VOLUME} <span className="text-red-500">*</span>
                 </Label>
-                <Select 
-                  value={config.txnVolume} 
+                <Select
+                  value={config.txnVolume}
                   onValueChange={(value) => handleConfigurationChange(config.id, 'txnVolume', value)}
                 >
                   <SelectTrigger>
@@ -490,9 +490,9 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
             </div>
 
             {/* Slab Ranges */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {config.slabRanges.map((slab, slabIndex) => (
-                <div key={slab.id} className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 items-end">
+                <div key={slab.id} className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 items-end bg-white p-3 rounded border">
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">
                       {ADMIN_STRINGS.FORM_LABELS.SLAB_FROM} <span className="text-red-500">*</span>
@@ -526,14 +526,14 @@ export const FeeProgramForm: React.FC<FeeProgramFormProps> = ({
                     />
                   </div>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-end space-x-2">
                     {slabIndex === config.slabRanges.length - 1 && (
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
                         onClick={() => addSlabRange(config.id)}
-                        className="flex items-center space-x-2"
+                        className="flex items-center space-x-1"
                       >
                         <Plus className="h-4 w-4" />
                         <span>{ADMIN_STRINGS.FORM_LABELS.ADD_RANGE}</span>
