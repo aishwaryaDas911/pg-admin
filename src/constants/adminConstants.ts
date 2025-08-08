@@ -330,6 +330,8 @@ export const ADMIN_STRINGS = {
     SEARCH_FILTERS: 'Search Filters',
     SEARCH_RESULTS: 'Search Results',
     CONFIGURATION: 'Configuration',
+    ACQUIRER_PROTOCOL: 'Acquirer Protocol',
+    SCHEDULE_SETTINGS: 'Schedule Settings',
   },
 
   // Step Titles
