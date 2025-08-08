@@ -84,14 +84,14 @@ export class EntityService<T = any, CreateT = Partial<T>, UpdateT = Partial<T>> 
 }
 
 // Specific service instances for each entity
-export const bankService = new EntityService('/banks');
-export const merchantService = new EntityService('/merchants');
-export const subMerchantService = new EntityService('/sub-merchants');
-export const merchantGroupService = new EntityService('/merchant-groups');
-export const isoService = new EntityService('/isos');
-export const programManagerService = new EntityService('/program-managers');
-export const feeProgramService = new EntityService('/fee-programs');
-export const acquirerProtocolService = new EntityService('/acquirer-protocols');
+export const bankService = new EntityService(API_CONFIG.ENDPOINTS.BANKS);
+export const merchantService = new EntityService(API_CONFIG.ENDPOINTS.MERCHANTS);
+export const subMerchantService = new EntityService(API_CONFIG.ENDPOINTS.SUB_MERCHANTS);
+export const merchantGroupService = new EntityService(API_CONFIG.ENDPOINTS.MERCHANT_GROUPS);
+export const isoService = new EntityService(API_CONFIG.ENDPOINTS.ISOS);
+export const programManagerService = new EntityService(API_CONFIG.ENDPOINTS.PROGRAM_MANAGERS);
+export const feeProgramService = new EntityService(API_CONFIG.ENDPOINTS.FEE_PROGRAMS);
+export const acquirerProtocolService = new EntityService(API_CONFIG.ENDPOINTS.ACQUIRER_PROTOCOLS);
 
 // Export all services
 export default {
