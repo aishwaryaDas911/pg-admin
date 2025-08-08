@@ -295,6 +295,35 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
         {/* Table Display */}
         {showTable && tableDataConfig.columns && rows.length > 0 && (
           <div className="table-container">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Search Results ({rows.length} found)</h3>
+              <div className="flex items-center space-x-2">
+                {buttons.filter(btn => btn.button?.name === 'exportPDF').map((field) => (
+                  <Button
+                    key={field.button!.name}
+                    variant={field.button!.variant || 'outline'}
+                    size="sm"
+                    onClick={(e) => handleButtonClick(e, field.button)}
+                    className="button-spacing"
+                    type="button"
+                  >
+                    {field.button!.label}
+                  </Button>
+                ))}
+                {buttons.filter(btn => btn.button?.name === 'exportCSV').map((field) => (
+                  <Button
+                    key={field.button!.name}
+                    variant={field.button!.variant || 'outline'}
+                    size="sm"
+                    onClick={(e) => handleButtonClick(e, field.button)}
+                    className="button-spacing"
+                    type="button"
+                  >
+                    {field.button!.label}
+                  </Button>
+                ))}
+              </div>
+            </div>
             <Table>
               <TableHeader>
                 <TableRow>
