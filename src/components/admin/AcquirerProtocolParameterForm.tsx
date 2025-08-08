@@ -45,7 +45,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
       {/* Acquirer Protocol Section */}
       <Card>
         <CardHeader className="bg-muted/30">
-          <CardTitle className="text-primary font-semibold">Acquirer Protocol</CardTitle>
+          <CardTitle className="text-primary font-semibold">{ADMIN_STRINGS.SECTIONS.ACQUIRER_PROTOCOL}</CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
