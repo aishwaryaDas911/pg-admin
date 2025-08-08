@@ -307,6 +307,7 @@ export const ADMIN_STRINGS = {
     SUPPORT_TERMINALS: 'Support Terminals',
     SEARCH_FILTERS: 'Search Filters',
     SEARCH_RESULTS: 'Search Results',
+    CONFIGURATION: 'Configuration',
   },
 
   // Step Titles
