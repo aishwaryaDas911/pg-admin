@@ -365,6 +365,8 @@ export const ADMIN_STRINGS = {
     CREATE_PROGRAM_MANAGER: 'Create Program Manager',
     CREATE_ACQUIRER_PROTOCOL: 'Create Acquirer Protocol Parameter',
     CREATE_FEE_PROGRAM: 'Create Fee Program',
+    CREATE_ISO: 'Create ISO',
+    CREATE_MERCHANT_GROUP: 'Create Merchant Group',
     CREATE_NEW_RECORD: 'Create New Record',
   },
 
