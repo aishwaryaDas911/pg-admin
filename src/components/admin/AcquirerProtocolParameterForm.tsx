@@ -52,7 +52,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 1 */}
             <div className="space-y-2">
               <Label htmlFor="acquirerProtocolParamName" className="text-sm font-medium">
-                Acquirer Protocol Param Name*
+                {ADMIN_STRINGS.FORM_LABELS.ACQUIRER_PROTOCOL_PARAM_NAME}*
               </Label>
               <Input 
                 id="acquirerProtocolParamName"
