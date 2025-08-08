@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS } from '@/constants/adminConstants';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -37,26 +38,21 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
     onReset?.();
   };
 
-  const selectOptions = [
-    "Select...",
-    "Option 1",
-    "Option 2", 
-    "Option 3"
-  ];
+  const { GENERIC_OPTIONS, TIME_INTERVALS } = DROPDOWN_OPTIONS;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Acquirer Protocol Section */}
       <Card>
         <CardHeader className="bg-muted/30">
-          <CardTitle className="text-primary font-semibold">Acquirer Protocol</CardTitle>
+          <CardTitle className="text-primary font-semibold">{ADMIN_STRINGS.SECTIONS.ACQUIRER_PROTOCOL}</CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Row 1 */}
             <div className="space-y-2">
               <Label htmlFor="acquirerProtocolParamName" className="text-sm font-medium">
-                Acquirer Protocol Param Name*
+                {ADMIN_STRINGS.FORM_LABELS.ACQUIRER_PROTOCOL_PARAM_NAME}*
               </Label>
               <Input 
                 id="acquirerProtocolParamName"
@@ -67,7 +63,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="acquirerId" className="text-sm font-medium">
-                Acquirer Id*
+                {ADMIN_STRINGS.FORM_LABELS.ACQUIRER_ID}*
               </Label>
               <Input 
                 id="acquirerId"
@@ -78,7 +74,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="applicationId" className="text-sm font-medium">
-                Application Id*
+                {ADMIN_STRINGS.FORM_LABELS.APPLICATION_ID}*
               </Label>
               <Input 
                 id="applicationId"
@@ -91,16 +87,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 2 */}
             <div className="space-y-2">
               <Label htmlFor="financialAuthorization" className="text-sm font-medium">
-                Financial Authorization*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_AUTHORIZATION}*
               </Label>
               <Select name="financialAuthorization" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -108,16 +104,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="financialReversalAdvice" className="text-sm font-medium">
-                Financial Reversal Advice*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_REVERSAL_ADVICE}*
               </Label>
               <Select name="financialReversalAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -125,16 +121,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="cancellationRequest" className="text-sm font-medium">
-                Cancellation Request*
+                {ADMIN_STRINGS.FORM_LABELS.CANCELLATION_REQUEST}*
               </Label>
               <Select name="cancellationRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -144,16 +140,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 3 */}
             <div className="space-y-2">
               <Label htmlFor="cancellationAdvice" className="text-sm font-medium">
-                Cancellation Advice*
+                {ADMIN_STRINGS.FORM_LABELS.CANCELLATION_ADVICE}*
               </Label>
               <Select name="cancellationAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -161,16 +157,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="completionAdvice" className="text-sm font-medium">
-                Completion Advice*
+                {ADMIN_STRINGS.FORM_LABELS.COMPLETION_ADVICE}*
               </Label>
               <Select name="completionAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -178,16 +174,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="diagnosticRequest" className="text-sm font-medium">
-                Diagnostic Request*
+                {ADMIN_STRINGS.FORM_LABELS.DIAGNOSTIC_REQUEST}*
               </Label>
               <Select name="diagnosticRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -197,16 +193,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 4 */}
             <div className="space-y-2">
               <Label htmlFor="financialCompletionAdvice" className="text-sm font-medium">
-                Financial Completion Advice*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_COMPLETION_ADVICE}*
               </Label>
               <Select name="financialCompletionAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -214,16 +210,16 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="reversalAdvice" className="text-sm font-medium">
-                Reversal Advice*
+                {ADMIN_STRINGS.FORM_LABELS.REVERSAL_ADVICE}*
               </Label>
               <Select name="reversalAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -235,12 +231,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="reconciliationRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -254,12 +250,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="currencyConversionRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -282,12 +278,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="onlineFinancialCapture" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -310,12 +306,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="batchExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -382,12 +378,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="completionExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -432,12 +428,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="offlineFinancialCapture" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -460,12 +456,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="batchExchangePolicy2" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -532,12 +528,12 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="reconciliationExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>

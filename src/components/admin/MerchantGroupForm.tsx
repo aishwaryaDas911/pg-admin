@@ -6,9 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { 
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS } from '@/constants/adminConstants';
+import {
   Users,
-  RotateCcw, 
+  RotateCcw,
   X,
   Plus,
   MapPin,
@@ -81,94 +82,9 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' },
-    { value: 'IT', label: 'Italy' },
-    { value: 'ES', label: 'Spain' },
-    { value: 'AU', label: 'Australia' },
-    { value: 'JP', label: 'Japan' },
-    { value: 'IN', label: 'India' }
-  ];
+  // Dropdown options from constants
+  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS, ROUTING_PROFILES, ACCOUNT_TYPES, PAYMENT_TYPES } = DROPDOWN_OPTIONS;
 
-  const states = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'AK', label: 'Alaska' },
-    { value: 'AZ', label: 'Arizona' },
-    { value: 'AR', label: 'Arkansas' },
-    { value: 'CA', label: 'California' },
-    { value: 'CO', label: 'Colorado' },
-    { value: 'CT', label: 'Connecticut' },
-    { value: 'DE', label: 'Delaware' },
-    { value: 'FL', label: 'Florida' },
-    { value: 'GA', label: 'Georgia' },
-    { value: 'HI', label: 'Hawaii' },
-    { value: 'ID', label: 'Idaho' },
-    { value: 'IL', label: 'Illinois' },
-    { value: 'IN', label: 'Indiana' },
-    { value: 'IA', label: 'Iowa' },
-    { value: 'KS', label: 'Kansas' },
-    { value: 'KY', label: 'Kentucky' },
-    { value: 'LA', label: 'Louisiana' },
-    { value: 'ME', label: 'Maine' },
-    { value: 'MD', label: 'Maryland' },
-    { value: 'MA', label: 'Massachusetts' },
-    { value: 'MI', label: 'Michigan' },
-    { value: 'MN', label: 'Minnesota' },
-    { value: 'MS', label: 'Mississippi' },
-    { value: 'MO', label: 'Missouri' },
-    { value: 'MT', label: 'Montana' },
-    { value: 'NE', label: 'Nebraska' },
-    { value: 'NV', label: 'Nevada' },
-    { value: 'NH', label: 'New Hampshire' },
-    { value: 'NJ', label: 'New Jersey' },
-    { value: 'NM', label: 'New Mexico' },
-    { value: 'NY', label: 'New York' },
-    { value: 'NC', label: 'North Carolina' },
-    { value: 'ND', label: 'North Dakota' },
-    { value: 'OH', label: 'Ohio' },
-    { value: 'OK', label: 'Oklahoma' },
-    { value: 'OR', label: 'Oregon' },
-    { value: 'PA', label: 'Pennsylvania' },
-    { value: 'RI', label: 'Rhode Island' },
-    { value: 'SC', label: 'South Carolina' },
-    { value: 'SD', label: 'South Dakota' },
-    { value: 'TN', label: 'Tennessee' },
-    { value: 'TX', label: 'Texas' },
-    { value: 'UT', label: 'Utah' },
-    { value: 'VT', label: 'Vermont' },
-    { value: 'VA', label: 'Virginia' },
-    { value: 'WA', label: 'Washington' },
-    { value: 'WV', label: 'West Virginia' },
-    { value: 'WI', label: 'Wisconsin' },
-    { value: 'WY', label: 'Wyoming' }
-  ];
-
-  const routingProfiles = [
-    { value: 'profile1', label: 'Routing Profile 1' },
-    { value: 'profile2', label: 'Routing Profile 2' },
-    { value: 'profile3', label: 'Routing Profile 3' },
-    { value: 'profile4', label: 'Routing Profile 4' }
-  ];
-
-  const paymentTypes = [
-    { value: 'credit', label: 'Credit' },
-    { value: 'debit', label: 'Debit' },
-    { value: 'ach', label: 'ACH' },
-    { value: 'wire', label: 'Wire Transfer' },
-    { value: 'check', label: 'Check' }
-  ];
-
-  const accountTypes = [
-    { value: 'checking', label: 'Checking' },
-    { value: 'savings', label: 'Savings' },
-    { value: 'business', label: 'Business' },
-    { value: 'corporate', label: 'Corporate' }
-  ];
 
   const handleInputChange = (field: keyof MerchantGroupData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -411,7 +327,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
-                  {countries.map((country) => (
+                  {COUNTRIES.map((country) => (
                     <SelectItem key={country.value} value={country.value}>
                       {country.label}
                     </SelectItem>
@@ -432,7 +348,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
@@ -524,7 +440,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select routing profile" />
                 </SelectTrigger>
                 <SelectContent>
-                  {routingProfiles.map((profile) => (
+                  {ROUTING_PROFILES.map((profile) => (
                     <SelectItem key={profile.value} value={profile.value}>
                       {profile.label}
                     </SelectItem>
@@ -555,7 +471,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select payment type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {paymentTypes.map((type) => (
+                  {PAYMENT_TYPES.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
@@ -624,7 +540,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select account type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {accountTypes.map((type) => (
+                  {ACCOUNT_TYPES.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>
@@ -677,7 +593,7 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>

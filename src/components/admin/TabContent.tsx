@@ -9,6 +9,9 @@ import { ProgramManagerForm } from './ProgramManagerForm';
 import { ISOForm } from './ISOForm';
 import { MerchantGroupForm } from './MerchantGroupForm';
 import { MerchantForm } from './MerchantForm';
+import { SubMerchantForm } from './SubMerchantForm';
+import { BankForm } from './BankForm';
+import { FeeProgramForm } from './FeeProgramForm';
 import { 
   Table, 
   TableBody, 
@@ -44,6 +47,7 @@ import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
 import { FilterFields, CreateFields, TableRow as TableRowType, ActionType, ActionConfig } from '@/types/admin';
 import { useToast } from '@/hooks/use-toast';
+import { ADMIN_STRINGS } from '@/constants/adminConstants';
 
 interface TabContentProps {
   title: string;
@@ -101,8 +105,8 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       setSearchResults(mockData);
       setLoading(false);
       toast({
-        title: "Search Completed",
-        description: `Found ${mockData.length} results`,
+        title: ADMIN_STRINGS.TOAST.SEARCH_COMPLETED,
+        description: `${ADMIN_STRINGS.GENERIC.FOUND} ${mockData.length} ${ADMIN_STRINGS.TOAST.FOUND_RESULTS}`,
       });
     }, 1000);
   };
@@ -114,8 +118,8 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       setLoading(false);
       setCreateData({});
       toast({
-        title: "Created Successfully",
-        description: "New record has been created",
+        title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+        description: ADMIN_STRINGS.TOAST.NEW_RECORD_CREATED,
       });
     }, 1000);
   };
@@ -260,7 +264,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
         <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
-          Mercedes-Benz Admin
+          {ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}
         </Badge>
       </div>
 
@@ -268,11 +272,11 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         <TabsList className="grid w-full grid-cols-2 lg:w-[400px]">
           <TabsTrigger value="search" className="flex items-center space-x-2">
             <Search className="h-4 w-4" />
-            <span>Search</span>
+            <span>{ADMIN_STRINGS.ACTIONS.SEARCH}</span>
           </TabsTrigger>
           <TabsTrigger value="create" className="flex items-center space-x-2">
             <Plus className="h-4 w-4" />
-            <span>Create</span>
+            <span>{ADMIN_STRINGS.ACTIONS.CREATE}</span>
           </TabsTrigger>
         </TabsList>
 
@@ -476,21 +480,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <AcquirerProtocolParameterForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "Acquirer Protocol Parameter has been created",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.ACQUIRER_PROTOCOL_CREATED,
                 });
                 console.log('Form data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "Form creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.FORM_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.ALL_FIELDS_CLEARED,
                 });
               }}
             />
@@ -498,21 +502,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <ProgramManagerForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "Program Manager has been created successfully",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATED,
                 });
                 console.log('Program Manager data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "Program Manager creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All Program Manager fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_FIELDS_CLEARED,
                 });
               }}
             />
@@ -520,21 +524,21 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             <ISOForm
               onSubmit={(data) => {
                 toast({
-                  title: "Created Successfully",
-                  description: "ISO has been created successfully",
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.ISO_CREATED,
                 });
                 console.log('ISO data:', data);
               }}
               onCancel={() => {
                 toast({
-                  title: "Cancelled",
-                  description: "ISO creation was cancelled",
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.ISO_CREATION_CANCELLED,
                 });
               }}
               onReset={() => {
                 toast({
-                  title: "Form Reset",
-                  description: "All ISO fields have been cleared",
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.ISO_FIELDS_CLEARED,
                 });
               }}
             />
@@ -579,6 +583,72 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 toast({
                   title: "Form Reset",
                   description: "All Merchant fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'Sub Merchant' ? (
+            <SubMerchantForm
+              onSubmit={(data) => {
+                toast({
+                  title: "Created Successfully",
+                  description: "Sub-Merchant has been created successfully",
+                });
+                console.log('Sub-Merchant data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: "Cancelled",
+                  description: "Sub-Merchant creation was cancelled",
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: "Form Reset",
+                  description: "All Sub-Merchant fields have been cleared",
+                });
+              }}
+            />
+          ) : title === 'Bank' ? (
+            <BankForm
+              onSubmit={(data) => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.BANK_CREATED,
+                });
+                console.log('Bank data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.BANK_CREATION_CANCELLED,
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.BANK_FIELDS_CLEARED,
+                });
+              }}
+            />
+          ) : title === 'Fee Program' ? (
+            <FeeProgramForm
+              onSubmit={(data) => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
+                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATED,
+                });
+                console.log('Fee Program data:', data);
+              }}
+              onCancel={() => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.CANCELLED,
+                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATION_CANCELLED,
+                });
+              }}
+              onReset={() => {
+                toast({
+                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
+                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_FIELDS_CLEARED,
                 });
               }}
             />

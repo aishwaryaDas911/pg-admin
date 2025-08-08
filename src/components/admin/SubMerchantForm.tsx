@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { ADMIN_STRINGS, DROPDOWN_OPTIONS } from '@/constants/adminConstants';
@@ -19,17 +18,16 @@ import {
   User,
   Landmark,
   Settings,
-  FileCheck,
-  MapPin,
-  CreditCard
+  FileCheck
 } from 'lucide-react';
 
-interface MerchantData {
+interface SubMerchantData {
   // Basic Info
-  merchantName: string;
+  companyName: string;
+  subMerchantCode: string;
   firstName: string;
   lastName: string;
-  mobilePhone: string;
+  phone: string;
   fax: string;
   emailId: string;
   address1: string;
@@ -38,13 +36,11 @@ interface MerchantData {
   country: string;
   state: string;
   zipCode: string;
-  applicationMode: string;
-  businessUrl: string;
   lookingFor: string;
   businessType: string;
+  merchantCode: string;
+  businessUrl: string;
   userName: string;
-  dccEnable: boolean;
-  dccSupportedCurrency: string[];
   
   // Bank Info
   bankName: string;
@@ -59,19 +55,12 @@ interface MerchantData {
   bankZipCode: string;
   nameOnAccount: string;
   currency: string;
-  iso: string;
   
   // Configurations
-  merchantType: string;
   category: string;
   autoTransferLimit: string;
   autoPaymentMethod: string;
   autoTransferPeriod: string;
-  bank: string;
-  mccName: string;
-  feeProgram: string;
-  routingProfileName: string;
-  localCurrency: string;
   virtualTerminalOptions: {
     sale: boolean;
     refund: boolean;
@@ -81,8 +70,8 @@ interface MerchantData {
   online: boolean;
 }
 
-interface MerchantFormProps {
-  onSubmit: (data: MerchantData) => void;
+interface SubMerchantFormProps {
+  onSubmit: (data: SubMerchantData) => void;
   onCancel: () => void;
   onReset: () => void;
 }
@@ -94,19 +83,20 @@ const steps = [
   { id: 4, title: ADMIN_STRINGS.STEPS.CONFIRMATION, icon: FileCheck }
 ];
 
-export const MerchantForm: React.FC<MerchantFormProps> = ({
+export const SubMerchantForm: React.FC<SubMerchantFormProps> = ({
   onSubmit,
   onCancel,
   onReset
 }) => {
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<MerchantData>({
+  const [formData, setFormData] = useState<SubMerchantData>({
     // Basic Info
-    merchantName: '',
+    companyName: '',
+    subMerchantCode: '',
     firstName: '',
     lastName: '',
-    mobilePhone: '',
+    phone: '',
     fax: '',
     emailId: '',
     address1: '',
@@ -115,13 +105,11 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
     country: '',
     state: '',
     zipCode: '',
-    applicationMode: '',
-    businessUrl: '',
     lookingFor: '',
     businessType: '',
+    merchantCode: '',
+    businessUrl: '',
     userName: '',
-    dccEnable: false,
-    dccSupportedCurrency: [],
     
     // Bank Info
     bankName: '',
@@ -136,19 +124,12 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
     bankZipCode: '',
     nameOnAccount: '',
     currency: '',
-    iso: '',
     
     // Configurations
-    merchantType: '',
     category: '',
     autoTransferLimit: '',
     autoPaymentMethod: '',
     autoTransferPeriod: '',
-    bank: '',
-    mccName: '',
-    feeProgram: '',
-    routingProfileName: '',
-    localCurrency: '',
     virtualTerminalOptions: {
       sale: false,
       refund: false,
@@ -161,41 +142,16 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Dropdown options from constants
-  const {
-    COUNTRIES,
-    STATES,
-    APPLICATION_MODES,
-    BUSINESS_TYPES,
-    CURRENCIES,
-    BANK_TYPES,
-    MERCHANT_TYPES,
-    CATEGORIES,
-    PAYMENT_METHODS,
-    TRANSFER_PERIODS,
-    BANKS,
-    MCC_NAMES,
-    FEE_PROGRAMS,
-    ROUTING_PROFILES,
-    ISO_OPTIONS
-  } = DROPDOWN_OPTIONS;
+  const { COUNTRIES, STATES, BUSINESS_TYPES, CURRENCIES, BANK_TYPES, CATEGORIES, PAYMENT_METHODS, TRANSFER_PERIODS } = DROPDOWN_OPTIONS;
 
-  const handleInputChange = (field: keyof MerchantData, value: any) => {
+  const handleInputChange = (field: keyof SubMerchantData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
 
-  const handleCurrencyChange = (currency: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      dccSupportedCurrency: checked 
-        ? [...prev.dccSupportedCurrency, currency]
-        : prev.dccSupportedCurrency.filter(c => c !== currency)
-    }));
-  };
-
-  const handleTerminalOptionChange = (option: keyof MerchantData['virtualTerminalOptions'], checked: boolean) => {
+  const handleTerminalOptionChange = (option: keyof SubMerchantData['virtualTerminalOptions'], checked: boolean) => {
     setFormData(prev => ({
       ...prev,
       virtualTerminalOptions: {
@@ -210,23 +166,24 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
 
     if (step === 1) {
       const requiredFields = {
-        merchantName: 'Merchant Name',
+        companyName: 'Company Name',
+        subMerchantCode: 'Sub Merchant Code',
         firstName: 'First Name',
         lastName: 'Last Name',
-        mobilePhone: 'Mobile Phone',
-        emailId: 'Email ID',
+        phone: 'Phone',
+        emailId: 'E-Mail ID',
         address1: 'Address 1',
         city: 'City',
         country: 'Country',
         state: 'State',
         zipCode: 'Zip Code',
-        applicationMode: 'Application Mode',
+        merchantCode: 'Merchant Code',
         businessUrl: 'Business URL',
         userName: 'User Name'
       };
 
       Object.entries(requiredFields).forEach(([field, label]) => {
-        if (!formData[field as keyof MerchantData]) {
+        if (!formData[field as keyof SubMerchantData]) {
           newErrors[field] = `${label} is required`;
         }
       });
@@ -237,8 +194,8 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
       }
 
       // Phone validation
-      if (formData.mobilePhone && !/^\+?[\d\s-()]+$/.test(formData.mobilePhone)) {
-        newErrors.mobilePhone = 'Please enter a valid phone number';
+      if (formData.phone && !/^\+?[\d\s-()]+$/.test(formData.phone)) {
+        newErrors.phone = 'Please enter a valid phone number';
       }
     }
 
@@ -257,7 +214,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
       };
 
       Object.entries(requiredFields).forEach(([field, label]) => {
-        if (!formData[field as keyof MerchantData]) {
+        if (!formData[field as keyof SubMerchantData]) {
           newErrors[field] = `${label} is required`;
         }
       });
@@ -265,18 +222,12 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
 
     if (step === 3) {
       const requiredFields = {
-        merchantType: 'Merchant Type',
         category: 'Category',
-        autoPaymentMethod: 'Auto Payment Method',
-        bank: 'Bank',
-        mccName: 'MCC Name',
-        feeProgram: 'Fee Program',
-        routingProfileName: 'Routing Profile Name',
-        localCurrency: 'Local Currency'
+        autoPaymentMethod: 'Auto Payment Method'
       };
 
       Object.entries(requiredFields).forEach(([field, label]) => {
-        if (!formData[field as keyof MerchantData]) {
+        if (!formData[field as keyof SubMerchantData]) {
           newErrors[field] = `${label} is required`;
         }
       });
@@ -307,7 +258,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
       onSubmit(formData);
       toast({
         title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-        description: ADMIN_STRINGS.TOAST.MERCHANT_CREATED,
+        description: ADMIN_STRINGS.TOAST.SUB_MERCHANT_CREATED,
       });
     } else {
       toast({
@@ -320,10 +271,11 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
 
   const handleReset = () => {
     setFormData({
-      merchantName: '',
+      companyName: '',
+      subMerchantCode: '',
       firstName: '',
       lastName: '',
-      mobilePhone: '',
+      phone: '',
       fax: '',
       emailId: '',
       address1: '',
@@ -332,13 +284,11 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
       country: '',
       state: '',
       zipCode: '',
-      applicationMode: '',
-      businessUrl: '',
       lookingFor: '',
       businessType: '',
+      merchantCode: '',
+      businessUrl: '',
       userName: '',
-      dccEnable: false,
-      dccSupportedCurrency: [],
       bankName: '',
       bankRoutingNumber: '',
       bankAccountNumber: '',
@@ -351,17 +301,10 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
       bankZipCode: '',
       nameOnAccount: '',
       currency: '',
-      iso: '',
-      merchantType: '',
       category: '',
       autoTransferLimit: '',
       autoPaymentMethod: '',
       autoTransferPeriod: '',
-      bank: '',
-      mccName: '',
-      feeProgram: '',
-      routingProfileName: '',
-      localCurrency: '',
       virtualTerminalOptions: {
         sale: false,
         refund: false,
@@ -382,18 +325,34 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="merchantName" className="text-sm font-medium">
-                  Merchant Name <span className="text-red-500">*</span>
+                <Label htmlFor="companyName" className="text-sm font-medium">
+                  Company Name <span className="text-red-500">*</span>
                 </Label>
                 <Input
-                  id="merchantName"
-                  placeholder="Enter merchant name"
-                  value={formData.merchantName}
-                  onChange={(e) => handleInputChange('merchantName', e.target.value)}
-                  className={errors.merchantName ? 'border-red-500' : ''}
+                  id="companyName"
+                  placeholder="Enter company name"
+                  value={formData.companyName}
+                  onChange={(e) => handleInputChange('companyName', e.target.value)}
+                  className={errors.companyName ? 'border-red-500' : ''}
                 />
-                {errors.merchantName && (
-                  <p className="text-xs text-red-500">{errors.merchantName}</p>
+                {errors.companyName && (
+                  <p className="text-xs text-red-500">{errors.companyName}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="subMerchantCode" className="text-sm font-medium">
+                  Sub Merchant Code <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="subMerchantCode"
+                  placeholder="Enter sub merchant code"
+                  value={formData.subMerchantCode}
+                  onChange={(e) => handleInputChange('subMerchantCode', e.target.value)}
+                  className={errors.subMerchantCode ? 'border-red-500' : ''}
+                />
+                {errors.subMerchantCode && (
+                  <p className="text-xs text-red-500">{errors.subMerchantCode}</p>
                 )}
               </div>
 
@@ -430,18 +389,18 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="mobilePhone" className="text-sm font-medium">
-                  Mobile Phone <span className="text-red-500">*</span>
+                <Label htmlFor="phone" className="text-sm font-medium">
+                  Phone <span className="text-red-500">*</span>
                 </Label>
                 <Input
-                  id="mobilePhone"
-                  placeholder="Enter mobile phone"
-                  value={formData.mobilePhone}
-                  onChange={(e) => handleInputChange('mobilePhone', e.target.value)}
-                  className={errors.mobilePhone ? 'border-red-500' : ''}
+                  id="phone"
+                  placeholder="Enter phone number"
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  className={errors.phone ? 'border-red-500' : ''}
                 />
-                {errors.mobilePhone && (
-                  <p className="text-xs text-red-500">{errors.mobilePhone}</p>
+                {errors.phone && (
+                  <p className="text-xs text-red-500">{errors.phone}</p>
                 )}
               </div>
 
@@ -459,7 +418,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
 
               <div className="space-y-2">
                 <Label htmlFor="emailId" className="text-sm font-medium">
-                  Email ID <span className="text-red-500">*</span>
+                  E-Mail ID <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="emailId"
@@ -524,7 +483,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.country} onValueChange={(value) => handleInputChange('country', value)}>
                   <SelectTrigger className={errors.country ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select country" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {COUNTRIES.map((country) => (
@@ -545,7 +504,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.state} onValueChange={(value) => handleInputChange('state', value)}>
                   <SelectTrigger className={errors.state ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select state" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {STATES.map((state) => (
@@ -577,23 +536,51 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="applicationMode" className="text-sm font-medium">
-                  Application Mode <span className="text-red-500">*</span>
+                <Label htmlFor="lookingFor" className="text-sm font-medium">
+                  Looking For?
                 </Label>
-                <Select value={formData.applicationMode} onValueChange={(value) => handleInputChange('applicationMode', value)}>
-                  <SelectTrigger className={errors.applicationMode ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select mode" />
+                <Input
+                  id="lookingFor"
+                  placeholder="What are you looking for?"
+                  value={formData.lookingFor}
+                  onChange={(e) => handleInputChange('lookingFor', e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="businessType" className="text-sm font-medium">
+                  Business Type
+                </Label>
+                <Select value={formData.businessType} onValueChange={(value) => handleInputChange('businessType', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a Type..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {APPLICATION_MODES.map((mode) => (
-                      <SelectItem key={mode.value} value={mode.value}>
-                        {mode.label}
+                    {BUSINESS_TYPES.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.applicationMode && (
-                  <p className="text-xs text-red-500">{errors.applicationMode}</p>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="merchantCode" className="text-sm font-medium">
+                  Merchant Code <span className="text-red-500">*</span>
+                </Label>
+                <Select value={formData.merchantCode} onValueChange={(value) => handleInputChange('merchantCode', value)}>
+                  <SelectTrigger className={errors.merchantCode ? 'border-red-500' : ''}>
+                    <SelectValue placeholder="Select..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">1</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="3">3</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.merchantCode && (
+                  <p className="text-xs text-red-500">{errors.merchantCode}</p>
                 )}
               </div>
 
@@ -614,36 +601,6 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="lookingFor" className="text-sm font-medium">
-                  Looking For?
-                </Label>
-                <Input
-                  id="lookingFor"
-                  placeholder="What are you looking for?"
-                  value={formData.lookingFor}
-                  onChange={(e) => handleInputChange('lookingFor', e.target.value)}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="businessType" className="text-sm font-medium">
-                  Business Type
-                </Label>
-                <Select value={formData.businessType} onValueChange={(value) => handleInputChange('businessType', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Choose a Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {BUSINESS_TYPES.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
                 <Label htmlFor="userName" className="text-sm font-medium">
                   User Name <span className="text-red-500">*</span>
                 </Label>
@@ -657,41 +614,6 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 {errors.userName && (
                   <p className="text-xs text-red-500">{errors.userName}</p>
                 )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="dccEnable"
-                    checked={formData.dccEnable}
-                    onCheckedChange={(checked) => handleInputChange('dccEnable', checked)}
-                  />
-                  <Label htmlFor="dccEnable" className="text-sm font-medium">
-                    DCC Enable <span className="text-red-500">*</span>
-                  </Label>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <Label className="text-sm font-medium">
-                  DCC Supported Currency <span className="text-red-500">*</span>
-                </Label>
-                <div className="border rounded-lg p-3 max-h-32 overflow-y-auto">
-                  {CURRENCIES.map((currency) => (
-                    <div key={currency.value} className="flex items-center space-x-2 py-1">
-                      <Checkbox
-                        id={`currency-${currency.value}`}
-                        checked={formData.dccSupportedCurrency.includes(currency.value)}
-                        onCheckedChange={(checked) => handleCurrencyChange(currency.value, checked as boolean)}
-                      />
-                      <Label htmlFor={`currency-${currency.value}`} className="text-sm">
-                        {currency.label}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -755,7 +677,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.bankType} onValueChange={(value) => handleInputChange('bankType', value)}>
                   <SelectTrigger className={errors.bankType ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select type" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {BANK_TYPES.map((type) => (
@@ -820,7 +742,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.bankCountry} onValueChange={(value) => handleInputChange('bankCountry', value)}>
                   <SelectTrigger className={errors.bankCountry ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select country" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {COUNTRIES.map((country) => (
@@ -841,7 +763,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.bankState} onValueChange={(value) => handleInputChange('bankState', value)}>
                   <SelectTrigger className={errors.bankState ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select state" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {STATES.map((state) => (
@@ -888,39 +810,17 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 <Label htmlFor="currency" className="text-sm font-medium">
                   Currency <span className="text-red-500">*</span>
                 </Label>
-                <Select value={formData.currency} onValueChange={(value) => handleInputChange('currency', value)}>
-                  <SelectTrigger className={errors.currency ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {CURRENCIES.map((currency) => (
-                      <SelectItem key={currency.value} value={currency.value}>
-                        {currency.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Input
+                  id="currency"
+                  placeholder="USD"
+                  value={formData.currency}
+                  onChange={(e) => handleInputChange('currency', e.target.value)}
+                  className={`bg-gray-100 ${errors.currency ? 'border-red-500' : ''}`}
+                  readOnly
+                />
                 {errors.currency && (
                   <p className="text-xs text-red-500">{errors.currency}</p>
                 )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="iso" className="text-sm font-medium">
-                  ISO
-                </Label>
-                <Select value={formData.iso} onValueChange={(value) => handleInputChange('iso', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select ISO" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ISO_OPTIONS.map((iso) => (
-                      <SelectItem key={iso.value} value={iso.value}>
-                        {iso.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
             </div>
           </div>
@@ -931,33 +831,12 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="merchantType" className="text-sm font-medium">
-                  Merchant Type <span className="text-red-500">*</span>
-                </Label>
-                <Select value={formData.merchantType} onValueChange={(value) => handleInputChange('merchantType', value)}>
-                  <SelectTrigger className={errors.merchantType ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {MERCHANT_TYPES.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.merchantType && (
-                  <p className="text-xs text-red-500">{errors.merchantType}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
                 <Label htmlFor="category" className="text-sm font-medium">
                   Category <span className="text-red-500">*</span>
                 </Label>
                 <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
                   <SelectTrigger className={errors.category ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select category" />
+                    <SelectValue placeholder="Primary" />
                   </SelectTrigger>
                   <SelectContent>
                     {CATEGORIES.map((category) => (
@@ -978,7 +857,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Input
                   id="autoTransferLimit"
-                  placeholder="100000"
+                  placeholder="Enter transfer limit"
                   value={formData.autoTransferLimit}
                   onChange={(e) => handleInputChange('autoTransferLimit', e.target.value)}
                 />
@@ -990,7 +869,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.autoPaymentMethod} onValueChange={(value) => handleInputChange('autoPaymentMethod', value)}>
                   <SelectTrigger className={errors.autoPaymentMethod ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select method" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {PAYMENT_METHODS.map((method) => (
@@ -1011,7 +890,7 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </Label>
                 <Select value={formData.autoTransferPeriod} onValueChange={(value) => handleInputChange('autoTransferPeriod', value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select period" />
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
                     {TRANSFER_PERIODS.map((period) => (
@@ -1021,106 +900,6 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="bank" className="text-sm font-medium">
-                  Bank <span className="text-red-500">*</span>
-                </Label>
-                <Select value={formData.bank} onValueChange={(value) => handleInputChange('bank', value)}>
-                  <SelectTrigger className={errors.bank ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select bank" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {BANKS.map((bank) => (
-                      <SelectItem key={bank.value} value={bank.value}>
-                        {bank.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.bank && (
-                  <p className="text-xs text-red-500">{errors.bank}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="mccName" className="text-sm font-medium">
-                  MCC Name <span className="text-red-500">*</span>
-                </Label>
-                <Select value={formData.mccName} onValueChange={(value) => handleInputChange('mccName', value)}>
-                  <SelectTrigger className={errors.mccName ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select MCC" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {MCC_NAMES.map((mcc) => (
-                      <SelectItem key={mcc.value} value={mcc.value}>
-                        {mcc.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.mccName && (
-                  <p className="text-xs text-red-500">{errors.mccName}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="feeProgram" className="text-sm font-medium">
-                  Fee Program <span className="text-red-500">*</span>
-                </Label>
-                <Select value={formData.feeProgram} onValueChange={(value) => handleInputChange('feeProgram', value)}>
-                  <SelectTrigger className={errors.feeProgram ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select program" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {FEE_PROGRAMS.map((program) => (
-                      <SelectItem key={program.value} value={program.value}>
-                        {program.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.feeProgram && (
-                  <p className="text-xs text-red-500">{errors.feeProgram}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="routingProfileName" className="text-sm font-medium">
-                  Routing Profile Name <span className="text-red-500">*</span>
-                </Label>
-                <Select value={formData.routingProfileName} onValueChange={(value) => handleInputChange('routingProfileName', value)}>
-                  <SelectTrigger className={errors.routingProfileName ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select profile" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ROUTING_PROFILES.map((profile) => (
-                      <SelectItem key={profile.value} value={profile.value}>
-                        {profile.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.routingProfileName && (
-                  <p className="text-xs text-red-500">{errors.routingProfileName}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="localCurrency" className="text-sm font-medium">
-                  Local Currency <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="localCurrency"
-                  placeholder="INR"
-                  value={formData.localCurrency}
-                  onChange={(e) => handleInputChange('localCurrency', e.target.value)}
-                  className={errors.localCurrency ? 'border-red-500' : ''}
-                />
-                {errors.localCurrency && (
-                  <p className="text-xs text-red-500">{errors.localCurrency}</p>
-                )}
               </div>
             </div>
 
@@ -1194,23 +973,24 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                   <span>Basic Info</span>
                 </h3>
                 <div className="space-y-2 text-sm">
-                  <div><strong>Merchant Name:</strong> {formData.merchantName}</div>
+                  <div><strong>Company Name:</strong> {formData.companyName}</div>
+                  <div><strong>Sub Merchant Code:</strong> {formData.subMerchantCode}</div>
                   <div><strong>First Name:</strong> {formData.firstName}</div>
                   <div><strong>Last Name:</strong> {formData.lastName}</div>
-                  <div><strong>Mobile Phone:</strong> {formData.mobilePhone}</div>
-                  <div><strong>Email ID:</strong> {formData.emailId}</div>
+                  <div><strong>Phone:</strong> {formData.phone}</div>
+                  <div><strong>Fax:</strong> {formData.fax}</div>
+                  <div><strong>E-Mail ID:</strong> {formData.emailId}</div>
                   <div><strong>Address 1:</strong> {formData.address1}</div>
                   <div><strong>Address 2:</strong> {formData.address2}</div>
                   <div><strong>City:</strong> {formData.city}</div>
                   <div><strong>Country:</strong> {formData.country}</div>
                   <div><strong>State:</strong> {formData.state}</div>
                   <div><strong>Zip Code:</strong> {formData.zipCode}</div>
-                  <div><strong>Application Mode:</strong> {formData.applicationMode}</div>
-                  <div><strong>Business URL:</strong> {formData.businessUrl}</div>
+                  <div><strong>Looking For:</strong> {formData.lookingFor}</div>
                   <div><strong>Business Type:</strong> {formData.businessType}</div>
+                  <div><strong>Merchant Code:</strong> {formData.merchantCode}</div>
+                  <div><strong>Business URL:</strong> {formData.businessUrl}</div>
                   <div><strong>User Name:</strong> {formData.userName}</div>
-                  <div><strong>DCC Enable:</strong> {formData.dccEnable ? 'Yes' : 'No'}</div>
-                  <div><strong>DCC Supported Currency:</strong> {formData.dccSupportedCurrency.join(', ')}</div>
                 </div>
               </div>
 
@@ -1233,7 +1013,6 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                   <div><strong>Zip Code:</strong> {formData.bankZipCode}</div>
                   <div><strong>Name on Account:</strong> {formData.nameOnAccount}</div>
                   <div><strong>Currency:</strong> {formData.currency}</div>
-                  <div><strong>ISO:</strong> {formData.iso}</div>
                 </div>
               </div>
 
@@ -1245,21 +1024,15 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                   <div className="space-y-2">
-                    <div><strong>Merchant Type:</strong> {formData.merchantType}</div>
                     <div><strong>Category:</strong> {formData.category}</div>
                     <div><strong>Auto Transfer Limit:</strong> {formData.autoTransferLimit}</div>
                     <div><strong>Auto Payment Method:</strong> {formData.autoPaymentMethod}</div>
                     <div><strong>Auto Transfer Period:</strong> {formData.autoTransferPeriod}</div>
-                    <div><strong>Bank:</strong> {formData.bank}</div>
-                    <div><strong>MCC Name:</strong> {formData.mccName}</div>
-                    <div><strong>Fee Program:</strong> {formData.feeProgram}</div>
-                    <div><strong>Routing Profile Name:</strong> {formData.routingProfileName}</div>
-                    <div><strong>Local Currency:</strong> {formData.localCurrency}</div>
                   </div>
                   <div className="space-y-2">
                     <div><strong>Virtual Terminal Options:</strong></div>
                     <ul className="ml-4 space-y-1">
-                      {formData.virtualTerminalOptions.sale && <li>• Sale</li>}
+                      {formData.virtualTerminalOptions.sale && <li>• Sales</li>}
                       {formData.virtualTerminalOptions.refund && <li>• Refund</li>}
                       {formData.virtualTerminalOptions.preAuth && <li>• Pre Auth</li>}
                       {formData.virtualTerminalOptions.void && <li>• Void</li>}
@@ -1285,9 +1058,9 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
             <Store className="h-6 w-6 text-mb-blue" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">{ADMIN_STRINGS.PAGES.CREATE_MERCHANT}</h2>
+            <h2 className="text-2xl font-bold text-foreground">{ADMIN_STRINGS.PAGES.CREATE_SUB_MERCHANT}</h2>
             <p className="text-sm text-muted-foreground mt-1">
-              {ADMIN_STRINGS.DESCRIPTIONS.MERCHANT_DESC}
+              {ADMIN_STRINGS.DESCRIPTIONS.SUB_MERCHANT_DESC}
             </p>
           </div>
         </CardTitle>
@@ -1336,11 +1109,9 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
         <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 sm:space-x-4 pt-6 md:pt-8 border-t">
           <div className="flex space-x-2">
             <Button variant="outline" onClick={onCancel} className="min-w-[100px]">
-              <X className="mr-2 h-4 w-4" />
               {ADMIN_STRINGS.ACTIONS.CANCEL}
             </Button>
             <Button variant="outline" onClick={handleReset} className="min-w-[100px]">
-              <RotateCcw className="mr-2 h-4 w-4" />
               {ADMIN_STRINGS.ACTIONS.RESET}
             </Button>
           </div>
@@ -1348,7 +1119,6 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
           <div className="flex space-x-2">
             {currentStep > 1 && (
               <Button variant="outline" onClick={prevStep} className="min-w-[100px]">
-                <ChevronLeft className="mr-2 h-4 w-4" />
                 {ADMIN_STRINGS.ACTIONS.PREVIOUS}
               </Button>
             )}
@@ -1356,11 +1126,9 @@ export const MerchantForm: React.FC<MerchantFormProps> = ({
             {currentStep < steps.length ? (
               <Button onClick={nextStep} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
                 {ADMIN_STRINGS.ACTIONS.CONTINUE}
-                <ChevronRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
               <Button onClick={handleSubmit} className="min-w-[100px] bg-mb-blue hover:bg-mb-blue/90">
-                <Plus className="mr-2 h-4 w-4" />
                 {ADMIN_STRINGS.ACTIONS.CREATE}
               </Button>
             )}

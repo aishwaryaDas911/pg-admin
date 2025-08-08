@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ADMIN_STRINGS } from '@/constants/adminConstants';
 import { 
   BarChart, 
   Bar, 
@@ -32,7 +33,7 @@ interface DashboardProps {
 
 const statsData = [
   {
-    title: 'Total Users',
+    title: ADMIN_STRINGS.DASHBOARD.TOTAL_USERS,
     value: '2,847',
     change: '+12.5%',
     trend: 'up',
@@ -40,7 +41,7 @@ const statsData = [
     color: 'text-mb-blue'
   },
   {
-    title: 'Active Devices',
+    title: ADMIN_STRINGS.DASHBOARD.ACTIVE_DEVICES,
     value: '1,234',
     change: '+8.2%',
     trend: 'up',
@@ -48,7 +49,7 @@ const statsData = [
     color: 'text-green-600'
   },
   {
-    title: 'Software Packages',
+    title: ADMIN_STRINGS.DASHBOARD.APPLICATIONS,
     value: '456',
     change: '+3.1%',
     trend: 'up',
@@ -56,7 +57,7 @@ const statsData = [
     color: 'text-orange-600'
   },
   {
-    title: 'System Health',
+    title: ADMIN_STRINGS.DASHBOARD.SYSTEM_STATUS,
     value: '99.9%',
     change: '+0.1%',
     trend: 'up',

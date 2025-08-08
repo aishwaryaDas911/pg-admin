@@ -6,10 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { 
+import { ADMIN_STRINGS, DROPDOWN_OPTIONS, FILE_CONSTRAINTS } from '@/constants/adminConstants';
+
+const { COUNTRIES, STATES, CURRENCIES, PROCESSORS, PROGRAM_MANAGERS } = DROPDOWN_OPTIONS;
+import {
   Building,
-  Upload, 
-  RotateCcw, 
+  Upload,
+  RotateCcw,
   X,
   Plus,
   Minus,
@@ -84,95 +87,6 @@ export const ISOForm: React.FC<ISOFormProps> = ({
   const [logoPreview, setLogoPreview] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Mock data for dropdowns
-  const programManagers = [
-    { value: 'pm1', label: 'Program Manager 1' },
-    { value: 'pm2', label: 'Program Manager 2' },
-    { value: 'pm3', label: 'Program Manager 3' }
-  ];
-
-  const currencies = [
-    { value: 'USD', label: 'USD - US Dollar' },
-    { value: 'EUR', label: 'EUR - Euro' },
-    { value: 'GBP', label: 'GBP - British Pound' },
-    { value: 'JPY', label: 'JPY - Japanese Yen' },
-    { value: 'CAD', label: 'CAD - Canadian Dollar' },
-    { value: 'AUD', label: 'AUD - Australian Dollar' }
-  ];
-
-  const processors = [
-    { value: 'visa', label: 'Visa' },
-    { value: 'mastercard', label: 'Mastercard' },
-    { value: 'amex', label: 'American Express' },
-    { value: 'discover', label: 'Discover' },
-    { value: 'diners', label: 'Diners Club' }
-  ];
-
-  const countries = [
-    { value: 'US', label: 'United States' },
-    { value: 'CA', label: 'Canada' },
-    { value: 'GB', label: 'United Kingdom' },
-    { value: 'DE', label: 'Germany' },
-    { value: 'FR', label: 'France' },
-    { value: 'IT', label: 'Italy' },
-    { value: 'ES', label: 'Spain' },
-    { value: 'AU', label: 'Australia' },
-    { value: 'JP', label: 'Japan' },
-    { value: 'CN', label: 'China' }
-  ];
-
-  const states = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'AK', label: 'Alaska' },
-    { value: 'AZ', label: 'Arizona' },
-    { value: 'AR', label: 'Arkansas' },
-    { value: 'CA', label: 'California' },
-    { value: 'CO', label: 'Colorado' },
-    { value: 'CT', label: 'Connecticut' },
-    { value: 'DE', label: 'Delaware' },
-    { value: 'FL', label: 'Florida' },
-    { value: 'GA', label: 'Georgia' },
-    { value: 'HI', label: 'Hawaii' },
-    { value: 'ID', label: 'Idaho' },
-    { value: 'IL', label: 'Illinois' },
-    { value: 'IN', label: 'Indiana' },
-    { value: 'IA', label: 'Iowa' },
-    { value: 'KS', label: 'Kansas' },
-    { value: 'KY', label: 'Kentucky' },
-    { value: 'LA', label: 'Louisiana' },
-    { value: 'ME', label: 'Maine' },
-    { value: 'MD', label: 'Maryland' },
-    { value: 'MA', label: 'Massachusetts' },
-    { value: 'MI', label: 'Michigan' },
-    { value: 'MN', label: 'Minnesota' },
-    { value: 'MS', label: 'Mississippi' },
-    { value: 'MO', label: 'Missouri' },
-    { value: 'MT', label: 'Montana' },
-    { value: 'NE', label: 'Nebraska' },
-    { value: 'NV', label: 'Nevada' },
-    { value: 'NH', label: 'New Hampshire' },
-    { value: 'NJ', label: 'New Jersey' },
-    { value: 'NM', label: 'New Mexico' },
-    { value: 'NY', label: 'New York' },
-    { value: 'NC', label: 'North Carolina' },
-    { value: 'ND', label: 'North Dakota' },
-    { value: 'OH', label: 'Ohio' },
-    { value: 'OK', label: 'Oklahoma' },
-    { value: 'OR', label: 'Oregon' },
-    { value: 'PA', label: 'Pennsylvania' },
-    { value: 'RI', label: 'Rhode Island' },
-    { value: 'SC', label: 'South Carolina' },
-    { value: 'SD', label: 'South Dakota' },
-    { value: 'TN', label: 'Tennessee' },
-    { value: 'TX', label: 'Texas' },
-    { value: 'UT', label: 'Utah' },
-    { value: 'VT', label: 'Vermont' },
-    { value: 'VA', label: 'Virginia' },
-    { value: 'WA', label: 'Washington' },
-    { value: 'WV', label: 'West Virginia' },
-    { value: 'WI', label: 'Wisconsin' },
-    { value: 'WY', label: 'Wyoming' }
-  ];
 
   const handleInputChange = (field: keyof ISOData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -390,7 +304,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select program manager" />
                 </SelectTrigger>
                 <SelectContent>
-                  {programManagers.map((pm) => (
+                  {PROGRAM_MANAGERS.map((pm) => (
                     <SelectItem key={pm.value} value={pm.value}>
                       {pm.label}
                     </SelectItem>
@@ -469,7 +383,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select currency" />
                 </SelectTrigger>
                 <SelectContent>
-                  {currencies.map((currency) => (
+                  {CURRENCIES.map((currency) => (
                     <SelectItem key={currency.value} value={currency.value}>
                       {currency.label}
                     </SelectItem>
@@ -490,7 +404,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select processor" />
                 </SelectTrigger>
                 <SelectContent>
-                  {processors.map((processor) => (
+                  {PROCESSORS.map((processor) => (
                     <SelectItem key={processor.value} value={processor.value}>
                       {processor.label}
                     </SelectItem>
@@ -553,7 +467,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
-                  {countries.map((country) => (
+                  {COUNTRIES.map((country) => (
                     <SelectItem key={country.value} value={country.value}>
                       {country.label}
                     </SelectItem>
@@ -574,7 +488,7 @@ export const ISOForm: React.FC<ISOFormProps> = ({
                   <SelectValue placeholder="Select state" />
                 </SelectTrigger>
                 <SelectContent>
-                  {states.map((state) => (
+                  {STATES.map((state) => (
                     <SelectItem key={state.value} value={state.value}>
                       {state.label}
                     </SelectItem>
