@@ -187,6 +187,21 @@ export const ADMIN_STRINGS = {
     ENTER_PACKAGE_NAME: 'Enter package name',
     ENTER_APPLICATION_NAME: 'Enter application name',
     ENTER_VERSION: 'Enter version',
+
+    // Fee Program Placeholders
+    ENTER_FEE_PROGRAM_NAME: 'Enter fee program name',
+    SELECT_PROGRAM_MANAGER: 'Select program manager',
+    SELECT_ISO: 'Select ISO',
+    SELECT_MCC: 'Select MCC',
+    SELECT_FEE_TYPE: 'Select fee type',
+    SELECT_SCHEME: 'Select scheme',
+    SELECT_TXN_TYPE: 'Select transaction type',
+    SELECT_TXN_VOLUME: 'Select transaction volume',
+    ENTER_PM_SHARE: '$ 0.0',
+    ENTER_MSP_SHARE: '$ 0.0',
+    ENTER_SLAB_FROM: '$',
+    ENTER_SLAB_TO: '$',
+    ENTER_TOTAL_FEE: '$',
   },
 
   // Validation Messages
