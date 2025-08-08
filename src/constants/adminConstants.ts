@@ -288,6 +288,7 @@ export const ADMIN_STRINGS = {
     ISO_DESC: 'Configure a new ISO with contact and banking details',
     PROGRAM_MANAGER_DESC: 'Configure a new program manager with associated details',
     ACQUIRER_PROTOCOL_DESC: 'Configure new acquirer protocol parameters',
+    FEE_PROGRAM_DESC: 'Configure fee structure with dynamic ranges and card type configurations',
   },
 
   // Section Titles
