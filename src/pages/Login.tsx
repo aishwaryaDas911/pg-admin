@@ -52,16 +52,15 @@ const Login: React.FC = () => {
     }
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock authentication - in real app, this would call an API
-      if (formData.username === 'admin' && formData.password === 'password') {
+      const success = await login(formData.username, formData.password);
+
+      if (success) {
         toast({
           title: "Login Successful",
           description: "Welcome back! Redirecting to dashboard...",
         });
-        navigate('/dashboard');
+        const from = (location.state as any)?.from?.pathname || '/dashboard';
+        navigate(from, { replace: true });
       } else {
         setError('Invalid username or password');
       }
