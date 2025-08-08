@@ -477,7 +477,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
 
         <TabsContent value="create" className="space-y-6">
           {title === 'Acquirer Protocol Parameter' ? (
-            <AcquirerProtocolParameterForm
+            <AcquirerProtocolForm
               onSubmit={(data) => {
                 toast({
                   title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
