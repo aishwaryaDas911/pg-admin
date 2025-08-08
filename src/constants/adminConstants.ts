@@ -158,10 +158,7 @@ export const ADMIN_STRINGS = {
     CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
     ROUTING_PROFILE: 'Routing Profile',
     PAYMENT_TYPE: 'Payment Type',
-    BRANCH_NAME: 'Branch Name',
     SWIFT_CODE: 'Swift Code',
-    ACCOUNT_NUMBER: 'Account Number',
-    ACCOUNT_TYPE: 'Account Type',
 
     // Virtual Terminal Options
     VIRTUAL_TERMINAL_OPTIONS: 'Virtual Terminal Options',
@@ -173,8 +170,6 @@ export const ADMIN_STRINGS = {
 
     // Fee Program Form
     FEE_PROGRAM_NAME: 'Fee Program Name',
-    PROGRAM_MANAGER_NAME: 'Program Manager Name',
-    ISO_NAME: 'ISO Name',
     MCC: 'MCC',
     FEE_TYPE: 'FeeType',
     SCHEME: 'Scheme',
