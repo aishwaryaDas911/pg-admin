@@ -1,0 +1,1 @@
+export { AcquirerProtocolForm } from './AcquirerProtocolForm';

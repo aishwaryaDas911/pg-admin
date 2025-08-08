@@ -134,18 +134,12 @@ export const ADMIN_STRINGS = {
     CONTACT_PHONE: 'Contact Phone',
     CONTACT_EMAIL_ID: 'Contact Email Id',
     ROUTING_PROFILE_NAME: 'Routing Profile Name',
-    BRANCH_NAME: 'Branch Name',
-    NAME_ON_ACCOUNT: 'Name on the Account',
-    ACCOUNT_TYPE: 'Account Type',
-    ACCOUNT_NUMBER: 'Account Number',
-    BANK_CODE: 'Bank Code',
     BUSINESS_ENTITY_NAME: 'Business Entity Name',
     BATCH_PREFIX: 'Batch Prefix',
     PROGRAM_MANAGER_TIME_ZONE: 'Program Manager Time Zone',
     PROGRAM_MANAGER_LOGO: 'Program Manager Logo',
     DCC_ENABLE: 'DCC Enable',
     DCC_SUPPORTED_CURRENCY: 'DCC Supported Currency',
-    COMPANY_NAME: 'Company Name',
     DEVICE_MANUFACTURER: 'Device Manufacturer',
     DEVICE_MODEL_NAME: 'Device Model Name',
     APPLICATION_TYPE: 'Application Type',
@@ -158,10 +152,7 @@ export const ADMIN_STRINGS = {
     CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
     ROUTING_PROFILE: 'Routing Profile',
     PAYMENT_TYPE: 'Payment Type',
-    BRANCH_NAME: 'Branch Name',
     SWIFT_CODE: 'Swift Code',
-    ACCOUNT_NUMBER: 'Account Number',
-    ACCOUNT_TYPE: 'Account Type',
 
     // Virtual Terminal Options
     VIRTUAL_TERMINAL_OPTIONS: 'Virtual Terminal Options',
@@ -173,8 +164,6 @@ export const ADMIN_STRINGS = {
 
     // Fee Program Form
     FEE_PROGRAM_NAME: 'Fee Program Name',
-    PROGRAM_MANAGER_NAME: 'Program Manager Name',
-    ISO_NAME: 'ISO Name',
     MCC: 'MCC',
     FEE_TYPE: 'FeeType',
     SCHEME: 'Scheme',
@@ -215,7 +204,6 @@ export const ADMIN_STRINGS = {
     ENTER_PHONE_NUMBER: 'Enter contact phone number',
     ENTER_EXTENSION: 'Enter extension',
     ENTER_FAX: 'Enter fax number',
-    ENTER_EMAIL: 'Enter email address',
 
     // Merchant Forms
     ENTER_MERCHANT_NAME: 'Enter merchant name',
@@ -269,22 +257,11 @@ export const ADMIN_STRINGS = {
     ENTER_BRANCH_NAME: 'Enter branch name',
     ENTER_ACCOUNT_HOLDER_NAME: 'Enter account holder name',
     SELECT_ACCOUNT_TYPE: 'Select account type',
-    ENTER_ACCOUNT_NUMBER: 'Enter account number',
-    ENTER_BANK_CODE: 'Enter bank code',
-    ENTER_BUSINESS_ENTITY_NAME: 'Enter business entity name',
-    ENTER_CONTACT_PERSON: 'Enter contact person',
     ENTER_BATCH_PREFIX: 'Enter batch prefix',
     SELECT_TIMEZONE: 'Select timezone',
     ENTER_BANK_NAMES_COMMA_SEPARATED: 'Enter bank names (comma separated)',
-    ENTER_SUB_MERCHANT_CODE: 'Enter sub merchant code',
     WHAT_ARE_YOU_LOOKING_FOR: 'What are you looking for?',
     CHOOSE_A_TYPE: 'Choose a Type...',
-    ENTER_MANUFACTURER: 'Enter manufacturer',
-    ENTER_MODEL_NAME: 'Enter model name',
-    ENTER_APPLICATION_TYPE: 'Enter application type',
-    ENTER_PACKAGE_NAME: 'Enter package name',
-    ENTER_APPLICATION_NAME: 'Enter application name',
-    ENTER_VERSION: 'Enter version',
     PICK_A_DATE: 'Pick a date',
     ENTER_6_DIGIT_PAN_LOW: 'Enter 6-digit PAN low',
     ENTER_6_DIGIT_PAN_HIGH: 'Enter 6-digit PAN high',
@@ -350,9 +327,6 @@ export const ADMIN_STRINGS = {
     FILE_TOO_LARGE: 'File Too Large',
 
     // Additional Toast Messages
-    ISO_CREATED: 'ISO Created',
-    MERCHANT_GROUP_CREATED: 'Merchant Group Created',
-    PROGRAM_MANAGER_CREATED: 'Program Manager Created',
     PDF_EXPORT_SUCCESSFUL: 'PDF Export Successful',
     CSV_EXPORT_SUCCESSFUL: 'CSV Export Successful',
 
@@ -372,8 +346,6 @@ export const ADMIN_STRINGS = {
     CREATE_PROGRAM_MANAGER: 'Create Program Manager',
     CREATE_ACQUIRER_PROTOCOL: 'Create Acquirer Protocol Parameter',
     CREATE_FEE_PROGRAM: 'Create Fee Program',
-    CREATE_ISO: 'Create ISO',
-    CREATE_MERCHANT_GROUP: 'Create Merchant Group',
     CREATE_NEW_RECORD: 'Create New Record',
   },
 
@@ -387,9 +359,6 @@ export const ADMIN_STRINGS = {
     PROGRAM_MANAGER_DESC: 'Configure a new program manager with associated details',
     ACQUIRER_PROTOCOL_DESC: 'Configure new acquirer protocol parameters',
     FEE_PROGRAM_DESC: 'Configure fee structure with dynamic ranges and card type configurations',
-    ISO_DESC: 'Configure a new ISO with all required details and PAN ranges',
-    MERCHANT_GROUP_DESC: 'Configure a new merchant group with contact and account details',
-    PROGRAM_MANAGER_DESC2: 'Configure a new program manager with all required details',
   },
 
   // Section Titles
@@ -416,12 +385,8 @@ export const ADMIN_STRINGS = {
     COMPLETION_EXCHANGE: 'Completion Exchange',
     OFFLINE_CAPABILITIES: 'Offline Capabilities',
     RECONCILIATION: 'Reconciliation',
-    MERCHANT_GROUP_DETAILS: 'Merchant Group Details',
-    ACCOUNT_DETAILS: 'Account Details',
-    CONTACT_DETAILS: 'Contact Details',
     LOCATION_CONFIGURATION: 'Location & Configuration',
     SCHEDULER_LOGO: 'Scheduler & Logo',
-    SUPPORT_TERMINALS: 'Support Terminals',
     VIRTUAL_TERMINAL_OPTIONS: 'Virtual Terminal Options',
   },
 
