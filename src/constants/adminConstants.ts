@@ -117,6 +117,23 @@ export const ADMIN_STRINGS = {
     PRE_AUTH: 'Pre Auth',
     VOID: 'Void',
     ONLINE: 'Online',
+
+    // Fee Program Form
+    FEE_PROGRAM_NAME: 'Fee Program Name',
+    PROGRAM_MANAGER_NAME: 'Program Manager Name',
+    ISO_NAME: 'ISO Name',
+    MCC: 'MCC',
+    FEE_TYPE: 'FeeType',
+    SCHEME: 'Scheme',
+    TXN_TYPE: 'Txn Type',
+    TXN_VOLUME: 'Txn Volume',
+    PM_SHARE: 'PM Share',
+    MSP_SHARE: 'MSP Share',
+    SLAB_FROM: 'Slab From',
+    SLAB_TO: 'Slab To',
+    TOTAL_FEE: 'Total Fee',
+    ADD_RANGE: 'Add Range',
+    ADD_CARD_TYPE: 'Add Card Type',
   },
 
   // Placeholders
