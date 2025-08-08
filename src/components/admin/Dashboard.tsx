@@ -93,7 +93,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome to Mercedes-Benz Admin Portal
+            Welcome to Payment Gateway Admin Portal
           </p>
         </div>
         <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">

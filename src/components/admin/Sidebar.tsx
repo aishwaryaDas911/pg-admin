@@ -143,7 +143,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, level = 0, onItemClick,
       onClick={onItemClick}
       className={({ isActive }) => cn(
         "flex items-center py-3 text-sm font-normal transition-all duration-200",
-        "hover:bg-accent hover:text-accent-foreground rounded-md",
+        "hover:bg-accent hover:text-accent-foreground rounded-md mt-3",
         isActive && "bg-accent text-accent-foreground font-medium shadow-sm",
         level > 0 && "ml-4",
         isCollapsed ? "justify-center px-2 mx-2 w-12" : "px-4 mx-2 space-x-3"

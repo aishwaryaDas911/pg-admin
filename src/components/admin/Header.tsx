@@ -19,6 +19,7 @@ import {
   PanelLeftOpen
 } from 'lucide-react';
 import { User as UserType } from '@/types/admin';
+import ChatakLogo from '../../assets/Chatak-AdminLogo.jpg'
 
 interface HeaderProps {
   user: UserType;
@@ -82,12 +83,18 @@ export const Header: React.FC<HeaderProps> = ({
           )}
           
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 rounded-lg bg-gradient-mb flex items-center justify-center">
-              <span className="text-white font-bold text-sm">MB</span>
+            <div className="h-10 w-70 rounded-lg bg-gradient-mb flex items-center justify-center overflow-hidden">
+              <img
+                src={ChatakLogo}
+                alt="Chatak Logo"
+                className="h-full w-full object-cover"
+              />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-bold tracking-tight">{ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}</h1>
-              <span className="text-xs text-muted-foreground">Mercedes-Benz</span>
+              <h1 className="text-lg font-bold tracking-tight">
+                {ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}
+              </h1>
+              <span className="text-xs text-muted-foreground">Admin Portal</span>
             </div>
           </div>
         </div>

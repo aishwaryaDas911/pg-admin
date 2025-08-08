@@ -23,7 +23,7 @@ export const ADMIN_STRINGS = {
   // Navigation & Menu
   NAVIGATION: {
     DASHBOARD: 'Dashboard',
-    ADMIN_PORTAL: 'Mercedes-Benz Admin',
+    ADMIN_PORTAL: 'Payment Gateway Admin',
     PAGE_NOT_FOUND: 'Page Not Found',
     PAGE_NOT_FOUND_DESC: 'The requested page could not be found.',
   },
@@ -148,7 +148,7 @@ export const ADMIN_STRINGS = {
     APPLICATION_VERSION: 'Application Version',
 
     // Program Manager Search Labels
-    BANK_NAME: 'Bank Name',
+    // BANK_NAME: 'Bank Name',
     STATUS: 'Status',
     RECORDS_PER_PAGE: 'Records Per Page',
 
@@ -466,7 +466,7 @@ export const ADMIN_STRINGS = {
     GENERATED_ON: 'Generated on:',
     FOUND: 'found',
     RECORDS: 'records',
-    MERCEDES_BENZ: 'Mercedes-Benz',
+    MERCEDES_BENZ: 'Payment Gateway',
     ADMINISTRATOR: 'Administrator',
     PROFILE: 'Profile',
     SETTINGS: 'Settings',
@@ -476,7 +476,7 @@ export const ADMIN_STRINGS = {
     ALL_SERVICES_OPERATIONAL: 'All services operational',
     PENDING_SECURITY_REVIEWS: 'Pending security reviews',
     NON_CRITICAL_WARNINGS: 'Non-critical warnings',
-    WELCOME_TO_ADMIN_PORTAL: 'Welcome to Mercedes-Benz Admin Portal',
+    WELCOME_TO_ADMIN_PORTAL: 'Welcome to Payment Gateway Admin Portal',
     REAL_TIME_DATA: 'Real-time Data',
     DEVICE_DISTRIBUTION: 'Device Distribution',
     WEEKLY_ACTIVITY: 'Weekly Activity',

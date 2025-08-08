@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { User, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import ChatakLogo from '../../src/assets/Chatak-AdminLogo.jpg';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -95,15 +96,12 @@ const Login: React.FC = () => {
       <div className="w-full max-w-md">
         {/* CHATAK Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center space-x-1 mb-2">
-            <span className="text-4xl font-bold">
-              <span className="text-primary">C</span>
-              <span className="text-secondary">H</span>
-              <span className="text-accent">A</span>
-              <span className="text-primary">T</span>
-              <span className="text-secondary">A</span>
-              <span className="text-accent">K</span>
-            </span>
+          <div className="inline-flex items-center space-x-1 mb-1">
+             <img
+      src={ChatakLogo}
+      alt="Chatak Logo"
+      className="h-full w-60 object-cover"
+    />
           </div>
         </div>
 
@@ -116,11 +114,11 @@ const Login: React.FC = () => {
             <p className="text-sm text-muted-foreground">
               Enter your credentials to access your account
             </p>
-            <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md border border-border/50">
+            {/* <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md border border-border/50">
               <p className="font-medium mb-1">Demo Credentials:</p>
               <p>Username: <span className="font-mono">admin</span></p>
               <p>Password: <span className="font-mono">password</span></p>
-            </div>
+            </div> */}
           </CardHeader>
           <CardContent className="space-y-4">
             {error && (
