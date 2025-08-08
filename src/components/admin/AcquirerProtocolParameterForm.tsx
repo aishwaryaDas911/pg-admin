@@ -94,9 +94,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -111,9 +111,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -128,9 +128,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -147,9 +147,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -164,9 +164,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -181,9 +181,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -200,9 +200,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -217,9 +217,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -234,9 +234,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -253,9 +253,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -281,9 +281,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -309,9 +309,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -381,9 +381,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -431,9 +431,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -459,9 +459,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -531,9 +531,9 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
                   <SelectValue placeholder="Select..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectOptions.map((option, index) => (
-                    <SelectItem key={index} value={option.toLowerCase().replace(/\s+/g, '-')}>
-                      {option}
+                  {GENERIC_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
