@@ -100,6 +100,25 @@ export const ADMIN_STRINGS = {
     ASSOCIATED_BANK_NAMES: 'Associated Bank Name(s)',
     SCHEDULER_RUN_TIME: 'Scheduler Run Time',
 
+    // Acquirer Protocol Parameter Form
+    ACQUIRER_PROTOCOL_PARAM_NAME: 'Acquirer Protocol Param Name',
+    ACQUIRER_ID: 'Acquirer Id',
+    APPLICATION_ID: 'Application Id',
+    FINANCIAL_AUTHORIZATION: 'Financial Authorization',
+    FINANCIAL_REVERSAL_ADVICE: 'Financial Reversal Advice',
+    CANCELLATION_REQUEST: 'Cancellation Request',
+    CANCELLATION_ADVICE: 'Cancellation Advice',
+    COMPLETION_ADVICE: 'Completion Advice',
+    DIAGNOSTIC_REQUEST: 'Diagnostic Request',
+    FINANCIAL_COMPLETION_ADVICE: 'Financial Completion Advice',
+    REVERSAL_ADVICE: 'Reversal Advice',
+    RECONCILIATION_REQUEST: 'Reconciliation Request',
+    TIMEOUT_COMPLETION_ADVICE: 'Timeout Completion Advice',
+    SCHEDULER_STARTUP: 'Scheduler Startup',
+    KEEP_ALIVE: 'Keep Alive',
+    START_TIME: 'Start Time',
+    TIME_INTERVAL: 'Time Interval',
+
     // Merchant Group Form
     MERCHANT_GROUP_NAME: 'Merchant Group Name',
     CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
