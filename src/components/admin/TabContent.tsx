@@ -4,14 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
-import { ProgramManagerForm } from './Manage/ProgramManager/ProgramManagerForm';
-import { ISOForm } from './Manage/ISO/ISOForm';
-import { MerchantGroupForm } from './Manage/MerchantGroup/MerchantGroupForm';
-import { MerchantForm } from './Manage/Merchant/MerchantForm';
-import { SubMerchantForm } from './Manage/SubMerchant/SubMerchantForm';
-import { BankForm } from './Manage/Bank/BankForm';
-import { FeeProgramForm } from './Programs/FeeProgram/FeeProgramForm';
+import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
+import { ProgramManagerForm } from './Manage/ProgramManager';
+import { ISOForm } from './Manage/ISO';
+import { MerchantGroupForm } from './Manage/MerchantGroup';
+import { MerchantForm } from './Manage/Merchant';
+import { SubMerchantForm } from './Manage/SubMerchant';
+import { BankForm } from './Manage/Bank';
+import { FeeProgramForm } from './Programs/FeeProgram';
 import { 
   Table, 
   TableBody, 
