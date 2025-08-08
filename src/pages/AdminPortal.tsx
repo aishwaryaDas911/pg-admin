@@ -5,6 +5,7 @@ import { Sidebar } from '@/components/admin/Sidebar';
 import { Dashboard } from '@/components/admin/Dashboard';
 import { TabContent } from '@/components/admin/TabContent';
 import { menuItems } from '@/config/menuConfig';
+import FormGeneratorExample from '@/examples/FormGeneratorExample';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 
