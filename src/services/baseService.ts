@@ -33,10 +33,8 @@ class BaseService {
   constructor(baseURL: string = BASE_URL) {
     this.axiosInstance = axios.create({
       baseURL,
-      timeout: 30000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      timeout: API_CONFIG.TIMEOUT,
+      headers: API_CONFIG.HEADERS.DEFAULT,
     });
 
     this.setupInterceptors();
