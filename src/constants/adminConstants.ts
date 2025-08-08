@@ -256,6 +256,7 @@ export const ADMIN_STRINGS = {
     MERCHANT_GROUP_FIELDS_CLEARED: 'All Merchant Group fields have been cleared',
     ISO_FIELDS_CLEARED: 'All ISO fields have been cleared',
     PROGRAM_MANAGER_FIELDS_CLEARED: 'All Program Manager fields have been cleared',
+    FEE_PROGRAM_FIELDS_CLEARED: 'All Fee Program fields have been cleared',
 
     // Error Messages
     VALIDATION_ERROR: 'Validation Error',
