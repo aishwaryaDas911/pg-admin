@@ -332,6 +332,18 @@ export const ADMIN_STRINGS = {
     CONFIGURATION: 'Configuration',
     ACQUIRER_PROTOCOL: 'Acquirer Protocol',
     SCHEDULE_SETTINGS: 'Schedule Settings',
+    ONLINE_CAPABILITIES: 'Online Capabilities',
+    BATCH_TRANSFER: 'Batch Transfer',
+    COMPLETION_EXCHANGE: 'Completion Exchange',
+    OFFLINE_CAPABILITIES: 'Offline Capabilities',
+    RECONCILIATION: 'Reconciliation',
+    MERCHANT_GROUP_DETAILS: 'Merchant Group Details',
+    ACCOUNT_DETAILS: 'Account Details',
+    CONTACT_DETAILS: 'Contact Details',
+    LOCATION_CONFIGURATION: 'Location & Configuration',
+    SCHEDULER_LOGO: 'Scheduler & Logo',
+    SUPPORT_TERMINALS: 'Support Terminals',
+    VIRTUAL_TERMINAL_OPTIONS: 'Virtual Terminal Options',
   },
 
   // Step Titles
