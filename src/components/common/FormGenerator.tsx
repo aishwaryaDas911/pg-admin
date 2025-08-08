@@ -301,7 +301,20 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
                   <TableRow key={index}>
                     {tableDataConfig.columns.map((column) => (
                       <TableCell key={column.key}>
-                        {row[column.key] || '-'}
+                        {column.key === 'actions' ? (
+                          row[column.key] || '-'
+                        ) : column.key === 'status' ? (
+                          <Badge
+                            variant={row[column.key] === 'active' ? 'default' : 'secondary'}
+                            className={row[column.key] === 'active' ? 'bg-green-100 text-green-800' : ''}
+                          >
+                            {row[column.key] || '-'}
+                          </Badge>
+                        ) : (
+                          <span className={column.key.includes('email') || column.key.includes('Email') ? 'font-mono text-xs' : ''}>
+                            {row[column.key] || '-'}
+                          </span>
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
