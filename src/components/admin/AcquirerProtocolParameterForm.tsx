@@ -38,12 +38,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
     onReset?.();
   };
 
-  const selectOptions = [
-    "Select...",
-    "Option 1",
-    "Option 2", 
-    "Option 3"
-  ];
+  const { GENERIC_OPTIONS, TIME_INTERVALS } = DROPDOWN_OPTIONS;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
