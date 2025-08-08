@@ -38,13 +38,10 @@ const DialogContent = React.forwardRef<
       return React.Children.toArray(children).some(child => {
         if (!React.isValidElement(child)) return false;
 
-        // Check if it's DialogTitle component
-        if (child.type === DialogTitle) return true;
-
         // Check if it's the primitive Title component
         if (child.type === DialogPrimitive.Title) return true;
 
-        // Check component displayName
+        // Check component displayName (covers our DialogTitle wrapper)
         if (typeof child.type === 'function' &&
             (child.type as any).displayName === DialogPrimitive.Title.displayName) return true;
 
