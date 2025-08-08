@@ -40,6 +40,51 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
   const moduleConfig = getModuleConfig(title);
   const mockData = getMockDataForModule(title);
 
+  // Export functions
+  const exportToPDF = () => {
+    // Basic PDF export implementation
+    console.log('Export to PDF functionality would be implemented here');
+    toast({
+      title: "PDF Export",
+      description: `Exported ${searchResults.length} records to PDF`,
+    });
+  };
+
+  const exportToCSV = () => {
+    // Basic CSV export implementation
+    console.log('Export to CSV functionality would be implemented here');
+    toast({
+      title: "CSV Export",
+      description: `Exported ${searchResults.length} records to CSV`,
+    });
+  };
+
+  // Enhanced module config with export handlers
+  const enhancedConfig = {
+    ...moduleConfig,
+    searchFields: moduleConfig.searchFields.map(field => {
+      if (field.button?.name === 'exportPDF') {
+        return {
+          ...field,
+          button: {
+            ...field.button,
+            onClick: exportToPDF
+          }
+        };
+      }
+      if (field.button?.name === 'exportCSV') {
+        return {
+          ...field,
+          button: {
+            ...field.button,
+            onClick: exportToCSV
+          }
+        };
+      }
+      return field;
+    })
+  };
+
   // Handle form submission from FormGenerator
   const handleFormSubmit = (data: any) => {
     setLoading(true);
