@@ -706,6 +706,20 @@ export const DROPDOWN_OPTIONS = {
     { value: '6hours', label: '6 hours' },
     { value: '12hours', label: '12 hours' },
     { value: '24hours', label: '24 hours' }
+  ],
+
+  STATUS_OPTIONS: [
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'suspended', label: 'Suspended' }
+  ],
+
+  RECORDS_PER_PAGE: [
+    { value: '10', label: '10' },
+    { value: '25', label: '25' },
+    { value: '50', label: '50' },
+    { value: '100', label: '100' }
   ]
 };
 
