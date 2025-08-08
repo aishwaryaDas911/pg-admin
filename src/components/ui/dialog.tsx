@@ -31,31 +31,33 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
-  // Check if DialogTitle is present in children (including nested in VisuallyHidden)
-  const hasDialogTitle = React.Children.toArray(children).some(child => {
-    if (!React.isValidElement(child)) return false;
+  // Recursively check if DialogTitle is present in children
+  const hasDialogTitle = React.useMemo(() => {
+    const findDialogTitle = (children: React.ReactNode): boolean => {
+      return React.Children.toArray(children).some(child => {
+        if (!React.isValidElement(child)) return false;
 
-    // Direct DialogTitle
-    if (child.type === DialogTitle) return true;
+        // Check if it's our DialogTitle component
+        if (child.type === DialogTitle) return true;
 
-    // DialogTitle with displayName
-    if (typeof child.type === 'object' && child.type?.displayName === 'DialogTitle') return true;
+        // Check if it's the primitive Title component
+        if (child.type === DialogPrimitive.Title) return true;
 
-    // DialogTitle with sr-only class
-    if (child.props?.className?.includes('sr-only')) return true;
+        // Check component displayName
+        if (typeof child.type === 'function' &&
+            (child.type as any).displayName === DialogPrimitive.Title.displayName) return true;
 
-    // Check for VisuallyHidden wrapping DialogTitle
-    if (child.props?.children) {
-      const nestedChildren = React.Children.toArray(child.props.children);
-      return nestedChildren.some(nestedChild =>
-        React.isValidElement(nestedChild) &&
-        (nestedChild.type === DialogTitle ||
-         (typeof nestedChild.type === 'object' && nestedChild.type?.displayName === 'DialogTitle'))
-      );
-    }
+        // Recursively check children (for VisuallyHidden, fragments, etc.)
+        if (child.props?.children) {
+          return findDialogTitle(child.props.children);
+        }
 
-    return false;
-  });
+        return false;
+      });
+    };
+
+    return findDialogTitle(children);
+  }, [children]);
 
   return (
     <DialogPortal>
