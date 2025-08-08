@@ -31,13 +31,31 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
-  // Check if DialogTitle is present in children
-  const hasDialogTitle = React.Children.toArray(children).some(child =>
-    React.isValidElement(child) &&
-    (child.type === DialogTitle ||
-     (typeof child.type === 'object' && child.type?.displayName === 'DialogTitle') ||
-     child.props?.className?.includes('sr-only'))
-  );
+  // Check if DialogTitle is present in children (including nested in VisuallyHidden)
+  const hasDialogTitle = React.Children.toArray(children).some(child => {
+    if (!React.isValidElement(child)) return false;
+
+    // Direct DialogTitle
+    if (child.type === DialogTitle) return true;
+
+    // DialogTitle with displayName
+    if (typeof child.type === 'object' && child.type?.displayName === 'DialogTitle') return true;
+
+    // DialogTitle with sr-only class
+    if (child.props?.className?.includes('sr-only')) return true;
+
+    // Check for VisuallyHidden wrapping DialogTitle
+    if (child.props?.children) {
+      const nestedChildren = React.Children.toArray(child.props.children);
+      return nestedChildren.some(nestedChild =>
+        React.isValidElement(nestedChild) &&
+        (nestedChild.type === DialogTitle ||
+         (typeof nestedChild.type === 'object' && nestedChild.type?.displayName === 'DialogTitle'))
+      );
+    }
+
+    return false;
+  });
 
   return (
     <DialogPortal>

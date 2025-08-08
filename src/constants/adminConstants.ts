@@ -147,6 +147,11 @@ export const ADMIN_STRINGS = {
     APPLICATION_NAME: 'Application Name',
     APPLICATION_VERSION: 'Application Version',
 
+    // Program Manager Search Labels
+    BANK_NAME: 'Bank Name',
+    STATUS: 'Status',
+    RECORDS_PER_PAGE: 'Records Per Page',
+
     // Merchant Group Form
     MERCHANT_GROUP_NAME: 'Merchant Group Name',
     CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
@@ -243,6 +248,12 @@ export const ADMIN_STRINGS = {
     ENTER_SLAB_FROM: '$',
     ENTER_SLAB_TO: '$',
     ENTER_TOTAL_FEE: '$',
+
+    // Program Manager Search Placeholders
+    ENTER_PROGRAM_MANAGER_NAME: 'Enter program manager name',
+    SELECT_BANK_NAME: 'Select bank name',
+    SELECT_STATUS: 'Select status',
+    SELECT_RECORDS_PER_PAGE: 'Select records per page',
 
     // Additional Common Placeholders
     ENTER_CORPORATE_LEGAL_NAME: 'Enter corporate legal name',
@@ -695,6 +706,20 @@ export const DROPDOWN_OPTIONS = {
     { value: '6hours', label: '6 hours' },
     { value: '12hours', label: '12 hours' },
     { value: '24hours', label: '24 hours' }
+  ],
+
+  STATUS_OPTIONS: [
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'suspended', label: 'Suspended' }
+  ],
+
+  RECORDS_PER_PAGE: [
+    { value: '10', label: '10' },
+    { value: '25', label: '25' },
+    { value: '50', label: '50' },
+    { value: '100', label: '100' }
   ]
 };
 
