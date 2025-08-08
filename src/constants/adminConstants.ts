@@ -349,6 +349,13 @@ export const ADMIN_STRINGS = {
     INVALID_FILE_TYPE: 'Invalid File Type',
     FILE_TOO_LARGE: 'File Too Large',
 
+    // Additional Toast Messages
+    ISO_CREATED: 'ISO Created',
+    MERCHANT_GROUP_CREATED: 'Merchant Group Created',
+    PROGRAM_MANAGER_CREATED: 'Program Manager Created',
+    PDF_EXPORT_SUCCESSFUL: 'PDF Export Successful',
+    CSV_EXPORT_SUCCESSFUL: 'CSV Export Successful',
+
     // Export Messages
     EXPORTED_RECORDS_PDF: 'records to PDF',
     EXPORTED_RECORDS_CSV: 'records to CSV',
