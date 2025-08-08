@@ -244,6 +244,12 @@ export const ADMIN_STRINGS = {
     ENTER_SLAB_TO: '$',
     ENTER_TOTAL_FEE: '$',
 
+    // Program Manager Search Placeholders
+    ENTER_PROGRAM_MANAGER_NAME: 'Enter program manager name',
+    SELECT_BANK_NAME: 'Select bank name',
+    SELECT_STATUS: 'Select status',
+    SELECT_RECORDS_PER_PAGE: 'Select records per page',
+
     // Additional Common Placeholders
     ENTER_CORPORATE_LEGAL_NAME: 'Enter corporate legal name',
     ENTER_MERCHANT_GROUP_NAME: 'Enter merchant group name',
