@@ -147,6 +147,11 @@ export const ADMIN_STRINGS = {
     APPLICATION_NAME: 'Application Name',
     APPLICATION_VERSION: 'Application Version',
 
+    // Program Manager Search Labels
+    BANK_NAME: 'Bank Name',
+    STATUS: 'Status',
+    RECORDS_PER_PAGE: 'Records Per Page',
+
     // Merchant Group Form
     MERCHANT_GROUP_NAME: 'Merchant Group Name',
     CORPORATE_LEGAL_NAME: 'Corporate Legal Name',
