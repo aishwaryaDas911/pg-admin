@@ -40,193 +40,115 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
   const moduleConfig = getModuleConfig(title);
   const mockData = getMockDataForModule(title);
 
-  // Mock data for demonstration
-  const mockData: TableRowType[] = [
-    {
-      id: '1',
-      deviceManufacturer: 'Samsung',
-      deviceModelName: 'Galaxy S21',
-      applicationType: 'Payment',
-      packageName: 'com.samsung.pay',
-      applicationName: 'Samsung Pay',
-      applicationVersion: '1.2.3',
-      createdAt: new Date('2024-01-15'),
-      updatedAt: new Date('2024-01-20')
-    },
-    {
-      id: '2',
-      deviceManufacturer: 'Apple',
-      deviceModelName: 'iPhone 14',
-      applicationType: 'Banking',
-      packageName: 'com.apple.wallet',
-      applicationName: 'Apple Wallet',
-      applicationVersion: '2.1.0',
-      createdAt: new Date('2024-01-10'),
-      updatedAt: new Date('2024-01-18')
-    },
-    // Add more mock data as needed
-  ];
-
-  const handleSearch = async () => {
+  // Handle form submission from FormGenerator
+  const handleFormSubmit = (data: any) => {
     setLoading(true);
-    // Simulate API call
+
+    // Simulate API call with filtering
     setTimeout(() => {
-      setSearchResults(mockData);
+      let filteredResults = mockData;
+
+      // Apply filters based on form data
+      Object.keys(data).forEach(key => {
+        if (data[key] && key !== 'recordsPerPage') {
+          filteredResults = filteredResults.filter(item => {
+            const itemValue = item[key];
+            if (typeof itemValue === 'string') {
+              return itemValue.toLowerCase().includes(data[key].toLowerCase());
+            }
+            if (Array.isArray(itemValue)) {
+              return itemValue.some(val =>
+                val.toLowerCase().includes(data[key].toLowerCase())
+              );
+            }
+            return itemValue === data[key];
+          });
+        }
+      });
+
+      // Update table configuration with filtered data
+      const updatedTableConfig = {
+        ...moduleConfig.tableConfig,
+        rows: filteredResults.map(item => ({
+          ...item,
+          associatedBankNames: Array.isArray(item.associatedBankNames)
+            ? item.associatedBankNames.join(', ')
+            : item.associatedBankNames
+        }))
+      };
+
+      setSearchResults(filteredResults);
       setLoading(false);
+
       toast({
         title: ADMIN_STRINGS.TOAST.SEARCH_COMPLETED,
-        description: `${ADMIN_STRINGS.GENERIC.FOUND} ${mockData.length} ${ADMIN_STRINGS.TOAST.FOUND_RESULTS}`,
+        description: `${ADMIN_STRINGS.GENERIC.FOUND} ${filteredResults.length} ${ADMIN_STRINGS.TOAST.FOUND_RESULTS}`,
       });
     }, 1000);
   };
 
-  const handleCreate = async () => {
-    setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
-      setCreateData({});
-      toast({
-        title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-        description: ADMIN_STRINGS.TOAST.NEW_RECORD_CREATED,
-      });
-    }, 1000);
-  };
-
-  const handleAction = (action: ActionType, row: TableRowType) => {
+  const handleAction = (action: string, row: any) => {
+    const displayName = row.name || row.programManagerName || row.bankName || row.merchantName || row.isoName || 'item';
     const actionMessages = {
-      view: `Viewing details for ${row.applicationName}`,
-      suspend: `Suspending ${row.applicationName}`,
-      edit: `Editing ${row.applicationName}`,
-      delete: `Deleting ${row.applicationName}`
+      view: `Viewing details for ${displayName}`,
+      suspend: `Suspending ${displayName}`,
+      edit: `Editing ${displayName}`,
+      delete: `Deleting ${displayName}`
     };
 
     toast({
       title: `${action.charAt(0).toUpperCase() + action.slice(1)} Action`,
-      description: actionMessages[action],
+      description: actionMessages[action as keyof typeof actionMessages],
       variant: action === 'delete' ? 'destructive' : 'default'
     });
   };
 
-  const renderActionButton = (config: ActionConfig, row: TableRowType) => {
+  const renderActionButton = (type: string, row: any) => {
     const IconMap = {
-      Eye,
-      Pause,
-      Edit,
-      Trash2
+      view: Eye,
+      suspend: Pause,
+      edit: Edit,
+      delete: Trash2
     };
-    const Icon = IconMap[config.icon as keyof typeof IconMap];
+
+    const variants = {
+      view: 'outline' as const,
+      suspend: 'secondary' as const,
+      edit: 'default' as const,
+      delete: 'destructive' as const
+    };
+
+    const tooltips = {
+      view: 'View Details',
+      suspend: 'Suspend',
+      edit: 'Edit',
+      delete: 'Delete'
+    };
+
+    const Icon = IconMap[type as keyof typeof IconMap];
+
+    if (!Icon) return null;
 
     return (
-      <TooltipProvider key={config.type}>
+      <TooltipProvider key={type}>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={config.variant}
+              variant={variants[type as keyof typeof variants]}
               size="icon"
               className="h-8 w-8"
-              onClick={() => handleAction(config.type, row)}
+              onClick={() => handleAction(type, row)}
             >
               <Icon className="h-4 w-4" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{config.tooltip}</p>
+            <p>{tooltips[type as keyof typeof tooltips]}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     );
   };
-
-  const resetFilters = () => {
-    setFilters({});
-  };
-
-  const exportToPDF = () => {
-    const doc = new jsPDF();
-    
-    // Add title
-    doc.setFontSize(20);
-    doc.text(`${title} - Export Report`, 20, 20);
-    
-    // Add export timestamp
-    doc.setFontSize(12);
-    doc.text(`Generated on: ${new Date().toLocaleString()}`, 20, 35);
-    
-    // Prepare table data
-    const tableData = searchResults.map(row => [
-      row.deviceManufacturer,
-      row.deviceModelName,
-      row.applicationType,
-      row.packageName,
-      row.applicationName,
-      row.applicationVersion
-    ]);
-
-    // Create table
-    autoTable(doc, {
-      head: [['Device Manufacturer', 'Model Name', 'Application Type', 'Package Name', 'Application Name', 'Version']],
-      body: tableData,
-      startY: 50,
-      styles: {
-        fontSize: 8,
-        cellPadding: 3,
-      },
-      headStyles: {
-        fillColor: [41, 121, 255], // Mercedes blue color
-        textColor: 255,
-        fontStyle: 'bold'
-      },
-      alternateRowStyles: {
-        fillColor: [245, 245, 245]
-      },
-      margin: { top: 50 }
-    });
-
-    // Save the PDF
-    doc.save(`${title.replace(/\s+/g, '_')}_export_${new Date().toISOString().split('T')[0]}.pdf`);
-    
-    toast({
-      title: "PDF Export Successful",
-      description: `Exported ${searchResults.length} records to PDF`,
-    });
-  };
-
-  const exportToCSV = () => {
-    const csvData = searchResults.map(row => ({
-      'Device Manufacturer': row.deviceManufacturer,
-      'Model Name': row.deviceModelName,
-      'Application Type': row.applicationType,
-      'Package Name': row.packageName,
-      'Application Name': row.applicationName,
-      'Version': row.applicationVersion,
-      'Created At': row.createdAt.toLocaleDateString(),
-      'Updated At': row.updatedAt.toLocaleDateString()
-    }));
-
-    const csv = Papa.unparse(csvData);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    
-    if (link.download !== undefined) {
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', `${title.replace(/\s+/g, '_')}_export_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    
-    toast({
-      title: "CSV Export Successful",
-      description: `Exported ${searchResults.length} records to CSV`,
-    });
-  };
-
-  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedResults = searchResults.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className={`space-y-6 animate-fade-in ${className}`}>
