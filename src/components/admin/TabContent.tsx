@@ -12,40 +12,16 @@ import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
 import { BankForm } from './Manage/Bank';
 import { FeeProgramForm } from './Programs/FeeProgram';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious
-} from '@/components/ui/pagination';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { 
-  Search, 
-  Plus, 
-  Eye, 
-  Pause, 
-  Edit, 
-  Trash2,
-  Filter,
-  RotateCcw,
-  Download,
-  FileText
+import {
+  Search,
+  Plus,
+  Eye,
+  Pause,
+  Edit,
+  Trash2
 } from 'lucide-react';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import Papa from 'papaparse';
-import { FilterFields, CreateFields, TableRow as TableRowType, ActionType, ActionConfig } from '@/types/admin';
 import { useToast } from '@/hooks/use-toast';
 import { ADMIN_STRINGS } from '@/constants/adminConstants';
 
