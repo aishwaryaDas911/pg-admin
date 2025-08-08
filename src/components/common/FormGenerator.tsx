@@ -96,11 +96,10 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   const handleButtonClick = (e: React.MouseEvent, btn: FormField['button']) => {
     e.preventDefault();
     if (btn?.name === 'search') {
-      if (!showTable) {
-        setRows(tableDataConfig.rows || []);
-        setShowTable(true);
-      } else {
-        setShowTable(false);
+      // Call the onSubmit function with current form data
+      if (onSubmit) {
+        const formData = methods.getValues();
+        onSubmit(formData);
       }
     } else if (btn?.name === 'reset') {
       reset();
@@ -110,6 +109,14 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
       btn.onClick();
     }
   };
+
+  // Update rows when tableDataConfig changes
+  React.useEffect(() => {
+    if (tableDataConfig.rows && tableDataConfig.rows.length > 0) {
+      setRows(tableDataConfig.rows);
+      setShowTable(true);
+    }
+  }, [tableDataConfig.rows]);
 
   const handleFormSubmit = (data: any) => {
     if (onSubmit) {
