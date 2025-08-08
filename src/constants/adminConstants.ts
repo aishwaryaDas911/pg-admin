@@ -600,6 +600,24 @@ export const DROPDOWN_OPTIONS = {
     { value: 'medium', label: 'Medium Volume ($10,000 - $100,000)' },
     { value: 'high', label: 'High Volume ($100,000 - $1,000,000)' },
     { value: 'enterprise', label: 'Enterprise Volume (> $1,000,000)' }
+  ],
+
+  GENERIC_OPTIONS: [
+    { value: 'select', label: 'Select...' },
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' }
+  ],
+
+  TIME_INTERVALS: [
+    { value: '15min', label: '15 minutes' },
+    { value: '30min', label: '30 minutes' },
+    { value: '1hour', label: '1 hour' },
+    { value: '2hours', label: '2 hours' },
+    { value: '4hours', label: '4 hours' },
+    { value: '6hours', label: '6 hours' },
+    { value: '12hours', label: '12 hours' },
+    { value: '24hours', label: '24 hours' }
   ]
 };
 
