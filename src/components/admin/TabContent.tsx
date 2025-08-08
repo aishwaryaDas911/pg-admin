@@ -11,6 +11,7 @@ import { MerchantGroupForm } from './MerchantGroupForm';
 import { MerchantForm } from './MerchantForm';
 import { SubMerchantForm } from './SubMerchantForm';
 import { BankForm } from './BankForm';
+import { FeeProgramForm } from './FeeProgramForm';
 import { 
   Table, 
   TableBody, 
