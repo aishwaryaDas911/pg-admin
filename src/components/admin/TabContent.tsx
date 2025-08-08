@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
-import { ProgramManagerForm } from './Manage/ProgramManager';
+import { ProgramManagerForm, ProgramManagerSearch } from './Manage/ProgramManager';
 import { ISOForm } from './Manage/ISO';
 import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
