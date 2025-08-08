@@ -91,7 +91,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="financialAuthorization" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -108,7 +108,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="financialReversalAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -125,7 +125,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="cancellationRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -144,7 +144,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="cancellationAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -161,7 +161,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="completionAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -178,7 +178,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="diagnosticRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -197,7 +197,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="financialCompletionAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -214,7 +214,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="reversalAdvice" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -231,7 +231,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="reconciliationRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -250,7 +250,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="currencyConversionRequest" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -278,7 +278,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="onlineFinancialCapture" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -306,7 +306,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="batchExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -378,7 +378,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="completionExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -428,7 +428,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="offlineFinancialCapture" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -456,7 +456,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="batchExchangePolicy2" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
@@ -528,7 +528,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
               </Label>
               <Select name="reconciliationExchangePolicy" required>
                 <SelectTrigger className="h-10">
-                  <SelectValue placeholder="Select..." />
+                  <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT} />
                 </SelectTrigger>
                 <SelectContent>
                   {GENERIC_OPTIONS.map((option) => (
