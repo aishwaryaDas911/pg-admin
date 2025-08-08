@@ -244,6 +244,7 @@ export const ADMIN_STRINGS = {
     MERCHANT_GROUP_CREATION_CANCELLED: 'Merchant Group creation was cancelled',
     ISO_CREATION_CANCELLED: 'ISO creation was cancelled',
     PROGRAM_MANAGER_CREATION_CANCELLED: 'Program Manager creation was cancelled',
+    FEE_PROGRAM_CREATION_CANCELLED: 'Fee Program creation was cancelled',
     FORM_CREATION_CANCELLED: 'Form creation was cancelled',
 
     // Reset Messages
