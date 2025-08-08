@@ -509,6 +509,38 @@ export const DROPDOWN_OPTIONS = {
     { value: 'UTC+10', label: 'UTC+10:00' },
     { value: 'UTC+11', label: 'UTC+11:00' },
     { value: 'UTC+12', label: 'UTC+12:00' }
+  ],
+
+  FEE_TYPES: [
+    { value: 'percentage', label: 'Percentage' },
+    { value: 'fixed', label: 'Fixed' },
+    { value: 'tiered', label: 'Tiered' },
+    { value: 'interchange_plus', label: 'Interchange Plus' }
+  ],
+
+  SCHEMES: [
+    { value: 'visa', label: 'Visa' },
+    { value: 'mastercard', label: 'Mastercard' },
+    { value: 'amex', label: 'American Express' },
+    { value: 'discover', label: 'Discover' },
+    { value: 'jcb', label: 'JCB' },
+    { value: 'diners', label: 'Diners Club' }
+  ],
+
+  TXN_TYPES: [
+    { value: 'sale', label: 'Sale' },
+    { value: 'refund', label: 'Refund' },
+    { value: 'auth', label: 'Authorization' },
+    { value: 'capture', label: 'Capture' },
+    { value: 'void', label: 'Void' },
+    { value: 'chargeback', label: 'Chargeback' }
+  ],
+
+  TXN_VOLUMES: [
+    { value: 'low', label: 'Low Volume (< $10,000)' },
+    { value: 'medium', label: 'Medium Volume ($10,000 - $100,000)' },
+    { value: 'high', label: 'High Volume ($100,000 - $1,000,000)' },
+    { value: 'enterprise', label: 'Enterprise Volume (> $1,000,000)' }
   ]
 };
 
