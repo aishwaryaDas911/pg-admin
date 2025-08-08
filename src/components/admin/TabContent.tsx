@@ -172,208 +172,28 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         </TabsList>
 
         <TabsContent value="search" className="space-y-6">
-          {title === 'Program Manager' ? (
-            <ProgramManagerSearch
-              onSearchComplete={(results) => {
-                console.log('Program Manager search results:', results);
-              }}
-            />
-          ) : (
-            <>
-              <Card className="shadow-glass">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Filter className="h-5 w-5" />
-                    <span>Search Filters</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="deviceManufacturer">Device Manufacturer</Label>
-                      <Input
-                        id="deviceManufacturer"
-                        placeholder="Enter manufacturer"
-                        value={filters.deviceManufacturer || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, deviceManufacturer: e.target.value }))}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="deviceModelName">Device Model Name</Label>
-                      <Input
-                        id="deviceModelName"
-                        placeholder="Enter model name"
-                        value={filters.deviceModelName || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, deviceModelName: e.target.value }))}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="applicationType">Application Type</Label>
-                      <Input
-                        id="applicationType"
-                        placeholder="Enter application type"
-                        value={filters.applicationType || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, applicationType: e.target.value }))}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="packageName">Package Name</Label>
-                      <Input
-                        id="packageName"
-                        placeholder="Enter package name"
-                        value={filters.packageName || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, packageName: e.target.value }))}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="applicationName">Application Name</Label>
-                      <Input
-                        id="applicationName"
-                        placeholder="Enter application name"
-                        value={filters.applicationName || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, applicationName: e.target.value }))}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="applicationVersion">Application Version</Label>
-                      <Input
-                        id="applicationVersion"
-                        placeholder="Enter version"
-                        value={filters.applicationVersion || ''}
-                        onChange={(e) => setFilters(prev => ({ ...prev, applicationVersion: e.target.value }))}
-                      />
-                    </div>
+          <FormGenerator
+            fields={moduleConfig.searchFields}
+            tableDataConfig={{
+              ...moduleConfig.tableConfig,
+              rows: searchResults.map(item => ({
+                ...item,
+                associatedBankNames: Array.isArray(item.associatedBankNames)
+                  ? item.associatedBankNames.join(', ')
+                  : item.associatedBankNames,
+                actions: (
+                  <div className="flex items-center space-x-2">
+                    {renderActionButton('view', item)}
+                    {renderActionButton('edit', item)}
+                    {renderActionButton('suspend', item)}
+                    {renderActionButton('delete', item)}
                   </div>
-                  <div className="flex items-center space-x-4 pt-4">
-                    <Button onClick={handleSearch} disabled={loading}>
-                      <Search className="mr-2 h-4 w-4" />
-                      {loading ? 'Searching...' : 'Search'}
-                    </Button>
-                    <Button variant="outline" onClick={resetFilters}>
-                      <RotateCcw className="mr-2 h-4 w-4" />
-                      Reset
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {searchResults.length > 0 && (
-                <Card className="shadow-glass">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle>Search Results ({searchResults.length} found)</CardTitle>
-                      <div className="flex items-center space-x-2">
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={exportToPDF}
-                                disabled={searchResults.length === 0}
-                              >
-                                <FileText className="mr-2 h-4 w-4" />
-                                PDF
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Export to PDF</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={exportToCSV}
-                                disabled={searchResults.length === 0}
-                              >
-                                <Download className="mr-2 h-4 w-4" />
-                                CSV
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Export to CSV</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="overflow-x-auto">
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Device Manufacturer</TableHead>
-                            <TableHead>Model Name</TableHead>
-                            <TableHead>Application Type</TableHead>
-                            <TableHead>Package Name</TableHead>
-                            <TableHead>Application Name</TableHead>
-                            <TableHead>Version</TableHead>
-                            <TableHead>Actions</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {paginatedResults.map((row) => (
-                            <TableRow key={row.id}>
-                              <TableCell className="font-medium">{row.deviceManufacturer}</TableCell>
-                              <TableCell>{row.deviceModelName}</TableCell>
-                              <TableCell>{row.applicationType}</TableCell>
-                              <TableCell className="font-mono text-xs">{row.packageName}</TableCell>
-                              <TableCell>{row.applicationName}</TableCell>
-                              <TableCell>
-                                <Badge variant="outline">{row.applicationVersion}</Badge>
-                              </TableCell>
-                              <TableCell>
-                                <div className="flex items-center space-x-2">
-                                  {actionConfigs.map(config => renderActionButton(config, row))}
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
-
-                    {totalPages > 1 && (
-                      <div className="mt-4">
-                        <Pagination>
-                          <PaginationContent>
-                            <PaginationItem>
-                              <PaginationPrevious
-                                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                                className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                              />
-                            </PaginationItem>
-                            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                              <PaginationItem key={page}>
-                                <PaginationLink
-                                  onClick={() => setCurrentPage(page)}
-                                  isActive={currentPage === page}
-                                  className="cursor-pointer"
-                                >
-                                  {page}
-                                </PaginationLink>
-                              </PaginationItem>
-                            ))}
-                            <PaginationItem>
-                              <PaginationNext
-                                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                                className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                              />
-                            </PaginationItem>
-                          </PaginationContent>
-                        </Pagination>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              )}
-            </>
-          )}
+                )
+              }))
+            }}
+            onSubmit={handleFormSubmit}
+            className="bg-transparent"
+          />
         </TabsContent>
 
         <TabsContent value="create" className="space-y-6">
