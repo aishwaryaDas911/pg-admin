@@ -63,7 +63,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="acquirerId" className="text-sm font-medium">
-                Acquirer Id*
+                {ADMIN_STRINGS.FORM_LABELS.ACQUIRER_ID}*
               </Label>
               <Input 
                 id="acquirerId"
@@ -74,7 +74,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="applicationId" className="text-sm font-medium">
-                Application Id*
+                {ADMIN_STRINGS.FORM_LABELS.APPLICATION_ID}*
               </Label>
               <Input 
                 id="applicationId"
@@ -87,7 +87,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 2 */}
             <div className="space-y-2">
               <Label htmlFor="financialAuthorization" className="text-sm font-medium">
-                Financial Authorization*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_AUTHORIZATION}*
               </Label>
               <Select name="financialAuthorization" required>
                 <SelectTrigger className="h-10">
@@ -104,7 +104,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="financialReversalAdvice" className="text-sm font-medium">
-                Financial Reversal Advice*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_REVERSAL_ADVICE}*
               </Label>
               <Select name="financialReversalAdvice" required>
                 <SelectTrigger className="h-10">
@@ -121,7 +121,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="cancellationRequest" className="text-sm font-medium">
-                Cancellation Request*
+                {ADMIN_STRINGS.FORM_LABELS.CANCELLATION_REQUEST}*
               </Label>
               <Select name="cancellationRequest" required>
                 <SelectTrigger className="h-10">
