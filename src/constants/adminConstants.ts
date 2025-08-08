@@ -204,7 +204,6 @@ export const ADMIN_STRINGS = {
     ENTER_PHONE_NUMBER: 'Enter contact phone number',
     ENTER_EXTENSION: 'Enter extension',
     ENTER_FAX: 'Enter fax number',
-    ENTER_EMAIL: 'Enter email address',
 
     // Merchant Forms
     ENTER_MERCHANT_NAME: 'Enter merchant name',
