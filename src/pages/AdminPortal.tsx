@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { Header } from '@/components/admin/Header';
 import { Sidebar } from '@/components/admin/Sidebar';
 import { Dashboard } from '@/components/admin/Dashboard';
 import { TabContent } from '@/components/admin/TabContent';
 import { menuItems } from '@/config/menuConfig';
-import { User } from '@/types/admin';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const AdminPortal: React.FC = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [user] = useState<User>({
-    id: '1',
-    username: 'Administrator',
-    loginTime: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-    avatar: undefined
-  });
 
   const handleLogout = () => {
+    logout();
     toast({
       title: "Logged Out",
       description: "You have been successfully logged out.",
     });
-    // In a real app, this would redirect to login
+    navigate('/login', { replace: true });
   };
 
   const handleProfile = () => {
