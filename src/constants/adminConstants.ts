@@ -233,6 +233,7 @@ export const ADMIN_STRINGS = {
     ISO_CREATED: 'ISO has been created successfully',
     PROGRAM_MANAGER_CREATED: 'Program Manager has been created successfully',
     ACQUIRER_PROTOCOL_CREATED: 'Acquirer Protocol Parameter has been created',
+    FEE_PROGRAM_CREATED: 'Fee Program has been created successfully',
     NEW_RECORD_CREATED: 'New record has been created',
     
     // Cancel Messages
