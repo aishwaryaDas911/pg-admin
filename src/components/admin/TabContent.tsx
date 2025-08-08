@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import FormGenerator from '@/components/common/FormGenerator';
+import { getModuleConfig, getMockDataForModule } from '@/config/fieldConfigurations';
 import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
-import { ProgramManagerForm, ProgramManagerSearch } from './Manage/ProgramManager';
+import { ProgramManagerForm } from './Manage/ProgramManager';
 import { ISOForm } from './Manage/ISO';
 import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
