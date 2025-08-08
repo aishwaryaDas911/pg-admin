@@ -277,10 +277,10 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
         </div>
 
         {/* Buttons Row (Separate from Fields) */}
-        {buttons.length > 0 && (
+        {mainFormButtons.length > 0 && (
           <div className="form-buttons-row">
             <div className="form-buttons-wrapper">
-              {buttons.map((field) => (
+              {mainFormButtons.map((field) => (
                 <Button
                   key={field.button!.name}
                   variant={field.button!.variant || 'default'}
