@@ -1,4 +1,5 @@
 import { baseService, ApiResponse, PaginatedResponse } from './baseService';
+import { API_CONFIG } from '@/config/apiConfig';
 
 // Generic CRUD service for entities
 export class EntityService<T = any, CreateT = Partial<T>, UpdateT = Partial<T>> {
