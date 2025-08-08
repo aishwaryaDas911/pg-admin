@@ -369,7 +369,6 @@ export const ProgramManagerSearch: React.FC<ProgramManagerSearchProps> = ({
                   <SelectValue placeholder={ADMIN_STRINGS.PLACEHOLDERS.SELECT_BANK_NAME} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">{ADMIN_STRINGS.PLACEHOLDERS.SELECT}</SelectItem>
                   {BANKS.map((bank) => (
                     <SelectItem key={bank.value} value={bank.value}>
                       {bank.label}
