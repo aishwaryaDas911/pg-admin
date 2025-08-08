@@ -140,7 +140,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 3 */}
             <div className="space-y-2">
               <Label htmlFor="cancellationAdvice" className="text-sm font-medium">
-                Cancellation Advice*
+                {ADMIN_STRINGS.FORM_LABELS.CANCELLATION_ADVICE}*
               </Label>
               <Select name="cancellationAdvice" required>
                 <SelectTrigger className="h-10">
@@ -157,7 +157,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="completionAdvice" className="text-sm font-medium">
-                Completion Advice*
+                {ADMIN_STRINGS.FORM_LABELS.COMPLETION_ADVICE}*
               </Label>
               <Select name="completionAdvice" required>
                 <SelectTrigger className="h-10">
@@ -174,7 +174,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="diagnosticRequest" className="text-sm font-medium">
-                Diagnostic Request*
+                {ADMIN_STRINGS.FORM_LABELS.DIAGNOSTIC_REQUEST}*
               </Label>
               <Select name="diagnosticRequest" required>
                 <SelectTrigger className="h-10">
@@ -193,7 +193,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             {/* Row 4 */}
             <div className="space-y-2">
               <Label htmlFor="financialCompletionAdvice" className="text-sm font-medium">
-                Financial Completion Advice*
+                {ADMIN_STRINGS.FORM_LABELS.FINANCIAL_COMPLETION_ADVICE}*
               </Label>
               <Select name="financialCompletionAdvice" required>
                 <SelectTrigger className="h-10">
@@ -210,7 +210,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
             </div>
             <div className="space-y-2">
               <Label htmlFor="reversalAdvice" className="text-sm font-medium">
-                Reversal Advice*
+                {ADMIN_STRINGS.FORM_LABELS.REVERSAL_ADVICE}*
               </Label>
               <Select name="reversalAdvice" required>
                 <SelectTrigger className="h-10">
