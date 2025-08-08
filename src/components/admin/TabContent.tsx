@@ -30,22 +30,15 @@ interface TabContentProps {
   className?: string;
 }
 
-const actionConfigs: ActionConfig[] = [
-  { type: 'view', icon: 'Eye', variant: 'outline', tooltip: 'View Details' },
-  { type: 'suspend', icon: 'Pause', variant: 'secondary', tooltip: 'Suspend' },
-  { type: 'edit', icon: 'Edit', variant: 'default', tooltip: 'Edit' },
-  { type: 'delete', icon: 'Trash2', variant: 'destructive', tooltip: 'Delete' },
-];
-
 export const TabContent: React.FC<TabContentProps> = ({ title, className = '' }) => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('search');
-  const [filters, setFilters] = useState<FilterFields>({});
-  const [createData, setCreateData] = useState<CreateFields>({});
-  const [searchResults, setSearchResults] = useState<TableRowType[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+
+  // Get dynamic configuration for this module
+  const moduleConfig = getModuleConfig(title);
+  const mockData = getMockDataForModule(title);
 
   // Mock data for demonstration
   const mockData: TableRowType[] = [
