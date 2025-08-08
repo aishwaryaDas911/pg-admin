@@ -1,7 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { API_CONFIG } from '@/config/apiConfig';
 
 // Base configuration for API calls
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const BASE_URL = API_CONFIG.BASE_URL;
 
 export interface ApiResponse<T = any> {
   data: T;
