@@ -218,7 +218,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
 
         <TabsContent value="search" className="space-y-6">
           <FormGenerator
-            fields={moduleConfig.searchFields}
+            fields={enhancedConfig.searchFields}
             tableDataConfig={{
               ...moduleConfig.tableConfig,
               rows: searchResults.map(item => ({
