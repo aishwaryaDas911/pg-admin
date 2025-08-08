@@ -7,11 +7,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AcquirerProtocolParameterForm } from './AcquirerProtocolParameterForm';
 import { ProgramManagerForm } from './ProgramManagerForm';
 import { ISOForm } from './ISOForm';
-import { MerchantGroupForm } from './MerchantGroupForm';
-import { MerchantForm } from './MerchantForm';
-import { SubMerchantForm } from './SubMerchantForm';
-import { BankForm } from './BankForm';
-import { FeeProgramForm } from './FeeProgramForm';
+import { MerchantGroupForm } from './Manage/MerchantGroup/MerchantGroupForm';
+import { MerchantForm } from './Manage/Merchant/MerchantForm';
+import { SubMerchantForm } from './Manage/SubMerchant/SubMerchantForm';
+import { BankForm } from './Manage/Bank/BankForm';
+import { FeeProgramForm } from './Programs/FeeProgram/FeeProgramForm';
 import { 
   Table, 
   TableBody, 
