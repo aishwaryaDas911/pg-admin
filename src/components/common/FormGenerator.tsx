@@ -92,6 +92,10 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   // Filter out button fields and hidden fields for the form grid
   const formFields = fields.filter((f) => !f.button && f.hide === false);
   const buttons = fields.filter((f) => f.button && f.hide === false);
+  // Filter export buttons for main form (they'll appear in table)
+  const mainFormButtons = buttons.filter(btn =>
+    !['exportPDF', 'exportCSV'].includes(btn.button?.name || '')
+  );
 
   const handleButtonClick = (e: React.MouseEvent, btn: FormField['button']) => {
     e.preventDefault();
