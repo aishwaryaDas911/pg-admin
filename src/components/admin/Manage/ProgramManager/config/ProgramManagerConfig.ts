@@ -378,6 +378,11 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       .trim()
       .regex(/^[+]?[\d\s()-]+$/, 'Please enter a valid phone number')
       .min(1, 'Phone Number is required'),
+    extension: z
+      .string()
+      .trim()
+      .optional()
+      .or(z.literal('')),
     emailId: z
       .string()
       .trim()
@@ -391,12 +396,24 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       .min(1, 'Country is required'),
     state: z
       .string()
-      .trim()
-      .regex(/^[a-zA-Z\s]+$/, 'Please enter a valid state')
       .min(1, 'State is required'),
+    programManagerTimeZone: z
+      .string()
+      .min(1, 'Time Zone is required'),
+    batchPrefix: z
+      .string()
+      .trim()
+      .regex(/^[a-zA-Z0-9]+$/, 'Please enter a valid batch prefix')
+      .min(1, 'Batch Prefix is required'),
+    schedulerRunTime: z
+      .string()
+      .min(1, 'Scheduler Run Time is required'),
     associatedBankNames: z
       .string()
-      .min(1, 'At least one associated bank is required')
+      .min(1, 'At least one associated bank is required'),
+    programManagerLogo: z
+      .any()
+      .optional()
   });
 
   // Status configuration for different states
