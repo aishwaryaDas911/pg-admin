@@ -33,7 +33,8 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   setHideCreateTab
 }) => {
   const { toast } = useToast();
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const config = ProgramManagerConfig({ tableActionState });
+  const [searchResults, setSearchResults] = useState<any[]>(config.mockData);
   const [loading, setLoading] = useState(false);
 
   const config = ProgramManagerConfig({ tableActionState });
