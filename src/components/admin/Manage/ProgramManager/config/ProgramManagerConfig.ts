@@ -248,31 +248,31 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
     {
       headerJson: [
         {
-          id: 'programManagerName',
+          key: 'programManagerName',
           label: 'Program Manager Name'
         },
         {
-          id: 'companyName',
+          key: 'companyName',
           label: 'Company Name'
         },
         {
-          id: 'contactPerson',
+          key: 'contactPerson',
           label: 'Contact Person'
         },
         {
-          id: 'phoneNumber',
+          key: 'phoneNumber',
           label: 'Phone Number'
         },
         {
-          id: 'emailId',
+          key: 'emailId',
           label: 'Email ID'
         },
         {
-          id: 'associatedBankNames',
+          key: 'associatedBankNames',
           label: 'Associated Bank Names'
         },
         {
-          id: 'status',
+          key: 'status',
           label: 'Status'
         }
       ]
