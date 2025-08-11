@@ -1,6 +1,6 @@
 import { FormField } from '@/components/common/FormGenerator';
 import { DROPDOWN_OPTIONS } from '@/constants/adminConstants';
-import * as yup from 'yup';
+import { z } from 'zod';
 
 export interface ProgramManagerConfigProps {
   onClickEvent?: () => void;
