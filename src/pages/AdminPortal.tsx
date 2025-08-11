@@ -108,6 +108,7 @@ const AdminPortal: React.FC = () => {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/form-generator-example" element={<FormGeneratorExample />} />
+            <Route path="/program-manager-management" element={<ProgramManagerManagement />} />
             {generateRoutes(menuItems)}
             <Route path="*" element={
               <div className="flex items-center justify-center h-96">
