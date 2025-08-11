@@ -96,7 +96,7 @@ export const menuItems: MenuItem[] = [
         id: 'program-manager',
         label: 'Program Manager',
         icon: 'UserCog',
-        path: '/manage/program-manager'
+        path: '/program-manager-management'
       },
       {
         id: 'iso',
