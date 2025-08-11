@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import FormGenerator from '@/components/common/FormGenerator';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Eye, Edit, Pause, Trash2, FileText, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ProgramManagerConfig } from '../config/ProgramManagerConfig';
+import { Search, RotateCcw, FileText, Download, Eye, Edit, Trash2 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import Papa from 'papaparse';
@@ -31,31 +36,20 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Get configuration
-  const config = ProgramManagerConfig({ 
-    onClickEvent: handleSearch,
-    tableActionState 
+  const config = ProgramManagerConfig({ tableActionState });
+  
+  const { register, handleSubmit, reset, setValue, watch } = useForm({
+    defaultValues: {
+      programManagerName: '',
+      companyName: '',
+      bankName: '',
+      status: '',
+      recordsPerPage: '10'
+    }
   });
 
   // Handle search functionality
-  function handleSearch() {
-    setLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setSearchResults(config.mockData);
-      setLoading(false);
-      onSearchClick();
-      
-      toast({
-        title: "Search Completed",
-        description: `Found ${config.mockData.length} Program Managers`,
-      });
-    }, 1000);
-  }
-
-  // Handle form submission
-  const handleFormSubmit = (data: any) => {
+  const handleSearch = (data: any) => {
     setLoading(true);
     
     setTimeout(() => {
@@ -75,25 +69,36 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
       }
       
       if (data.status) {
-        filteredResults = filteredResults.filter(item => item.status === data.status);
+        filteredResults = filteredResults.filter(item => 
+          item.status.toLowerCase() === data.status.toLowerCase()
+        );
       }
       
       if (data.bankName) {
         filteredResults = filteredResults.filter(item =>
-          item.associatedBankNames.some((bank: string) => 
-            bank.toLowerCase().includes(data.bankName.toLowerCase())
-          )
+          item.associatedBankNames.toLowerCase().includes(data.bankName.toLowerCase())
         );
       }
 
       setSearchResults(filteredResults);
       setLoading(false);
+      onSearchClick();
       
       toast({
         title: "Search Completed",
         description: `Found ${filteredResults.length} Program Managers`,
       });
     }, 1000);
+  };
+
+  // Handle reset
+  const handleReset = () => {
+    reset();
+    setSearchResults([]);
+    toast({
+      title: "Filters Reset",
+      description: "All search filters have been cleared",
+    });
   };
 
   // Action handlers
@@ -117,13 +122,6 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
           description: `Editing ${row.programManagerName}`,
         });
         break;
-      case 'suspend':
-        toast({
-          title: "Suspend Action",
-          description: `Suspending ${row.programManagerName}`,
-          variant: "destructive"
-        });
-        break;
       case 'delete':
         toast({
           title: "Delete Action",
@@ -132,40 +130,6 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
         });
         break;
     }
-  };
-
-  const renderActionButton = (type: string, row: any) => {
-    const configs = {
-      view: { icon: Eye, variant: 'outline' as const, tooltip: 'View Details' },
-      edit: { icon: Edit, variant: 'default' as const, tooltip: 'Edit' },
-      suspend: { icon: Pause, variant: 'secondary' as const, tooltip: 'Suspend' },
-      delete: { icon: Trash2, variant: 'destructive' as const, tooltip: 'Delete' }
-    };
-
-    const config = configs[type as keyof typeof configs];
-    if (!config) return null;
-
-    const Icon = config.icon;
-
-    return (
-      <TooltipProvider key={type}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant={config.variant}
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => handleAction(type, row)}
-            >
-              <Icon className="h-4 w-4" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{config.tooltip}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    );
   };
 
   // Export functions
@@ -184,12 +148,12 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
       row.contactPerson,
       row.phoneNumber,
       row.emailId,
-      Array.isArray(row.associatedBankNames) ? row.associatedBankNames.join(', ') : row.associatedBankNames,
+      row.associatedBankNames,
       row.status
     ]);
 
     autoTable(doc, {
-      head: [['Program Manager', 'Company', 'Contact Person', 'Phone', 'Email', 'Banks', 'Status']],
+      head: [['Program Manager', 'Company', 'Contact Person', 'Phone', 'Email', 'Associated Banks', 'Status']],
       body: tableData,
       startY: 50,
       styles: { fontSize: 8, cellPadding: 3 },
@@ -209,17 +173,11 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
     const csvData = searchResults.map(row => ({
       'Program Manager Name': row.programManagerName,
       'Company Name': row.companyName,
-      'Business Entity Name': row.businessEntityName,
       'Contact Person': row.contactPerson,
-      'Phone Number': row.phoneNumber,
-      'Email ID': row.emailId,
-      'Currency': row.currency,
-      'Country': row.country,
-      'State': row.state,
-      'Status': row.status,
-      'Associated Bank Names': Array.isArray(row.associatedBankNames) ? row.associatedBankNames.join(', ') : row.associatedBankNames,
-      'Created At': row.createdAt?.toLocaleDateString(),
-      'Updated At': row.updatedAt?.toLocaleDateString()
+      'Phone': row.phoneNumber,
+      'Email': row.emailId,
+      'Associated Bank Names': row.associatedBankNames,
+      'Status': row.status
     }));
 
     const csv = Papa.unparse(csvData);
@@ -242,66 +200,253 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
     });
   };
 
-  // Enhanced search fields with export functionality
-  const enhancedSearchFields = config.searchInputData.concat([
-    {
-      label: 'Export PDF',
-      hide: false,
-      button: {
-        name: 'exportPDF',
-        label: 'Export PDF',
-        variant: 'secondary' as const,
-        size: 'default' as const,
-        onClick: exportToPDF
-      }
-    },
-    {
-      label: 'Export CSV',
-      hide: false,
-      button: {
-        name: 'exportCSV',
-        label: 'Export CSV',
-        variant: 'secondary' as const,
-        size: 'default' as const,
-        onClick: exportToCSV
-      }
-    }
-  ]).concat(config.searchButtonData);
-
   return (
     <div className="space-y-6">
-      <FormGenerator
-        fields={enhancedSearchFields}
-        tableDataConfig={{
-          columns: config.tableHeaderData[0].headerJson.concat([
-            { key: 'actions', label: 'Actions', sortable: false }
-          ]),
-          rows: searchResults.map(item => ({
-            ...item,
-            associatedBankNames: Array.isArray(item.associatedBankNames) 
-              ? item.associatedBankNames.join(', ') 
-              : item.associatedBankNames,
-            status: (
-              <Badge 
-                variant={item.status === 'ACTIVE' ? 'default' : 'secondary'}
-                className={item.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : ''}
-              >
-                {item.status}
-              </Badge>
-            ),
-            actions: (
-              <div className="flex items-center space-x-2">
-                {renderActionButton('view', item)}
-                {renderActionButton('edit', item)}
-                {renderActionButton('suspend', item)}
-                {renderActionButton('delete', item)}
+      {/* Search Filters Section */}
+      <Card className="shadow-sm border-border/50">
+        <CardContent className="p-6">
+          <div className="flex items-center space-x-2 mb-4">
+            <Search className="h-4 w-4 text-muted-foreground" />
+            <h3 className="text-sm font-medium text-muted-foreground">Search Filters</h3>
+          </div>
+          
+          <form onSubmit={handleSubmit(handleSearch)} className="space-y-4">
+            {/* Search Fields Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="programManagerName" className="text-sm">
+                  Program Manager Name
+                </Label>
+                <Input
+                  id="programManagerName"
+                  placeholder="Enter program manager name"
+                  className="h-9"
+                  {...register('programManagerName')}
+                />
               </div>
-            )
-          }))
-        }}
-        onSubmit={handleFormSubmit}
-        className="bg-transparent"
-      />
+
+              <div className="space-y-2">
+                <Label htmlFor="companyName" className="text-sm">
+                  Company Name
+                </Label>
+                <Input
+                  id="companyName"
+                  placeholder="Enter company name"
+                  className="h-9"
+                  {...register('companyName')}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="bankName" className="text-sm">
+                  Bank Name
+                </Label>
+                <Select onValueChange={(value) => setValue('bankName', value)}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select bank name" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="hdfc">HDFC</SelectItem>
+                    <SelectItem value="axis">Axis Bank</SelectItem>
+                    <SelectItem value="icici">ICICI Bank</SelectItem>
+                    <SelectItem value="sbi">SBI</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="status" className="text-sm">
+                  Status
+                </Label>
+                <Select onValueChange={(value) => setValue('status', value)}>
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="suspended">Suspended</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Records Per Page */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="recordsPerPage" className="text-sm">
+                  Records Per Page
+                </Label>
+                <Select 
+                  defaultValue="10"
+                  onValueChange={(value) => setValue('recordsPerPage', value)}
+                >
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select records per page" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center space-x-3 pt-2">
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="bg-black hover:bg-gray-800 text-white px-6"
+              >
+                <Search className="h-4 w-4 mr-2" />
+                {loading ? 'Searching...' : 'Search'}
+              </Button>
+              
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={handleReset}
+                className="px-6"
+              >
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Reset
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+
+      {/* Search Results Section */}
+      {searchResults.length > 0 && (
+        <Card className="shadow-sm border-border/50">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-base font-medium">
+                Search Results ({searchResults.length} found)
+              </h3>
+              <div className="flex items-center space-x-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={exportToPDF}
+                  className="text-sm"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  PDF
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={exportToCSV}
+                  className="text-sm"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  CSV
+                </Button>
+              </div>
+            </div>
+
+            {/* Results Table */}
+            <div className="rounded-md border">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/50">
+                    <TableHead className="text-xs font-medium">Program Manager Name</TableHead>
+                    <TableHead className="text-xs font-medium">Company Name</TableHead>
+                    <TableHead className="text-xs font-medium">Contact Person</TableHead>
+                    <TableHead className="text-xs font-medium">Phone</TableHead>
+                    <TableHead className="text-xs font-medium">Email</TableHead>
+                    <TableHead className="text-xs font-medium">Associated Bank Name(s)</TableHead>
+                    <TableHead className="text-xs font-medium">Status</TableHead>
+                    <TableHead className="text-xs font-medium">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {searchResults.map((row, index) => (
+                    <TableRow key={row.id || index} className="hover:bg-muted/30">
+                      <TableCell className="font-medium text-sm">{row.programManagerName}</TableCell>
+                      <TableCell className="text-sm">{row.companyName}</TableCell>
+                      <TableCell className="text-sm">{row.contactPerson}</TableCell>
+                      <TableCell className="text-sm">{row.phoneNumber}</TableCell>
+                      <TableCell className="text-sm font-mono text-xs">{row.emailId}</TableCell>
+                      <TableCell className="text-sm">{row.associatedBankNames}</TableCell>
+                      <TableCell>
+                        <Badge 
+                          variant={row.status === 'ACTIVE' ? 'default' : 'secondary'}
+                          className={`text-xs ${
+                            row.status === 'ACTIVE' 
+                              ? 'bg-green-100 text-green-800 border-green-200' 
+                              : row.status === 'pending'
+                              ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                              : 'bg-gray-100 text-gray-800 border-gray-200'
+                          }`}
+                        >
+                          {row.status.toLowerCase()}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-1">
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                  onClick={() => handleAction('view', row)}
+                                >
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>View</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50"
+                                  onClick={() => handleAction('edit', row)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Edit</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                  onClick={() => handleAction('delete', row)}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Delete</TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };
