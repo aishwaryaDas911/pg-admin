@@ -66,8 +66,8 @@ export const ProgramManagerManagement = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Program Manager</h1>
-        <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
-          Admin Portal
+        <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">
+          Payment Gateway
         </Badge>
       </div>
 

@@ -69,6 +69,16 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       }
     },
     {
+      label: 'Extension',
+      hide: false,
+      input: {
+        name: 'extension',
+        type: 'text',
+        placeholder: 'Enter extension',
+        mandatory: false
+      }
+    },
+    {
       label: 'Email ID',
       hide: false,
       input: {
@@ -111,21 +121,67 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
     {
       label: 'State',
       hide: false,
-      input: {
+      dropdown: {
         name: 'state',
+        placeholder: 'Select state',
+        options: [
+          { label: 'California', value: 'CA' },
+          { label: 'New York', value: 'NY' },
+          { label: 'Texas', value: 'TX' },
+          { label: 'Florida', value: 'FL' },
+          { label: 'Karnataka', value: 'KA' }
+        ],
+        mandatory: true
+      }
+    },
+    {
+      label: 'Program Manager Time Zone',
+      hide: false,
+      dropdown: {
+        name: 'programManagerTimeZone',
+        placeholder: 'Select timezone',
+        options: DROPDOWN_OPTIONS.TIME_ZONES.slice(0, 10).map(tz => ({ label: tz.label, value: tz.value })),
+        mandatory: true
+      }
+    },
+    {
+      label: 'Batch Prefix',
+      hide: false,
+      input: {
+        name: 'batchPrefix',
         type: 'text',
-        placeholder: 'Enter state',
+        placeholder: 'Enter batch prefix',
+        mandatory: true
+      }
+    },
+    {
+      label: 'Scheduler Run Time',
+      hide: false,
+      input: {
+        name: 'schedulerRunTime',
+        type: 'time',
+        placeholder: '00:00:00',
         mandatory: true
       }
     },
     {
       label: 'Associated Bank Names',
       hide: false,
-      dropdown: {
+      input: {
         name: 'associatedBankNames',
-        placeholder: 'Select associated banks',
-        options: DROPDOWN_OPTIONS.BANKS.map(bank => ({ label: bank.label, value: bank.value })),
+        type: 'text',
+        placeholder: 'Enter bank names (comma separated)',
         mandatory: true
+      }
+    },
+    {
+      label: 'Program Manager Logo',
+      hide: false,
+      input: {
+        name: 'programManagerLogo',
+        type: 'file',
+        placeholder: 'Upload logo',
+        mandatory: false
       }
     }
   ];
@@ -322,6 +378,11 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       .trim()
       .regex(/^[+]?[\d\s()-]+$/, 'Please enter a valid phone number')
       .min(1, 'Phone Number is required'),
+    extension: z
+      .string()
+      .trim()
+      .optional()
+      .or(z.literal('')),
     emailId: z
       .string()
       .trim()
@@ -335,12 +396,24 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       .min(1, 'Country is required'),
     state: z
       .string()
-      .trim()
-      .regex(/^[a-zA-Z\s]+$/, 'Please enter a valid state')
       .min(1, 'State is required'),
+    programManagerTimeZone: z
+      .string()
+      .min(1, 'Time Zone is required'),
+    batchPrefix: z
+      .string()
+      .trim()
+      .regex(/^[a-zA-Z0-9]+$/, 'Please enter a valid batch prefix')
+      .min(1, 'Batch Prefix is required'),
+    schedulerRunTime: z
+      .string()
+      .min(1, 'Scheduler Run Time is required'),
     associatedBankNames: z
       .string()
-      .min(1, 'At least one associated bank is required')
+      .min(1, 'At least one associated bank is required'),
+    programManagerLogo: z
+      .any()
+      .optional()
   });
 
   // Status configuration for different states
@@ -388,12 +461,17 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       businessEntityName: 'MB Payment Corp',
       contactPerson: 'John Smith',
       phoneNumber: '+1-555-0123',
+      extension: '1234',
       emailId: 'john.smith@mercedes-financial.com',
       currency: 'USD',
       country: 'US',
       state: 'CA',
+      programManagerTimeZone: 'UTC-8',
+      batchPrefix: 'MB001',
+      schedulerRunTime: '02:00:00',
       status: 'ACTIVE',
-      associatedBankNames: ['HDFC', 'Axis'],
+      associatedBankNames: 'HDFC, Axis Bank',
+      programManagerLogo: null,
       createdAt: new Date('2024-01-15'),
       updatedAt: new Date('2024-01-20')
     },
@@ -404,12 +482,17 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       businessEntityName: 'MG Services LLC',
       contactPerson: 'Sarah Johnson',
       phoneNumber: '+1-555-0456',
+      extension: '5678',
       emailId: 'sarah.johnson@mercedes-global.com',
       currency: 'EUR',
       country: 'DE',
       state: 'CA',
+      programManagerTimeZone: 'UTC+0',
+      batchPrefix: 'MG002',
+      schedulerRunTime: '01:30:00',
       status: 'ACTIVE',
-      associatedBankNames: ['ICICI', 'SBI'],
+      associatedBankNames: 'ICICI, SBI',
+      programManagerLogo: null,
       createdAt: new Date('2024-01-10'),
       updatedAt: new Date('2024-01-18')
     }
