@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import * as VisuallyHiddenPrimitive from "@radix-ui/react-visually-hidden"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -31,32 +32,27 @@ const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
-  // Recursively check if DialogTitle is present in children
+  // Check if children contain a DialogTitle
   const hasDialogTitle = React.useMemo(() => {
-    const findDialogTitle = (children: React.ReactNode): boolean => {
-      return React.Children.toArray(children).some(child => {
-        if (!React.isValidElement(child)) return false;
-
-        // Check if it's our DialogTitle component
-        if (child.type === DialogTitle) return true;
-
-        // Check if it's the primitive Title component
-        if (child.type === DialogPrimitive.Title) return true;
-
-        // Check component displayName
-        if (typeof child.type === 'function' &&
-            (child.type as any).displayName === DialogPrimitive.Title.displayName) return true;
-
-        // Recursively check children (for VisuallyHidden, fragments, etc.)
-        if (child.props?.children) {
-          return findDialogTitle(child.props.children);
+    const checkForTitle = (element: React.ReactNode): boolean => {
+      if (React.isValidElement(element)) {
+        // Check if it's a DialogTitle component (either primitive or our wrapper)
+        if (element.type === DialogPrimitive.Title ||
+            (typeof element.type === 'function' &&
+             (element.type.displayName === DialogPrimitive.Title.displayName ||
+              element.type.displayName === 'DialogTitle'))) {
+          return true;
         }
 
-        return false;
-      });
+        // Check children recursively (for fragments, VisuallyHidden wrappers, etc.)
+        if (element.props && element.props.children) {
+          return React.Children.toArray(element.props.children).some(checkForTitle);
+        }
+      }
+      return false;
     };
 
-    return findDialogTitle(children);
+    return React.Children.toArray(children).some(checkForTitle);
   }, [children]);
 
   return (
@@ -71,9 +67,9 @@ const DialogContent = React.forwardRef<
         {...props}
       >
         {!hasDialogTitle && (
-          <DialogPrimitive.Title className="sr-only">
-            Dialog
-          </DialogPrimitive.Title>
+          <VisuallyHiddenPrimitive.Root>
+            <DialogPrimitive.Title>Dialog</DialogPrimitive.Title>
+          </VisuallyHiddenPrimitive.Root>
         )}
         {children}
         <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
@@ -141,6 +137,8 @@ const DialogDescription = React.forwardRef<
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+const VisuallyHidden = VisuallyHiddenPrimitive.Root
+
 export {
   Dialog,
   DialogPortal,
@@ -152,4 +150,5 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  VisuallyHidden,
 }

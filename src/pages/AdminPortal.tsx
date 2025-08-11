@@ -5,6 +5,8 @@ import { Sidebar } from '@/components/admin/Sidebar';
 import { Dashboard } from '@/components/admin/Dashboard';
 import { TabContent } from '@/components/admin/TabContent';
 import { menuItems } from '@/config/menuConfig';
+import FormGeneratorExample from '@/examples/FormGeneratorExample';
+import ProgramManagerManagement from '@/components/admin/Manage/ProgramManager';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -105,6 +107,8 @@ const AdminPortal: React.FC = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/form-generator-example" element={<FormGeneratorExample />} />
+            <Route path="/program-manager-management" element={<ProgramManagerManagement />} />
             {generateRoutes(menuItems)}
             <Route path="*" element={
               <div className="flex items-center justify-center h-96">
