@@ -296,51 +296,51 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
   ];
 
   // Validation schema for create form
-  const userCreateSchema = yup.object().shape({
-    programManagerName: yup
+  const userCreateSchema = z.object({
+    programManagerName: z
       .string()
       .trim()
-      .matches(/^[a-zA-Z\s]+$/, 'Please enter a valid name')
-      .required('Program Manager Name is required'),
-    companyName: yup
+      .regex(/^[a-zA-Z\s]+$/, 'Please enter a valid name')
+      .min(1, 'Program Manager Name is required'),
+    companyName: z
       .string()
       .trim()
-      .matches(/^[a-zA-Z0-9\s&.-]+$/, 'Please enter a valid company name')
-      .required('Company Name is required'),
-    businessEntityName: yup
+      .regex(/^[a-zA-Z0-9\s&.-]+$/, 'Please enter a valid company name')
+      .min(1, 'Company Name is required'),
+    businessEntityName: z
       .string()
       .trim()
-      .matches(/^[a-zA-Z0-9\s&.-]+$/, 'Please enter a valid business entity name')
-      .required('Business Entity Name is required'),
-    contactPerson: yup
+      .regex(/^[a-zA-Z0-9\s&.-]+$/, 'Please enter a valid business entity name')
+      .min(1, 'Business Entity Name is required'),
+    contactPerson: z
       .string()
       .trim()
-      .matches(/^[a-zA-Z\s]+$/, 'Please enter a valid contact person name')
-      .required('Contact Person is required'),
-    phoneNumber: yup
+      .regex(/^[a-zA-Z\s]+$/, 'Please enter a valid contact person name')
+      .min(1, 'Contact Person is required'),
+    phoneNumber: z
       .string()
       .trim()
-      .matches(/^[+]?[\d\s()-]+$/, 'Please enter a valid phone number')
-      .required('Phone Number is required'),
-    emailId: yup
+      .regex(/^[+]?[\d\s()-]+$/, 'Please enter a valid phone number')
+      .min(1, 'Phone Number is required'),
+    emailId: z
       .string()
       .trim()
       .email('Please enter a valid email address')
-      .required('Email ID is required'),
-    currency: yup
+      .min(1, 'Email ID is required'),
+    currency: z
       .string()
-      .required('Currency is required'),
-    country: yup
+      .min(1, 'Currency is required'),
+    country: z
       .string()
-      .required('Country is required'),
-    state: yup
+      .min(1, 'Country is required'),
+    state: z
       .string()
       .trim()
-      .matches(/^[a-zA-Z\s]+$/, 'Please enter a valid state')
-      .required('State is required'),
-    associatedBankNames: yup
+      .regex(/^[a-zA-Z\s]+$/, 'Please enter a valid state')
+      .min(1, 'State is required'),
+    associatedBankNames: z
       .string()
-      .required('At least one associated bank is required')
+      .min(1, 'At least one associated bank is required')
   });
 
   // Status configuration for different states
