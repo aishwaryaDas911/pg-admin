@@ -69,6 +69,16 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
       }
     },
     {
+      label: 'Extension',
+      hide: false,
+      input: {
+        name: 'extension',
+        type: 'text',
+        placeholder: 'Enter extension',
+        mandatory: false
+      }
+    },
+    {
       label: 'Email ID',
       hide: false,
       input: {
@@ -111,21 +121,67 @@ export const ProgramManagerConfig = ({ onClickEvent, tableActionState }: Program
     {
       label: 'State',
       hide: false,
-      input: {
+      dropdown: {
         name: 'state',
+        placeholder: 'Select state',
+        options: [
+          { label: 'California', value: 'CA' },
+          { label: 'New York', value: 'NY' },
+          { label: 'Texas', value: 'TX' },
+          { label: 'Florida', value: 'FL' },
+          { label: 'Karnataka', value: 'KA' }
+        ],
+        mandatory: true
+      }
+    },
+    {
+      label: 'Program Manager Time Zone',
+      hide: false,
+      dropdown: {
+        name: 'programManagerTimeZone',
+        placeholder: 'Select timezone',
+        options: DROPDOWN_OPTIONS.TIME_ZONES.slice(0, 10).map(tz => ({ label: tz.label, value: tz.value })),
+        mandatory: true
+      }
+    },
+    {
+      label: 'Batch Prefix',
+      hide: false,
+      input: {
+        name: 'batchPrefix',
         type: 'text',
-        placeholder: 'Enter state',
+        placeholder: 'Enter batch prefix',
+        mandatory: true
+      }
+    },
+    {
+      label: 'Scheduler Run Time',
+      hide: false,
+      input: {
+        name: 'schedulerRunTime',
+        type: 'time',
+        placeholder: '00:00:00',
         mandatory: true
       }
     },
     {
       label: 'Associated Bank Names',
       hide: false,
-      dropdown: {
+      input: {
         name: 'associatedBankNames',
-        placeholder: 'Select associated banks',
-        options: DROPDOWN_OPTIONS.BANKS.map(bank => ({ label: bank.label, value: bank.value })),
+        type: 'text',
+        placeholder: 'Enter bank names (comma separated)',
         mandatory: true
+      }
+    },
+    {
+      label: 'Program Manager Logo',
+      hide: false,
+      input: {
+        name: 'programManagerLogo',
+        type: 'file',
+        placeholder: 'Upload logo',
+        mandatory: false
       }
     }
   ];
