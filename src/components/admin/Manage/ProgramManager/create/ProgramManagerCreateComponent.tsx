@@ -169,7 +169,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                 </p>
               </div>
             </div>
-            <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
+            <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">
               Payment Gateway
             </Badge>
           </div>
