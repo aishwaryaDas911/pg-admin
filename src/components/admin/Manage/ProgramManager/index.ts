@@ -1,5 +1,7 @@
-export { default as ProgramManagerManagement } from './index';
+// Export the main component as default
+export { ProgramManagerManagement as default } from './index';
+
+// Export other components as named exports
 export { ProgramManagerSearchComponent } from './search/ProgramManagerSearchComponent';
 export { ProgramManagerCreateComponent } from './create/ProgramManagerCreateComponent';
 export { ProgramManagerConfig } from './config/ProgramManagerConfig';
-export { default as ProgramManagerForm } from './ProgramManagerForm';
