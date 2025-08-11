@@ -35,7 +35,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
   // Form setup with validation
   const methods = useForm({
-    resolver: yupResolver(config.userCreateSchema),
+    resolver: zodResolver(config.userCreateSchema),
     defaultValues: {
       programManagerName: '',
       companyName: '',
