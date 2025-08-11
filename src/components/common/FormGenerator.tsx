@@ -338,9 +338,9 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
               </TableHeader>
               <TableBody>
                 {rows.map((row, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={row.id || `row-${index}`}>
                     {tableDataConfig.columns.map((column) => (
-                      <TableCell key={column.key}>
+                      <TableCell key={`${row.id || index}-${column.key}`}>
                         {column.key === 'actions' ? (
                           row[column.key] || '-'
                         ) : column.key === 'status' ? (
@@ -351,7 +351,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
                             {row[column.key] || '-'}
                           </Badge>
                         ) : (
-                          <span className={column.key.includes('email') || column.key.includes('Email') ? 'font-mono text-xs' : ''}>
+                          <span className={column.key?.includes('email') || column.key?.includes('Email') ? 'font-mono text-xs' : ''}>
                             {row[column.key] || '-'}
                           </span>
                         )}
