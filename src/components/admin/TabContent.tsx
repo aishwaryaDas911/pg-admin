@@ -296,27 +296,15 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
               }}
             />
           ) : title === 'Program Manager' ? (
-            <ProgramManagerForm
-              onSubmit={(data) => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATED,
-                });
-                console.log('Program Manager data:', data);
-              }}
-              onCancel={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CANCELLED,
-                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_CREATION_CANCELLED,
-                });
-              }}
-              onReset={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
-                  description: ADMIN_STRINGS.TOAST.PROGRAM_MANAGER_FIELDS_CLEARED,
-                });
-              }}
-            />
+            <div className="text-center py-8">
+              <h3 className="text-lg font-semibold mb-2">Program Manager - New Structure</h3>
+              <p className="text-muted-foreground mb-4">
+                Program Manager now uses the new structured component approach.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Please navigate to <strong>/program-manager-management</strong> for the enhanced experience.
+              </p>
+            </div>
           ) : title === 'ISO' ? (
             <ISOForm
               onSubmit={(data) => {
