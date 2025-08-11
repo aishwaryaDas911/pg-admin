@@ -1,5 +1,5 @@
-// Export the main component as default
-export { ProgramManagerManagement as default } from './index';
+// Export the main component as default from the main component file
+export { default } from './index';
 
 // Export other components as named exports
 export { ProgramManagerSearchComponent } from './search/ProgramManagerSearchComponent';
