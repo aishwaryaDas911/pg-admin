@@ -217,28 +217,60 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         </TabsList>
 
         <TabsContent value="search" className="space-y-6">
-          <FormGenerator
-            fields={enhancedConfig.searchFields}
-            tableDataConfig={{
-              ...moduleConfig.tableConfig,
-              rows: searchResults.map(item => ({
-                ...item,
-                associatedBankNames: Array.isArray(item.associatedBankNames)
-                  ? item.associatedBankNames.join(', ')
-                  : item.associatedBankNames,
-                actions: (
-                  <div className="flex items-center space-x-2">
-                    {renderActionButton('view', item)}
-                    {renderActionButton('edit', item)}
-                    {renderActionButton('suspend', item)}
-                    {renderActionButton('delete', item)}
-                  </div>
-                )
-              }))
-            }}
-            onSubmit={handleFormSubmit}
-            className="bg-transparent"
-          />
+          {title === 'Program Manager' ? (
+            // Use the new structured component for Program Manager
+            <div>
+              <p className="text-muted-foreground mb-4">
+                Program Manager now uses the new structured component approach.
+                Navigate to the Program Manager module directly for the enhanced experience.
+              </p>
+              <FormGenerator
+                fields={enhancedConfig.searchFields}
+                tableDataConfig={{
+                  ...moduleConfig.tableConfig,
+                  rows: searchResults.map(item => ({
+                    ...item,
+                    associatedBankNames: Array.isArray(item.associatedBankNames)
+                      ? item.associatedBankNames.join(', ')
+                      : item.associatedBankNames,
+                    actions: (
+                      <div className="flex items-center space-x-2">
+                        {renderActionButton('view', item)}
+                        {renderActionButton('edit', item)}
+                        {renderActionButton('suspend', item)}
+                        {renderActionButton('delete', item)}
+                      </div>
+                    )
+                  }))
+                }}
+                onSubmit={handleFormSubmit}
+                className="bg-transparent"
+              />
+            </div>
+          ) : (
+            <FormGenerator
+              fields={enhancedConfig.searchFields}
+              tableDataConfig={{
+                ...moduleConfig.tableConfig,
+                rows: searchResults.map(item => ({
+                  ...item,
+                  associatedBankNames: Array.isArray(item.associatedBankNames)
+                    ? item.associatedBankNames.join(', ')
+                    : item.associatedBankNames,
+                  actions: (
+                    <div className="flex items-center space-x-2">
+                      {renderActionButton('view', item)}
+                      {renderActionButton('edit', item)}
+                      {renderActionButton('suspend', item)}
+                      {renderActionButton('delete', item)}
+                    </div>
+                  )
+                }))
+              }}
+              onSubmit={handleFormSubmit}
+              className="bg-transparent"
+            />
+          )}
         </TabsContent>
 
         <TabsContent value="create" className="space-y-6">
