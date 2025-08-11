@@ -36,9 +36,11 @@ const DialogContent = React.forwardRef<
   const hasDialogTitle = React.useMemo(() => {
     const checkForTitle = (element: React.ReactNode): boolean => {
       if (React.isValidElement(element)) {
-        // Check if it's a DialogTitle component
+        // Check if it's a DialogTitle component (either primitive or our wrapper)
         if (element.type === DialogPrimitive.Title ||
-            (typeof element.type === 'function' && element.type.displayName === 'DialogTitle')) {
+            (typeof element.type === 'function' &&
+             (element.type.displayName === DialogPrimitive.Title.displayName ||
+              element.type.displayName === 'DialogTitle'))) {
           return true;
         }
 
