@@ -34,7 +34,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
 }) => {
   const { toast } = useToast();
   const config = ProgramManagerConfig({ tableActionState });
-  const [searchResults, setSearchResults] = useState<any[]>(config.mockData);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   
   const { register, handleSubmit, reset, setValue, watch } = useForm({
