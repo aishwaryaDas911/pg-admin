@@ -32,7 +32,12 @@ export const API_CONFIG = {
     ANALYTICS: '/analytics',
     REPORTS: '/reports',
   },
-  
+
+  // External Authentication Service
+  EXTERNAL_AUTH: {
+    LOGIN_URL: `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`,
+  },
+
   // Default pagination
   PAGINATION: {
     DEFAULT_PAGE: 1,
