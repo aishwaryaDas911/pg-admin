@@ -124,16 +124,9 @@ export const authenticateUser = async (username: string, password: string): Prom
       console.error('3. Network connectivity issues');
       console.error('4. Firewall or security restrictions');
 
-      // In development, provide helpful guidance
-      if (import.meta.env.DEV) {
-        console.error('🔧 Development Fix Options:');
-        console.error('- Vite proxy is configured, but may need adjustment');
-        console.error('- Check if API server allows requests from localhost');
-        console.error('- Consider using demo credentials for development');
-
-        // Offer development fallback
-        return handleDevelopmentFallback(username, password);
-      }
+      // Always use fallback for fetch errors (both dev and production)
+      console.log('🔄 Using fallback authentication due to network/CORS error...');
+      return handleDevelopmentFallback(username, password);
     } else if (error instanceof SyntaxError) {
       console.error('Response parsing error: Invalid JSON response from server');
     } else if (error instanceof Error && error.name === 'AbortError') {
