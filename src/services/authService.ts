@@ -75,9 +75,9 @@ export const authenticateUser = async (username: string, password: string): Prom
     };
 
     // Make the API call
-    console.log('Attempting authentication with:', API_CONFIG.EXTERNAL_AUTH.LOGIN_URL);
+    console.log('Attempting authentication with:', loginUrl);
 
-    const response = await fetch(API_CONFIG.EXTERNAL_AUTH.LOGIN_URL, {
+    const response = await fetch(loginUrl, {
       method: 'POST',
       headers: REQUEST_CONFIG.HEADERS,
       credentials: REQUEST_CONFIG.CREDENTIALS,
