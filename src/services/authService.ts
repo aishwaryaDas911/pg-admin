@@ -145,3 +145,27 @@ export const isUserAuthenticated = (): boolean => {
   const user = getCurrentUser();
   return user?.isAuthenticated === true;
 };
+
+/**
+ * Test function to verify API endpoint accessibility
+ * This can be used for debugging purposes
+ * @returns Promise<boolean>
+ */
+export const testApiConnection = async (): Promise<boolean> => {
+  try {
+    console.log('Testing API connection to:', API_CONFIG.EXTERNAL_AUTH.LOGIN_URL);
+
+    // Make a simple request to test connectivity
+    const response = await fetch(API_CONFIG.EXTERNAL_AUTH.LOGIN_URL, {
+      method: 'OPTIONS', // Use OPTIONS to test CORS
+      headers: REQUEST_CONFIG.HEADERS,
+      credentials: REQUEST_CONFIG.CREDENTIALS,
+    });
+
+    console.log('API connection test response:', response.status, response.statusText);
+    return response.ok || response.status === 405; // 405 Method Not Allowed is also acceptable for OPTIONS
+  } catch (error) {
+    console.error('API connection test failed:', error);
+    return false;
+  }
+};
