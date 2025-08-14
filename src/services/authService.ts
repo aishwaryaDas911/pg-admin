@@ -176,10 +176,19 @@ export const isUserAuthenticated = (): boolean => {
  */
 export const testApiConnection = async (): Promise<boolean> => {
   try {
-    console.log('Testing API connection to:', API_CONFIG.EXTERNAL_AUTH.LOGIN_URL);
+    // Get the login URL with same fallback logic
+    let loginUrl: string;
+    if (API_CONFIG.EXTERNAL_AUTH && API_CONFIG.EXTERNAL_AUTH.LOGIN_URL) {
+      loginUrl = API_CONFIG.EXTERNAL_AUTH.LOGIN_URL;
+    } else {
+      const { USER_ROLE_SERVICE } = await import('@/constants/ApiConstants');
+      loginUrl = `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`;
+    }
+
+    console.log('Testing API connection to:', loginUrl);
 
     // Make a simple request to test connectivity
-    const response = await fetch(API_CONFIG.EXTERNAL_AUTH.LOGIN_URL, {
+    const response = await fetch(loginUrl, {
       method: 'OPTIONS', // Use OPTIONS to test CORS
       headers: REQUEST_CONFIG.HEADERS,
       credentials: REQUEST_CONFIG.CREDENTIALS,
