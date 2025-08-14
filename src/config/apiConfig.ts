@@ -1,3 +1,5 @@
+import { USER_ROLE_SERVICE } from '@/constants/ApiConstants';
+
 // API Configuration
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
@@ -23,6 +25,11 @@ export const API_CONFIG = {
       LOGOUT: '/auth/logout',
       REFRESH: '/auth/refresh',
       PROFILE: '/auth/profile',
+    },
+
+    // External Authentication Service
+    EXTERNAL_AUTH: {
+      LOGIN_URL: `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`,
     },
     
     // Dashboard & Analytics
