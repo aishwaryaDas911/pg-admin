@@ -1,5 +1,5 @@
 import { API_CONFIG } from '@/config/apiConfig';
-import { REQUEST_CONFIG, DEFAULTS } from '@/constants/ApiConstants';
+import { REQUEST_CONFIG, DEFAULTS, USER_ROLE_SERVICE } from '@/constants/ApiConstants';
 
 // Interface for login request payload
 interface LoginPayload {
