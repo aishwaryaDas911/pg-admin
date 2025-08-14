@@ -40,6 +40,16 @@ export const authenticateUser = async (username: string, password: string): Prom
     console.error('Username and password are required');
     return false;
   }
+
+  // Debug: Check if API_CONFIG is loaded correctly
+  console.log('API_CONFIG:', API_CONFIG);
+  console.log('EXTERNAL_AUTH:', API_CONFIG.EXTERNAL_AUTH);
+
+  if (!API_CONFIG.EXTERNAL_AUTH || !API_CONFIG.EXTERNAL_AUTH.LOGIN_URL) {
+    console.error('EXTERNAL_AUTH configuration is missing or invalid:', API_CONFIG.EXTERNAL_AUTH);
+    return false;
+  }
+
   try {
     // Prepare the payload according to API specification
     const payload: LoginPayload = {
