@@ -52,7 +52,6 @@ export const authenticateUser = async (username: string, password: string): Prom
   } else {
     // Fallback: construct URL directly from constants
     console.warn('EXTERNAL_AUTH configuration missing, using fallback URL construction');
-    const { USER_ROLE_SERVICE } = await import('@/constants/ApiConstants');
     loginUrl = `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`;
   }
 
