@@ -180,7 +180,6 @@ export const testApiConnection = async (): Promise<boolean> => {
     if (API_CONFIG.EXTERNAL_AUTH && API_CONFIG.EXTERNAL_AUTH.LOGIN_URL) {
       loginUrl = API_CONFIG.EXTERNAL_AUTH.LOGIN_URL;
     } else {
-      const { USER_ROLE_SERVICE } = await import('@/constants/ApiConstants');
       loginUrl = `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`;
     }
 
