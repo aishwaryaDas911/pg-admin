@@ -35,6 +35,11 @@ export interface AuthUserData {
  * @returns Promise<boolean> - true if login successful, false otherwise
  */
 export const authenticateUser = async (username: string, password: string): Promise<boolean> => {
+  // Validate input parameters
+  if (!username || !password) {
+    console.error('Username and password are required');
+    return false;
+  }
   try {
     // Prepare the payload according to API specification
     const payload: LoginPayload = {
@@ -47,6 +52,8 @@ export const authenticateUser = async (username: string, password: string): Prom
     };
 
     // Make the API call
+    console.log('Attempting authentication with:', API_CONFIG.EXTERNAL_AUTH.LOGIN_URL);
+
     const response = await fetch(API_CONFIG.EXTERNAL_AUTH.LOGIN_URL, {
       method: 'POST',
       headers: REQUEST_CONFIG.HEADERS,
@@ -85,14 +92,18 @@ export const authenticateUser = async (username: string, password: string): Prom
 
   } catch (error) {
     console.error('Authentication error:', error);
-    
-    // Handle network errors, parsing errors, etc.
+
+    // Handle specific error types
     if (error instanceof TypeError && error.message.includes('fetch')) {
-      console.error('Network error: Unable to connect to authentication service');
+      console.error('Network error: Unable to connect to authentication service. Check if the API server is running and accessible.');
     } else if (error instanceof SyntaxError) {
-      console.error('Response parsing error: Invalid JSON response');
+      console.error('Response parsing error: Invalid JSON response from server');
+    } else if (error instanceof Error && error.name === 'AbortError') {
+      console.error('Request timeout: Authentication request took too long');
+    } else {
+      console.error('Unexpected error during authentication:', error);
     }
-    
+
     return false;
   }
 };
