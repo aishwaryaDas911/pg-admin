@@ -27,11 +27,6 @@ export const API_CONFIG = {
       PROFILE: '/auth/profile',
     },
 
-    // External Authentication Service
-    EXTERNAL_AUTH: {
-      LOGIN_URL: `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`,
-    },
-    
     // Dashboard & Analytics
     DASHBOARD: '/dashboard',
     ANALYTICS: '/analytics',
