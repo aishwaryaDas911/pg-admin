@@ -45,8 +45,21 @@ export const authenticateUser = async (username: string, password: string): Prom
   console.log('API_CONFIG:', API_CONFIG);
   console.log('EXTERNAL_AUTH:', API_CONFIG.EXTERNAL_AUTH);
 
-  if (!API_CONFIG.EXTERNAL_AUTH || !API_CONFIG.EXTERNAL_AUTH.LOGIN_URL) {
-    console.error('EXTERNAL_AUTH configuration is missing or invalid:', API_CONFIG.EXTERNAL_AUTH);
+  // Get the login URL with fallback
+  let loginUrl: string;
+  if (API_CONFIG.EXTERNAL_AUTH && API_CONFIG.EXTERNAL_AUTH.LOGIN_URL) {
+    loginUrl = API_CONFIG.EXTERNAL_AUTH.LOGIN_URL;
+  } else {
+    // Fallback: construct URL directly from constants
+    console.warn('EXTERNAL_AUTH configuration missing, using fallback URL construction');
+    const { USER_ROLE_SERVICE } = await import('@/constants/ApiConstants');
+    loginUrl = `${USER_ROLE_SERVICE.BASE_URL}${USER_ROLE_SERVICE.PATHS.USER_SERVICE}${USER_ROLE_SERVICE.PATHS.AUTHENTICATE}`;
+  }
+
+  console.log('Using login URL:', loginUrl);
+
+  if (!loginUrl) {
+    console.error('Could not determine login URL');
     return false;
   }
 
