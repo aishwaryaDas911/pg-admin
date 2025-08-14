@@ -8,6 +8,17 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      // Proxy API requests to avoid CORS issues in development
+      '/api/auth': {
+        target: 'http://192.168.12.7:9996',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/auth/, '/user-role-service/userservice'),
+        configure: (proxy, options) => {
+          console.log('Proxying authentication requests to:', options.target);
+        }
+      }
+    }
   },
   plugins: [
     react(),
