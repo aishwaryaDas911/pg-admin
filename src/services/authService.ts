@@ -185,6 +185,56 @@ export const isUserAuthenticated = (): boolean => {
 };
 
 /**
+ * Development fallback authentication when API is not accessible
+ * This allows development to continue even when the external API is unavailable
+ * @param username - User's username
+ * @param password - User's password
+ * @returns Promise<boolean>
+ */
+const handleDevelopmentFallback = async (username: string, password: string): Promise<boolean> => {
+  console.log('🔄 Using development fallback authentication...');
+
+  // Simple demo credentials for development
+  const validCredentials = [
+    { username: 'admin', password: 'password' },
+    { username: 'demo', password: 'demo123' },
+    { username: 'test', password: 'test123' }
+  ];
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const isValid = validCredentials.some(cred =>
+    cred.username === username && cred.password === password
+  );
+
+  if (isValid) {
+    console.log('✅ Development authentication successful');
+
+    // Create development user data
+    const userData: AuthUserData = {
+      id: 'dev-' + username,
+      username: username,
+      loginTime: new Date(),
+      isAuthenticated: true,
+      isDevelopmentMode: true
+    };
+
+    // Save user data to localStorage
+    localStorage.setItem('authUser', JSON.stringify(userData));
+
+    return true;
+  } else {
+    console.log('❌ Development authentication failed');
+    console.log('Valid demo credentials:');
+    validCredentials.forEach(cred =>
+      console.log(`- Username: ${cred.username}, Password: ${cred.password}`)
+    );
+    return false;
+  }
+};
+
+/**
  * Test function to verify API endpoint accessibility
  * This can be used for debugging purposes
  * @returns Promise<boolean>
