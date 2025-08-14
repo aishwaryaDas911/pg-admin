@@ -2,9 +2,10 @@
 export const API_CONSTANTS = {
   // Base URLs for different services
   USER_ROLE_SERVICE: {
-    BASE_URL: 'http://192.168.12.7:9996',
+    // Use proxy in development, direct URL in production
+    BASE_URL: import.meta.env.DEV ? '' : 'http://192.168.12.7:9996',
     PATHS: {
-      USER_SERVICE: '/user-role-service/userservice',
+      USER_SERVICE: import.meta.env.DEV ? '/api/auth' : '/user-role-service/userservice',
       AUTHENTICATE: '/authenticate'
     }
   },
