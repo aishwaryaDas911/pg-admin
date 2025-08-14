@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '@/types/admin';
+import { authenticateUser, clearAuthData, getCurrentUser, AuthUserData } from '@/services/authService';
 
 export interface AuthUser extends User {
   isAuthenticated: boolean;
@@ -30,18 +31,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkAuthStatus = () => {
     try {
-      const savedUser = localStorage.getItem('authUser');
-      if (savedUser) {
-        const parsedUser = JSON.parse(savedUser);
+      const userData = getCurrentUser();
+      if (userData) {
         setUser({
-          ...parsedUser,
-          isAuthenticated: true,
-          loginTime: new Date(parsedUser.loginTime)
+          id: userData.id,
+          username: userData.username,
+          loginTime: userData.loginTime,
+          avatar: userData.avatar,
+          isAuthenticated: userData.isAuthenticated,
+          ...userData // Include any additional fields
         });
       }
     } catch (error) {
       console.error('Error checking auth status:', error);
-      localStorage.removeItem('authUser');
+      clearAuthData();
     } finally {
       setIsLoading(false);
     }
@@ -49,26 +52,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (username: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock authentication - replace with actual API call
-      if (username === 'admin' && password === 'password') {
-        const newUser: AuthUser = {
-          id: '1',
-          username: username,
-          loginTime: new Date(),
-          avatar: undefined,
-          isAuthenticated: true
-        };
-        
-        setUser(newUser);
-        localStorage.setItem('authUser', JSON.stringify(newUser));
-        return true;
+      // Use the authentication service to login
+      const success = await authenticateUser(username, password);
+
+      if (success) {
+        // Get the user data that was saved by the auth service
+        const userData = getCurrentUser();
+        if (userData) {
+          const newUser: AuthUser = {
+            id: userData.id,
+            username: userData.username,
+            loginTime: userData.loginTime,
+            avatar: userData.avatar,
+            isAuthenticated: true,
+            ...userData // Include any additional fields from the API response
+          };
+
+          setUser(newUser);
+          return true;
+        }
       }
-      
+
       return false;
     } catch (error) {
       console.error('Login error:', error);
@@ -80,7 +86,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('authUser');
+    clearAuthData();
   };
 
   const value: AuthContextType = {
