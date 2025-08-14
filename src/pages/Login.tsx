@@ -114,11 +114,14 @@ const Login: React.FC = () => {
             <p className="text-sm text-muted-foreground">
               Enter your credentials to access your account
             </p>
-            {/* <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md border border-border/50">
-              <p className="font-medium mb-1">Demo Credentials:</p>
-              <p>Username: <span className="font-mono">admin</span></p>
-              <p>Password: <span className="font-mono">password</span></p>
-            </div> */}
+{process.env.NODE_ENV === 'development' && (
+              <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded-md border border-border/50">
+                <p className="font-medium mb-1">🔧 Development Mode - Demo Credentials:</p>
+                <p>Username: <span className="font-mono">admin</span> | Password: <span className="font-mono">password</span></p>
+                <p>Username: <span className="font-mono">demo</span> | Password: <span className="font-mono">demo123</span></p>
+                <p className="text-xs mt-1 opacity-75">Will fallback to demo auth if API unavailable</p>
+              </div>
+            )}
           </CardHeader>
           <CardContent className="space-y-4">
             {error && (
