@@ -119,7 +119,8 @@ const Login: React.FC = () => {
                 <p className="font-medium mb-1">🔧 Development Mode - Demo Credentials:</p>
                 <p>Username: <span className="font-mono">admin</span> | Password: <span className="font-mono">password</span></p>
                 <p>Username: <span className="font-mono">demo</span> | Password: <span className="font-mono">demo123</span></p>
-                <p className="text-xs mt-1 opacity-75">Will fallback to demo auth if API unavailable</p>
+                <p>Username: <span className="font-mono">Shruthi</span> | Password: <span className="font-mono">Subhas@321</span></p>
+                <p className="text-xs mt-1 opacity-75">⚠️ External API unavailable - using fallback auth</p>
               </div>
             )}
           </CardHeader>
