@@ -116,8 +116,24 @@ export const authenticateUser = async (username: string, password: string): Prom
     console.error('Authentication error:', error);
 
     // Handle specific error types
-    if (error instanceof TypeError && error.message.includes('fetch')) {
-      console.error('Network error: Unable to connect to authentication service. Check if the API server is running and accessible.');
+    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      console.error('🚨 CORS or Network Error Detected!');
+      console.error('This could be due to:');
+      console.error('1. CORS policy blocking the request');
+      console.error('2. API server not running at', loginUrl);
+      console.error('3. Network connectivity issues');
+      console.error('4. Firewall or security restrictions');
+
+      // In development, provide helpful guidance
+      if (import.meta.env.DEV) {
+        console.error('🔧 Development Fix Options:');
+        console.error('- Vite proxy is configured, but may need adjustment');
+        console.error('- Check if API server allows requests from localhost');
+        console.error('- Consider using demo credentials for development');
+
+        // Offer development fallback
+        return handleDevelopmentFallback(username, password);
+      }
     } else if (error instanceof SyntaxError) {
       console.error('Response parsing error: Invalid JSON response from server');
     } else if (error instanceof Error && error.name === 'AbortError') {
