@@ -398,8 +398,8 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
         </CardContent>
       </Card>
 
-      {/* Search Results Section - Always show after search */}
-      {(searchResults.length > 0 || loading) && (
+      {/* Search Results Section - Show after search is performed */}
+      {hasSearched && (
         <Card className="shadow-sm border-border/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
