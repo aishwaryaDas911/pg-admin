@@ -172,6 +172,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   const handleReset = () => {
     reset();
     setSearchResults([]);
+    setHasSearched(false);
     toast({
       title: "Filters Reset",
       description: "All search filters have been cleared",
