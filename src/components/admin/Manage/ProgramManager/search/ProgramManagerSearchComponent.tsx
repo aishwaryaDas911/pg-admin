@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import { ProgramManagerConfig } from '../config/ProgramManagerConfig';
+import { ProgramManagerService, ProgramManagerSearchParams } from '@/services/programManagerService';
 import { Search, RotateCcw, FileText, Download, Eye, Edit, Trash2 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -47,47 +48,98 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
     }
   });
 
-  // Handle search functionality
-  const handleSearch = (data: any) => {
+  // Handle search functionality using the API service
+  const handleSearch = async (data: any) => {
     setLoading(true);
-    
-    setTimeout(() => {
-      // Filter results based on search criteria
+
+    try {
+      console.log('🔍 Starting Program Manager search with data:', data);
+
+      // Prepare search parameters for the API
+      const searchParams: ProgramManagerSearchParams = {
+        programManagerName: data.programManagerName || undefined,
+        companyName: data.companyName || undefined,
+        bankName: data.bankName || undefined,
+        status: data.status || undefined,
+        recordsPerPage: data.recordsPerPage || '10',
+        pageNumber: 1, // Start with first page
+        sortBy: 'programManagerName',
+        sortOrder: 'asc'
+      };
+
+      // Call the API service
+      const response = await ProgramManagerService.searchProgramManagers(searchParams);
+
+      if (response.success && response.data) {
+        setSearchResults(response.data);
+        onSearchClick();
+
+        toast({
+          title: "Search Completed Successfully",
+          description: `Found ${response.data.length} Program Manager(s)${response.totalRecords ? ` out of ${response.totalRecords} total records` : ''}`,
+        });
+      } else {
+        // API call failed, fall back to mock data for development
+        console.warn('⚠️ API search failed, falling back to mock data');
+
+        let filteredResults = config.mockData;
+
+        if (data.programManagerName) {
+          filteredResults = filteredResults.filter(item =>
+            item.programManagerName.toLowerCase().includes(data.programManagerName.toLowerCase())
+          );
+        }
+
+        if (data.companyName) {
+          filteredResults = filteredResults.filter(item =>
+            item.companyName.toLowerCase().includes(data.companyName.toLowerCase())
+          );
+        }
+
+        if (data.status) {
+          filteredResults = filteredResults.filter(item =>
+            item.status.toLowerCase() === data.status.toLowerCase()
+          );
+        }
+
+        if (data.bankName) {
+          filteredResults = filteredResults.filter(item =>
+            item.associatedBankNames.toLowerCase().includes(data.bankName.toLowerCase())
+          );
+        }
+
+        setSearchResults(filteredResults);
+        onSearchClick();
+
+        toast({
+          title: "Search Completed (Demo Mode)",
+          description: `Found ${filteredResults.length} Program Manager(s) - ${response.error || 'API unavailable, using sample data'}`,
+          variant: "secondary"
+        });
+      }
+    } catch (error) {
+      console.error('❌ Search error:', error);
+
+      // On any error, fall back to mock data
       let filteredResults = config.mockData;
-      
+
       if (data.programManagerName) {
         filteredResults = filteredResults.filter(item =>
           item.programManagerName.toLowerCase().includes(data.programManagerName.toLowerCase())
         );
       }
-      
-      if (data.companyName) {
-        filteredResults = filteredResults.filter(item =>
-          item.companyName.toLowerCase().includes(data.companyName.toLowerCase())
-        );
-      }
-      
-      if (data.status) {
-        filteredResults = filteredResults.filter(item => 
-          item.status.toLowerCase() === data.status.toLowerCase()
-        );
-      }
-      
-      if (data.bankName) {
-        filteredResults = filteredResults.filter(item =>
-          item.associatedBankNames.toLowerCase().includes(data.bankName.toLowerCase())
-        );
-      }
 
       setSearchResults(filteredResults);
-      setLoading(false);
       onSearchClick();
-      
+
       toast({
-        title: "Search Completed",
-        description: `Found ${filteredResults.length} Program Managers`,
+        title: "Search Error - Using Demo Data",
+        description: `API error occurred, showing ${filteredResults.length} sample records`,
+        variant: "destructive"
       });
-    }, 1000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Handle reset
