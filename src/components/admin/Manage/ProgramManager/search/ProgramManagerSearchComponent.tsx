@@ -54,6 +54,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
 
     try {
       console.log('🔍 Starting Program Manager search with data:', data);
+      console.log('🌐 API URL:', ProgramManagerService.getApiUrl());
 
       // Prepare search parameters for the API
       const searchParams: ProgramManagerSearchParams = {
