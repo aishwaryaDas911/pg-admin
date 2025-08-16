@@ -37,6 +37,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   const config = ProgramManagerConfig({ tableActionState });
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   
   const { register, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
