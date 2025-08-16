@@ -39,4 +39,4 @@ export const API_CONSTANTS = {
 } as const;
 
 // Export individual constants for easier usage
-export const { USER_ROLE_SERVICE, REQUEST_CONFIG, DEFAULTS } = API_CONSTANTS;
+export const { USER_ROLE_SERVICE, MERCHANT_ENTITY_SERVICE, REQUEST_CONFIG, DEFAULTS } = API_CONSTANTS;
