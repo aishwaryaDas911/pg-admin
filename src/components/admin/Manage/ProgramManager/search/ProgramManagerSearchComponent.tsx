@@ -443,81 +443,102 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {searchResults.map((row, index) => (
-                    <TableRow key={row.id || index} className="hover:bg-muted/30">
-                      <TableCell className="font-medium text-sm">{row.programManagerName}</TableCell>
-                      <TableCell className="text-sm">{row.companyName}</TableCell>
-                      <TableCell className="text-sm">{row.contactPerson}</TableCell>
-                      <TableCell className="text-sm">{row.phoneNumber}</TableCell>
-                      <TableCell className="text-sm font-mono text-xs">{row.emailId}</TableCell>
-                      <TableCell className="text-sm">{row.associatedBankNames}</TableCell>
-                      <TableCell>
-                        <Badge 
-                          variant={row.status === 'ACTIVE' ? 'default' : 'secondary'}
-                          className={`text-xs ${
-                            row.status === 'ACTIVE' 
-                              ? 'bg-green-100 text-green-800 border-green-200' 
-                              : row.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
-                              : 'bg-gray-100 text-gray-800 border-gray-200'
-                          }`}
-                        >
-                          {row.status.toLowerCase()}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center space-x-1">
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                                  onClick={() => handleAction('view', row)}
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>View</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50"
-                                  onClick={() => handleAction('edit', row)}
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Edit</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
-                                  onClick={() => handleAction('delete', row)}
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Delete</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center py-8">
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                          <span className="text-muted-foreground">Searching...</span>
                         </div>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : searchResults.length > 0 ? (
+                    searchResults.map((row, index) => (
+                      <TableRow key={row.id || index} className="hover:bg-muted/30">
+                        <TableCell className="font-medium text-sm">{row.programManagerName || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.companyName || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.contactPerson || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.phoneNumber || '-'}</TableCell>
+                        <TableCell className="text-sm font-mono text-xs">{row.emailId || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.associatedBankNames || '-'}</TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={row.status === 'ACTIVE' ? 'default' : 'secondary'}
+                            className={`text-xs ${
+                              row.status === 'ACTIVE'
+                                ? 'bg-green-100 text-green-800 border-green-200'
+                                : row.status === 'pending'
+                                ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                                : 'bg-gray-100 text-gray-800 border-gray-200'
+                            }`}
+                          >
+                            {row.status ? row.status.toLowerCase() : 'unknown'}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-1">
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                    onClick={() => handleAction('view', row)}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>View</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50"
+                                    onClick={() => handleAction('edit', row)}
+                                  >
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Edit</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                    onClick={() => handleAction('delete', row)}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Delete</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center py-12">
+                        <div className="flex flex-col items-center space-y-2">
+                          <Search className="h-8 w-8 text-muted-foreground" />
+                          <span className="text-muted-foreground font-medium">No records found</span>
+                          <span className="text-sm text-muted-foreground">Try adjusting your search criteria</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </div>
