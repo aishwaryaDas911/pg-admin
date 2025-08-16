@@ -395,34 +395,36 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
         </CardContent>
       </Card>
 
-      {/* Search Results Section */}
-      {searchResults.length > 0 && (
+      {/* Search Results Section - Always show after search */}
+      {(searchResults.length > 0 || loading) && (
         <Card className="shadow-sm border-border/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-medium">
-                Search Results ({searchResults.length} found)
+                {loading ? 'Searching...' : `Search Results (${searchResults.length} found)`}
               </h3>
-              <div className="flex items-center space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={exportToPDF}
-                  className="text-sm"
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  PDF
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={exportToCSV}
-                  className="text-sm"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  CSV
-                </Button>
-              </div>
+              {searchResults.length > 0 && (
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportToPDF}
+                    className="text-sm"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    PDF
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportToCSV}
+                    className="text-sm"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    CSV
+                  </Button>
+                </div>
+              )}
             </div>
 
             {/* Results Table */}
