@@ -117,25 +117,54 @@ export const authenticateUser = async (username: string, password: string): Prom
 
     // Handle specific error types
     if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-      console.error('🚨 CORS or Network Error Detected!');
+      console.error('🚨 Network/CORS Error Detected!');
       console.error('This could be due to:');
       console.error('1. CORS policy blocking the request');
       console.error('2. API server not running at', loginUrl);
       console.error('3. Network connectivity issues');
       console.error('4. Firewall or security restrictions');
 
-      // Always use fallback for fetch errors (both dev and production)
-      console.log('🔄 Using fallback authentication due to network/CORS error...');
-      return handleDevelopmentFallback(username, password);
+      // Always use fallback for fetch errors
+      console.log('🔄 Activating fallback authentication...');
+      try {
+        const fallbackResult = await handleDevelopmentFallback(username, password);
+        console.log('📝 Fallback authentication result:', fallbackResult);
+        return fallbackResult;
+      } catch (fallbackError) {
+        console.error('🚨 Fallback authentication also failed:', fallbackError);
+        return false;
+      }
     } else if (error instanceof SyntaxError) {
       console.error('Response parsing error: Invalid JSON response from server');
+      // Try fallback for parsing errors too
+      console.log('🔄 Trying fallback due to parsing error...');
+      try {
+        return await handleDevelopmentFallback(username, password);
+      } catch (fallbackError) {
+        console.error('Fallback failed for parsing error:', fallbackError);
+        return false;
+      }
     } else if (error instanceof Error && error.name === 'AbortError') {
       console.error('Request timeout: Authentication request took too long');
+      // Try fallback for timeout errors too
+      console.log('🔄 Trying fallback due to timeout...');
+      try {
+        return await handleDevelopmentFallback(username, password);
+      } catch (fallbackError) {
+        console.error('Fallback failed for timeout error:', fallbackError);
+        return false;
+      }
     } else {
       console.error('Unexpected error during authentication:', error);
+      // Try fallback for any unexpected errors
+      console.log('🔄 Trying fallback due to unexpected error...');
+      try {
+        return await handleDevelopmentFallback(username, password);
+      } catch (fallbackError) {
+        console.error('Fallback failed for unexpected error:', fallbackError);
+        return false;
+      }
     }
-
-    return false;
   }
 };
 
