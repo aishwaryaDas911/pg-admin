@@ -9,7 +9,16 @@ export const API_CONSTANTS = {
       AUTHENTICATE: '/authenticate'
     }
   },
-  
+
+  // Merchant Entity Service
+  MERCHANT_ENTITY_SERVICE: {
+    BASE_URL: 'http://192.168.12.7:9086',
+    PATHS: {
+      PROGRAM_MANAGER: '/merchant-entity-service/programmanager',
+      SEARCH_PROGRAM_MANAGER: '/processSearchProgramManager'
+    }
+  },
+
   // Request configuration
   REQUEST_CONFIG: {
     TIMEOUT: 30000,
