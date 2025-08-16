@@ -52,6 +52,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   // Handle search functionality using the API service
   const handleSearch = async (data: any) => {
     setLoading(true);
+    setHasSearched(true);
 
     try {
       console.log('🔍 Starting Program Manager search with data:', data);
