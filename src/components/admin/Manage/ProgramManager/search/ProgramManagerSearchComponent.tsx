@@ -70,14 +70,37 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
 
       // Call the API service
       const response = await ProgramManagerService.searchProgramManagers(searchParams);
+      console.log('📦 Full API Response:', response);
 
       if (response.success && response.data) {
-        setSearchResults(response.data);
+        console.log('✅ API Response Success - Data received:', response.data);
+        console.log('📁 Data type:', typeof response.data, 'Is Array:', Array.isArray(response.data));
+
+        // Handle different response formats
+        let resultsArray = [];
+        if (Array.isArray(response.data)) {
+          resultsArray = response.data;
+        } else if (response.data.programManagersList && Array.isArray(response.data.programManagersList)) {
+          // Handle if API returns {programManagersList: [...]}
+          resultsArray = response.data.programManagersList;
+          console.log('📁 Found programManagersList array:', resultsArray);
+        } else if (response.data.results && Array.isArray(response.data.results)) {
+          // Handle if API returns {results: [...]}
+          resultsArray = response.data.results;
+        } else {
+          // Single object response
+          resultsArray = [response.data];
+        }
+
+        console.log('📊 Final results array:', resultsArray);
+        console.log('📊 Results count:', resultsArray.length);
+
+        setSearchResults(resultsArray);
         onSearchClick();
 
         toast({
           title: "Search Completed Successfully",
-          description: `Found ${response.data.length} Program Manager(s)${response.totalRecords ? ` out of ${response.totalRecords} total records` : ''}`,
+          description: `Found ${resultsArray.length} Program Manager(s)${response.totalRecords ? ` out of ${response.totalRecords} total records` : ''}`,
         });
       } else {
         // API call failed, fall back to mock data for development
