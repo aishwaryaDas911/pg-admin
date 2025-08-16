@@ -215,7 +215,13 @@ export const isUserAuthenticated = (): boolean => {
  */
 const handleDevelopmentFallback = async (username: string, password: string): Promise<boolean> => {
   console.log('🔄 Using development fallback authentication...');
-  console.log('⚠️  External API unavailable - switching to demo mode');
+  console.log('⚠️ External API unavailable - switching to demo mode');
+  console.log('🔑 Available demo credentials:');
+  console.log('   - admin / password');
+  console.log('   - demo / demo123');
+  console.log('   - test / test123');
+  console.log('   - Shruthi / Subhas@321');
+  console.log('📝 Attempting login with:', username);
 
   // Simple demo credentials for development
   const validCredentials = [
