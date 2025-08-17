@@ -457,22 +457,21 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                       <TableRow key={row.id || index} className="hover:bg-muted/30">
                         <TableCell className="font-medium text-sm">{row.programManagerName || '-'}</TableCell>
                         <TableCell className="text-sm">{row.companyName || '-'}</TableCell>
-                        <TableCell className="text-sm">{row.contactPerson || '-'}</TableCell>
-                        <TableCell className="text-sm">{row.phoneNumber || '-'}</TableCell>
-                        <TableCell className="text-sm font-mono text-xs">{row.emailId || '-'}</TableCell>
-                        <TableCell className="text-sm">{row.associatedBankNames || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.businessName || '-'}</TableCell>
                         <TableCell>
                           <Badge
-                            variant={row.status === 'ACTIVE' ? 'default' : 'secondary'}
+                            variant={row.status === 'Active' ? 'default' : 'secondary'}
                             className={`text-xs ${
-                              row.status === 'ACTIVE'
+                              row.status === 'Active'
                                 ? 'bg-green-100 text-green-800 border-green-200'
-                                : row.status === 'pending'
+                                : row.status === 'Inactive'
+                                ? 'bg-red-100 text-red-800 border-red-200'
+                                : row.status === 'Pending'
                                 ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
                                 : 'bg-gray-100 text-gray-800 border-gray-200'
                             }`}
                           >
-                            {row.status ? row.status.toLowerCase() : 'unknown'}
+                            {row.status || 'Unknown'}
                           </Badge>
                         </TableCell>
                         <TableCell>
