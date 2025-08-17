@@ -437,10 +437,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                   <TableRow className="bg-muted/50">
                     <TableHead className="text-xs font-medium">Program Manager Name</TableHead>
                     <TableHead className="text-xs font-medium">Company Name</TableHead>
-                    <TableHead className="text-xs font-medium">Contact Person</TableHead>
-                    <TableHead className="text-xs font-medium">Phone</TableHead>
-                    <TableHead className="text-xs font-medium">Email</TableHead>
-                    <TableHead className="text-xs font-medium">Associated Bank Name(s)</TableHead>
+                    <TableHead className="text-xs font-medium">Business Entity Name</TableHead>
                     <TableHead className="text-xs font-medium">Status</TableHead>
                     <TableHead className="text-xs font-medium">Actions</TableHead>
                   </TableRow>
