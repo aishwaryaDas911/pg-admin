@@ -445,7 +445,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                 <TableBody>
                   {loading ? (
                     <TableRow>
-                      <TableCell colSpan={8} className="text-center py-8">
+                      <TableCell colSpan={5} className="text-center py-8">
                         <div className="flex items-center justify-center space-x-2">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
                           <span className="text-muted-foreground">Searching...</span>
