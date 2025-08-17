@@ -529,7 +529,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={8} className="text-center py-12">
+                      <TableCell colSpan={5} className="text-center py-12">
                         <div className="flex flex-col items-center space-y-2">
                           <Search className="h-8 w-8 text-muted-foreground" />
                           <span className="text-muted-foreground font-medium">No records found</span>
