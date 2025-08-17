@@ -94,13 +94,23 @@ export class ProgramManagerService {
       const responseData = await response.json();
       console.log('📦 API Response Data:', responseData);
       
-      // Handle different response formats that the API might return
-      if (responseData.success !== undefined) {
-        // If API returns a structured response with success field
+      // Handle the specific API response format
+      if (responseData.errorCode === "0" && responseData.errorMessage === "SUCCESS") {
+        // API success response format: {errorCode: "0", errorMessage: "SUCCESS", programManagersList: [...]}
+        return {
+          success: true,
+          data: responseData.programManagersList || [],
+          totalRecords: responseData.totalNoOfRows || responseData.programManagersList?.length || 0,
+          currentPage: 1,
+          totalPages: Math.ceil((responseData.totalNoOfRows || 0) / (parseInt(searchParams.recordsPerPage) || 10)),
+          message: responseData.errorMessage
+        };
+      } else if (responseData.success !== undefined) {
+        // If API returns a structured response with success field (fallback)
         return {
           success: responseData.success,
-          data: responseData.data || responseData.results || [],
-          totalRecords: responseData.totalRecords || responseData.total,
+          data: responseData.data || responseData.results || responseData.programManagersList || [],
+          totalRecords: responseData.totalRecords || responseData.total || responseData.totalNoOfRows,
           currentPage: responseData.currentPage || responseData.page,
           totalPages: responseData.totalPages,
           message: responseData.message
@@ -115,14 +125,12 @@ export class ProgramManagerService {
           totalPages: 1
         };
       } else {
-        // If API returns data in a different structure
+        // Error response or unexpected format
         return {
-          success: true,
-          data: responseData.data || responseData.results || [],
-          totalRecords: responseData.totalRecords || responseData.total || 0,
-          currentPage: responseData.currentPage || responseData.page || 1,
-          totalPages: responseData.totalPages || 1,
-          message: responseData.message
+          success: false,
+          error: responseData.errorMessage || 'Unknown error occurred',
+          message: responseData.errorMessage || 'Unable to process response',
+          data: []
         };
       }
       
