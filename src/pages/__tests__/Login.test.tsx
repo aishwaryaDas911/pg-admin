@@ -26,6 +26,8 @@ vi.mock('react-router-dom', async () => {
 vi.mock('@/hooks/use-toast', () => ({
   useToast: () => ({
     toast: mockToast,
+    toasts: [],
+    dismiss: vi.fn(),
   }),
 }));
 
