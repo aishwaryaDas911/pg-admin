@@ -9,7 +9,7 @@ import { Toaster } from '@/components/ui/toaster';
 const MockToastProvider = ({ children }: { children: React.ReactNode }) => (
   <>
     {children}
-    <Toaster />
+    {/* Toaster removed from test-utils to avoid conflicts */}
   </>
 );
 
