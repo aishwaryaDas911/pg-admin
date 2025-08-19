@@ -242,9 +242,15 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
             <Building className="h-6 w-6 text-mb-blue" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-foreground">{ISO_STRINGS.TITLES.CREATE}</h2>
+            <h2 className="text-2xl font-bold text-foreground">
+              {mode === 'view' ? ISO_STRINGS.TITLES.VIEW :
+               mode === 'edit' ? ISO_STRINGS.TITLES.EDIT :
+               ISO_STRINGS.TITLES.CREATE}
+            </h2>
             <p className="text-sm text-muted-foreground mt-1">
-              {ISO_STRINGS.DESCRIPTIONS.CREATE}
+              {mode === 'view' ? 'View ISO details and information' :
+               mode === 'edit' ? 'Edit and update ISO information' :
+               ISO_STRINGS.DESCRIPTIONS.CREATE}
             </p>
           </div>
         </CardTitle>
