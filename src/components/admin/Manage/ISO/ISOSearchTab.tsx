@@ -136,6 +136,27 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
     }
   }, [toast]);
 
+  // Handle action buttons
+  const handleView = useCallback((row: any) => {
+    onView?.(row);
+  }, [onView]);
+
+  const handleEdit = useCallback((row: any) => {
+    onEdit?.(row);
+  }, [onEdit]);
+
+  const handleDelete = useCallback((row: any) => {
+    // Show confirmation and handle delete
+    if (window.confirm(`Are you sure you want to delete ${row.isoName}?`)) {
+      // Remove from search results
+      setSearchResults(prev => prev.filter(item => item.id !== row.id));
+
+      toast({
+        title: ISO_STRINGS.TOAST.ISO_DELETED_TITLE,
+        description: `${row.isoName} has been deleted successfully`,
+      });
+    }
+  }, [toast]);
 
   return (
     <div className="space-y-6">
