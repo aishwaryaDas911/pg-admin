@@ -98,7 +98,10 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
     formState: { errors },
   } = useForm<ISOFormData>({
     resolver: zodResolver(isoSchema),
-    defaultValues: {
+    defaultValues: initialData ? {
+      ...initialData,
+      panRanges: initialData.panRanges || [{ panLow: '', panHigh: '' }],
+    } : {
       panRanges: [{ panLow: '', panHigh: '' }],
     },
   });
