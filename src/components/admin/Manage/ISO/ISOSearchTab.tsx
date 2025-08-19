@@ -89,7 +89,8 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
 
   // Handle form reset
   const handleReset = useCallback(() => {
-    setSearchResults(isoMockData);
+    setSearchResults([]);
+    setHasSearched(false);
 
     toast({
       title: ISO_STRINGS.TOAST.FORM_RESET_TITLE,
