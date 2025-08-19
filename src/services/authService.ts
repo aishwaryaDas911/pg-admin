@@ -1,5 +1,6 @@
 import { API_CONFIG } from '@/config/apiConfig';
 import { REQUEST_CONFIG, DEFAULTS, USER_ROLE_SERVICE } from '@/constants/ApiConstants';
+import { displayErrorGuidance } from '@/utils/networkDiagnostics';
 
 // Interface for login request payload
 interface LoginPayload {
@@ -126,16 +127,13 @@ export const authenticateUser = async (username: string, password: string): Prom
   } catch (error) {
     console.error('Authentication error:', error);
 
+    // Use the network diagnostics utility for better error guidance
+    displayErrorGuidance(error);
+
     // Handle specific error types
     if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-      console.error('🚨 Network/CORS Error Detected!');
-      console.error('This could be due to:');
-      console.error('1. CORS policy blocking the request');
-      console.error('2. API server not running at', loginUrl);
-      console.error('3. Network connectivity issues');
-      console.error('4. Firewall or security restrictions');
 
-      // Always use fallback for fetch errors
+      // Always use fallback for fetch errors in development
       console.log('🔄 Activating fallback authentication...');
       try {
         const fallbackResult = await handleDevelopmentFallback(username, password);
