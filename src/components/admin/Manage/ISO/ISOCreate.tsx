@@ -270,7 +270,7 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
                 <Label htmlFor="programManager" className="text-sm font-medium">
                   {ISO_STRINGS.LABELS.PROGRAM_MANAGER} <span className="text-red-500">{ISO_STRINGS.REQUIRED_INDICATOR}</span>
                 </Label>
-                <Select onValueChange={(value) => setValue('programManager', value)}>
+                <Select onValueChange={(value) => setValue('programManager', value)} disabled={isReadOnly}>
                   <SelectTrigger className={errors.programManager ? 'border-red-500' : ''}>
                     <SelectValue placeholder={ISO_STRINGS.PLACEHOLDERS.SELECT_PROGRAM_MANAGER} />
                   </SelectTrigger>
