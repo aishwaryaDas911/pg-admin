@@ -47,7 +47,7 @@ const AdminPortal: React.FC = () => {
     items.forEach(item => {
       if (item.children) {
         item.children.forEach(child => {
-          if (child.path) {
+          if (child.path && child.path !== '/manage/iso') { // Skip ISO route - handled explicitly
             routes.push(
               <Route
                 key={child.path}
