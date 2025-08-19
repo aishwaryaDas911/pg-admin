@@ -177,10 +177,10 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
               }
               return field;
             })}
-            tableDataConfig={{
+            tableDataConfig={hasSearched ? {
               columns: isoConfig.tableConfig.columns,
               rows: searchResults
-            }}
+            } : { columns: [], rows: [] }}
             onSubmit={handleSearch}
             className="w-full"
           />
