@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import FormGenerator from '@/components/common/FormGenerator';
 import { getModuleConfig, getMockDataForModule } from '@/config/fieldConfigurations';
 import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
-import { ISOForm } from './Manage/ISO';
 import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
@@ -322,28 +321,6 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 Please navigate to <strong>/program-manager-management</strong> for the enhanced experience.
               </p>
             </div>
-          ) : title === 'ISO' ? (
-            <ISOForm
-              onSubmit={(data) => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-                  description: ADMIN_STRINGS.TOAST.ISO_CREATED,
-                });
-                console.log('ISO data:', data);
-              }}
-              onCancel={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CANCELLED,
-                  description: ADMIN_STRINGS.TOAST.ISO_CREATION_CANCELLED,
-                });
-              }}
-              onReset={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
-                  description: ADMIN_STRINGS.TOAST.ISO_FIELDS_CLEARED,
-                });
-              }}
-            />
           ) : title === 'Merchant Group' ? (
             <MerchantGroupForm
               onSubmit={(data) => {

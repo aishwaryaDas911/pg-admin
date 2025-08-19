@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Calendar, CalendarDays, ChevronDown, ChevronRight, Filter } from 'lucide-react';
+import { Calendar, CalendarDays, ChevronDown, ChevronRight, Filter, Eye, Edit, Trash2, MoreHorizontal } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +27,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -78,13 +84,19 @@ interface FormGeneratorProps {
   tableDataConfig?: TableConfig;
   onSubmit?: (data: any) => void;
   className?: string;
+  onView?: (row: any) => void;
+  onEdit?: (row: any) => void;
+  onDelete?: (row: any) => void;
 }
 
 const FormGenerator: React.FC<FormGeneratorProps> = ({
   fields = [],
   tableDataConfig = { columns: [], rows: [] },
   onSubmit,
-  className
+  className,
+  onView,
+  onEdit,
+  onDelete
 }) => {
   const methods = useForm();
   const { register, setValue, watch, formState: { errors }, reset } = methods;
@@ -369,7 +381,35 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
                     {tableDataConfig.columns.map((column) => (
                       <TableCell key={`${row.id || index}-${column.key}`}>
                         {column.key === 'actions' ? (
-                          row[column.key] || '-'
+                          <div className="flex items-center space-x-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onView?.(row)}
+                              className="h-8 w-8 p-0"
+                              title="View"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onEdit?.(row)}
+                              className="h-8 w-8 p-0"
+                              title="Edit"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onDelete?.(row)}
+                              className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                              title="Delete"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         ) : column.key === 'status' ? (
                           <Badge
                             variant={row[column.key] === 'active' ? 'default' : 'secondary'}
