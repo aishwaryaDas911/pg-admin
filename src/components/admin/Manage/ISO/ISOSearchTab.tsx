@@ -88,10 +88,7 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
   // Handle form reset
   const handleReset = useCallback(() => {
     setSearchResults(isoMockData);
-    setTotalRecords(isoMockData.length);
-    setCurrentPage(1);
-    setSelectedRows([]);
-    
+
     toast({
       title: ISO_STRINGS.TOAST.FORM_RESET_TITLE,
       description: 'Search filters have been cleared',
