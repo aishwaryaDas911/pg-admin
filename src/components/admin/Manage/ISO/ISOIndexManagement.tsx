@@ -9,9 +9,6 @@ import {
   Building,
   Search,
   Plus,
-  FileText,
-  Users,
-  TrendingUp,
 } from 'lucide-react';
 
 interface ISOIndexManagementProps {
