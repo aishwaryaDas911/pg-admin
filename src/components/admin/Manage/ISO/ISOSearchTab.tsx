@@ -99,8 +99,8 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
   const handleExportPDF = useCallback(async () => {
     try {
       // In a real app, this would call the service
-      // await isoService.exportToPdf({ ids: selectedRows.length > 0 ? selectedRows : undefined });
-      
+      // await isoService.exportToPdf();
+
       toast({
         title: ISO_STRINGS.TOAST.EXPORT_SUCCESS_TITLE,
         description: ISO_STRINGS.EXPORT.PDF_SUCCESS,
@@ -112,14 +112,14 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
         variant: 'destructive',
       });
     }
-  }, [selectedRows, toast]);
+  }, [toast]);
 
   // Handle CSV export
   const handleExportCSV = useCallback(async () => {
     try {
       // In a real app, this would call the service
-      // await isoService.exportToCsv({ ids: selectedRows.length > 0 ? selectedRows : undefined });
-      
+      // await isoService.exportToCsv();
+
       toast({
         title: ISO_STRINGS.TOAST.EXPORT_SUCCESS_TITLE,
         description: ISO_STRINGS.EXPORT.CSV_SUCCESS,
@@ -131,7 +131,7 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
         variant: 'destructive',
       });
     }
-  }, [selectedRows, toast]);
+  }, [toast]);
 
   // Handle row actions
   const handleView = (iso: any) => {
