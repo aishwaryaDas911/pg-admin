@@ -289,12 +289,29 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
         </CardHeader>
         <CardContent className="p-6">
           <FormGenerator
-            fields={isoConfig.searchFields}
+            fields={isoConfig.searchFields.map(field => {
+              if (field.button?.name === 'exportPDF') {
+                return {
+                  ...field,
+                  button: {
+                    ...field.button,
+                    onClick: handleExportPDF
+                  }
+                };
+              }
+              if (field.button?.name === 'exportCSV') {
+                return {
+                  ...field,
+                  button: {
+                    ...field.button,
+                    onClick: handleExportCSV
+                  }
+                };
+              }
+              return field;
+            })}
             onSubmit={handleSearch}
-            onReset={handleReset}
-            onExportPDF={handleExportPDF}
-            onExportCSV={handleExportCSV}
-            isLoading={isLoading}
+            className="w-full"
           />
         </CardContent>
       </Card>
