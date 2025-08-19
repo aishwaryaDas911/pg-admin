@@ -93,7 +93,10 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   fields = [],
   tableDataConfig = { columns: [], rows: [] },
   onSubmit,
-  className
+  className,
+  onView,
+  onEdit,
+  onDelete
 }) => {
   const methods = useForm();
   const { register, setValue, watch, formState: { errors }, reset } = methods;
