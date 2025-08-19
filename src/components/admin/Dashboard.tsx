@@ -170,8 +170,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={activityData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 12 }}
+                  tickLine={{ stroke: '#e5e7eb' }}
+                  axisLine={{ stroke: '#e5e7eb' }}
+                />
+                <YAxis
+                  tick={{ fontSize: 12 }}
+                  tickLine={{ stroke: '#e5e7eb' }}
+                  axisLine={{ stroke: '#e5e7eb' }}
+                />
                 <Tooltip />
                 <Bar dataKey="value" fill="hsl(var(--mb-blue))" />
               </BarChart>
