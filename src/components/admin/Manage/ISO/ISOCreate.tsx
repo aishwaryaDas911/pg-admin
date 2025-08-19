@@ -72,6 +72,8 @@ type ISOFormData = z.infer<typeof isoSchema>;
 interface ISOCreateProps {
   onSuccess?: () => void;
   onCancel?: () => void;
+  mode?: 'create' | 'edit' | 'view';
+  initialData?: any;
 }
 
 export const ISOCreate: React.FC<ISOCreateProps> = ({ onSuccess, onCancel }) => {
