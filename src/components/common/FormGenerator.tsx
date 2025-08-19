@@ -84,6 +84,9 @@ interface FormGeneratorProps {
   tableDataConfig?: TableConfig;
   onSubmit?: (data: any) => void;
   className?: string;
+  onView?: (row: any) => void;
+  onEdit?: (row: any) => void;
+  onDelete?: (row: any) => void;
 }
 
 const FormGenerator: React.FC<FormGeneratorProps> = ({
