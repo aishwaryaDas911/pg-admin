@@ -4,6 +4,16 @@ import { USER_ROLE_SERVICE } from '@/constants/ApiConstants';
 export const API_CONFIG = {
   BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
   TIMEOUT: 30000,
+
+  // Environment detection
+  IS_DEVELOPMENT: import.meta.env.DEV || import.meta.env.NODE_ENV === 'development',
+
+  // CORS and request settings
+  CORS: {
+    CREDENTIALS: 'include' as RequestCredentials,
+    MODE: 'cors' as RequestMode,
+    CACHE: 'no-cache' as RequestCache,
+  },
   
   // Entity endpoints
   ENDPOINTS: {
@@ -58,9 +68,18 @@ export const API_CONFIG = {
     DEFAULT: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
     },
     MULTIPART: {
       'Content-Type': 'multipart/form-data',
+    },
+    // Development headers with CORS support
+    DEVELOPMENT: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
     },
   },
   
