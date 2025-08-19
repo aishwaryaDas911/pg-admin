@@ -1,50 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { FormGenerator } from '@/components/common';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { ISO_STRINGS } from '@/constants/isoConstants';
 import { isoConfig, isoMockData } from './formConfig';
 import { isoService } from '@/services/isoService';
-import {
-  Search,
-  Download,
-  FileText,
-  Eye,
-  Edit,
-  Copy,
-  Ban,
-  Trash2,
-  MoreHorizontal,
-  RefreshCw,
-  Plus,
-} from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import { Search } from 'lucide-react';
 
 interface ISOSearchTabProps {
   onEdit?: (iso: any) => void;
