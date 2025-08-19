@@ -1,8 +1,9 @@
 import { FormField, TableConfig } from '@/components/common';
 import { ModuleConfig } from '@/config/fieldConfigurations';
-import { 
-  PROGRAM_MANAGER_STRINGS, 
-  PROGRAM_MANAGER_DROPDOWN_OPTIONS 
+import {
+  PROGRAM_MANAGER_STRINGS,
+  PROGRAM_MANAGER_DROPDOWN_OPTIONS,
+  PROGRAM_MANAGER_FIELD_CONFIG
 } from '@/constants/programManagerConstants';
 import { z } from 'zod';
 
