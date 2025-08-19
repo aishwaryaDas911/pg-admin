@@ -321,28 +321,6 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
                 Please navigate to <strong>/program-manager-management</strong> for the enhanced experience.
               </p>
             </div>
-          ) : title === 'ISO' ? (
-            <ISOForm
-              onSubmit={(data) => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-                  description: ADMIN_STRINGS.TOAST.ISO_CREATED,
-                });
-                console.log('ISO data:', data);
-              }}
-              onCancel={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CANCELLED,
-                  description: ADMIN_STRINGS.TOAST.ISO_CREATION_CANCELLED,
-                });
-              }}
-              onReset={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
-                  description: ADMIN_STRINGS.TOAST.ISO_FIELDS_CLEARED,
-                });
-              }}
-            />
           ) : title === 'Merchant Group' ? (
             <MerchantGroupForm
               onSubmit={(data) => {
