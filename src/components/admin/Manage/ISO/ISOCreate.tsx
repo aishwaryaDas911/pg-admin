@@ -76,11 +76,17 @@ interface ISOCreateProps {
   initialData?: any;
 }
 
-export const ISOCreate: React.FC<ISOCreateProps> = ({ onSuccess, onCancel }) => {
+export const ISOCreate: React.FC<ISOCreateProps> = ({
+  onSuccess,
+  onCancel,
+  mode = 'create',
+  initialData
+}) => {
   const { toast } = useToast();
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isReadOnly = mode === 'view';
 
   const {
     register,
