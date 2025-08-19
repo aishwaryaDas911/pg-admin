@@ -296,6 +296,7 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
                   placeholder={ISO_STRINGS.PLACEHOLDERS.ENTER_ISO_NAME}
                   {...register('isoName')}
                   className={errors.isoName ? 'border-red-500' : ''}
+                  readOnly={isReadOnly}
                 />
                 {errors.isoName && (
                   <p className="text-xs text-red-500">{errors.isoName.message}</p>
