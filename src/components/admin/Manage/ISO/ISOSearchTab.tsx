@@ -30,10 +30,6 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
   const { toast } = useToast();
   const [searchResults, setSearchResults] = useState(isoMockData);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalRecords, setTotalRecords] = useState(isoMockData.length);
 
   // Handle form submission for search
   const handleSearch = useCallback(async (formData: SearchFilters) => {
