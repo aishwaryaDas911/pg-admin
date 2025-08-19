@@ -56,66 +56,6 @@ export const ISOIndexManagement: React.FC<ISOIndexManagementProps> = ({ classNam
 
   return (
     <div className={className}>
-      {/* Header Section */}
-      <div className="mb-6">
-        <Card className="shadow-glass bg-gradient-to-r from-mb-blue/5 to-mb-silver/5">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center space-x-3">
-              <div className="p-3 bg-mb-blue/10 rounded-lg">
-                <Building className="h-8 w-8 text-mb-blue" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-foreground">{ISO_STRINGS.TITLES.MAIN}</h1>
-                <p className="text-base text-muted-foreground mt-1">
-                  {ISO_STRINGS.DESCRIPTIONS.MAIN}
-                </p>
-              </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="flex items-center space-x-3 p-3 bg-white/50 rounded-lg border">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <Users className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Total ISOs</p>
-                  <p className="text-xl font-bold">127</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-white/50 rounded-lg border">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <TrendingUp className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Active</p>
-                  <p className="text-xl font-bold">98</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-white/50 rounded-lg border">
-                <div className="p-2 bg-yellow-100 rounded-lg">
-                  <FileText className="h-5 w-5 text-yellow-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Pending</p>
-                  <p className="text-xl font-bold">15</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 p-3 bg-white/50 rounded-lg border">
-                <div className="p-2 bg-red-100 rounded-lg">
-                  <Building className="h-5 w-5 text-red-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Suspended</p>
-                  <p className="text-xl font-bold">14</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
       {/* Main Content with Tabs */}
       <Card className="shadow-glass">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
