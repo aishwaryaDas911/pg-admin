@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import FormGenerator from '@/components/common/FormGenerator';
 import { getModuleConfig, getMockDataForModule } from '@/config/fieldConfigurations';
 import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
-import { ISOForm } from './Manage/ISO';
 import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
