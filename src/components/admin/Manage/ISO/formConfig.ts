@@ -1,4 +1,5 @@
-import { FormField, TableConfig, ModuleConfig } from '@/config/fieldConfigurations';
+import { FormField, TableConfig } from '@/components/common';
+import { ModuleConfig } from '@/config/fieldConfigurations';
 import { DROPDOWN_OPTIONS } from '@/constants/adminConstants';
 import { ISO_STRINGS, ISO_DROPDOWN_OPTIONS } from '@/constants/isoConstants';
 
