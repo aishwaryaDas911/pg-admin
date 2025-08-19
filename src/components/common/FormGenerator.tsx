@@ -381,7 +381,35 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
                     {tableDataConfig.columns.map((column) => (
                       <TableCell key={`${row.id || index}-${column.key}`}>
                         {column.key === 'actions' ? (
-                          row[column.key] || '-'
+                          <div className="flex items-center space-x-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onView?.(row)}
+                              className="h-8 w-8 p-0"
+                              title="View"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onEdit?.(row)}
+                              className="h-8 w-8 p-0"
+                              title="Edit"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => onDelete?.(row)}
+                              className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                              title="Delete"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         ) : column.key === 'status' ? (
                           <Badge
                             variant={row[column.key] === 'active' ? 'default' : 'secondary'}
