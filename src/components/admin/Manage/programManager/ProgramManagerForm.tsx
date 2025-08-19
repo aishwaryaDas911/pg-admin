@@ -7,37 +7,60 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { ProgramManagerConfig } from '../config/ProgramManagerConfig';
 import { Save, RotateCcw, X, Upload, Info } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { 
+  PROGRAM_MANAGER_STRINGS, 
+  PROGRAM_MANAGER_DROPDOWN_OPTIONS 
+} from '@/constants/programManagerConstants';
+import { 
+  programManagerValidationSchema, 
+  programManagerMockData 
+} from './formConfig';
 
-interface ProgramManagerCreateProps {
-  tabName: string;
-  handleChangeTab: (tab: string) => void;
-  tableActionState: string;
-  setTableActionState: (state: string) => void;
-  isTableDataChanged: boolean;
-  setIsTableDataChanged: (changed: boolean) => void;
+interface ProgramManagerFormProps {
+  mode?: 'create' | 'edit' | 'view';
+  initialData?: any;
+  onSubmit?: (data: any) => void;
+  onCancel?: () => void;
+  onSuccess?: () => void;
+  className?: string;
 }
 
-export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> = ({
-  tabName,
-  handleChangeTab,
-  tableActionState,
-  setTableActionState,
-  isTableDataChanged,
-  setIsTableDataChanged
+interface ProgramManagerFormData {
+  programManagerName: string;
+  companyName: string;
+  businessEntityName: string;
+  contactPerson: string;
+  phoneNumber: string;
+  extension?: string;
+  emailId: string;
+  currency: string;
+  country: string;
+  state: string;
+  programManagerTimeZone: string;
+  batchPrefix: string;
+  schedulerRunTime: string;
+  associatedBankNames: string;
+  programManagerLogo?: File | null;
+}
+
+export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
+  mode = 'create',
+  initialData,
+  onSubmit,
+  onCancel,
+  onSuccess,
+  className = ''
 }) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-
-  // Get configuration
-  const config = ProgramManagerConfig({ tableActionState });
+  const [isDataChanged, setIsDataChanged] = useState(false);
 
   // Form setup with validation
-  const methods = useForm({
-    resolver: zodResolver(config.userCreateSchema),
+  const methods = useForm<ProgramManagerFormData>({
+    resolver: zodResolver(programManagerValidationSchema),
     defaultValues: {
       programManagerName: '',
       companyName: '',
@@ -59,33 +82,56 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = methods;
 
+  // Load initial data for edit/view mode
+  useEffect(() => {
+    if ((mode === 'edit' || mode === 'view') && initialData) {
+      Object.keys(initialData).forEach(key => {
+        if (key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
+          setValue(key as keyof ProgramManagerFormData, initialData[key]);
+        }
+      });
+    } else if (mode === 'edit' || mode === 'view') {
+      // Mock data for demo
+      const mockData = programManagerMockData[0];
+      Object.keys(mockData).forEach(key => {
+        if (key !== 'id' && key !== 'createdDate' && key !== 'updatedAt') {
+          setValue(key as keyof ProgramManagerFormData, mockData[key as keyof typeof mockData]);
+        }
+      });
+    }
+  }, [mode, initialData, setValue]);
+
   // Handle form submission
-  const onSubmit = async (data: any) => {
+  const handleFormSubmit = async (data: ProgramManagerFormData) => {
     setLoading(true);
     
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      const action = tableActionState === 'edit' ? 'updated' : 'created';
+      const action = mode === 'edit' ? 'updated' : 'created';
       
       toast({
-        title: `Program Manager ${action.charAt(0).toUpperCase() + action.slice(1)} Successfully`,
+        title: PROGRAM_MANAGER_STRINGS.TOAST.PROGRAM_MANAGER_CREATED_TITLE.replace('Created', action === 'updated' ? 'Updated' : 'Created'),
         description: `${data.programManagerName} has been ${action} successfully.`,
       });
       
-      // Reset form and navigate back to search
-      if (tableActionState !== 'edit') {
+      // Call parent onSubmit if provided
+      onSubmit?.(data);
+      
+      // Reset form for create mode
+      if (mode === 'create') {
         reset();
+        setIsDataChanged(false);
       }
-      setTableActionState('');
-      setIsTableDataChanged(true);
-      handleChangeTab('search');
+      
+      // Call success callback
+      onSuccess?.();
       
     } catch (error) {
       toast({
         title: "Error",
-        description: "An error occurred while saving the Program Manager.",
+        description: `An error occurred while ${mode === 'edit' ? 'updating' : 'creating'} the Program Manager.`,
         variant: "destructive"
       });
     } finally {
@@ -93,68 +139,88 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
     }
   };
 
-  // Handle cancel/back action
+  // Handle cancel action
   const handleCancel = () => {
-    if (isTableDataChanged) {
+    if (isDataChanged && mode !== 'view') {
       const confirmDiscard = window.confirm(
-        'You have unsaved changes. Are you sure you want to discard them?'
+        PROGRAM_MANAGER_STRINGS.CONFIRMATIONS.DISCARD_CHANGES
       );
       if (!confirmDiscard) return;
     }
     
-    setTableActionState('');
-    setIsTableDataChanged(false);
-    handleChangeTab('search');
+    setIsDataChanged(false);
+    onCancel?.();
   };
 
   // Handle reset
   const handleReset = () => {
+    if (mode === 'view') return;
+    
     const confirmReset = window.confirm(
-      'Are you sure you want to reset all fields?'
+      PROGRAM_MANAGER_STRINGS.CONFIRMATIONS.RESET_FORM
     );
     if (confirmReset) {
       reset();
-      setIsTableDataChanged(false);
+      setIsDataChanged(false);
       toast({
-        title: "Form Reset",
-        description: "All fields have been cleared.",
+        title: PROGRAM_MANAGER_STRINGS.TOAST.FORM_RESET_TITLE,
+        description: PROGRAM_MANAGER_STRINGS.TOAST.FORM_RESET_DESCRIPTION,
       });
     }
   };
 
-  // Get form title based on action
+  // Get form title based on mode
   const getFormTitle = () => {
-    if (tableActionState === 'view') return 'View Program Manager';
-    if (tableActionState === 'edit') return 'Edit Program Manager';
-    return 'Create Program Manager';
+    switch (mode) {
+      case 'view': return PROGRAM_MANAGER_STRINGS.TITLES.VIEW;
+      case 'edit': return PROGRAM_MANAGER_STRINGS.TITLES.EDIT;
+      default: return PROGRAM_MANAGER_STRINGS.TITLES.CREATE;
+    }
   };
 
-  // Mock data for edit/view mode
-  useEffect(() => {
-    if (tableActionState === 'edit' || tableActionState === 'view') {
-      // Simulate loading existing data
-      const mockData = config.mockData[0];
-      Object.keys(mockData).forEach(key => {
-        if (key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-          setValue(key as any, mockData[key as keyof typeof mockData]);
-        }
-      });
-    }
-  }, [tableActionState, setValue]);
-
-  const isViewMode = tableActionState === 'view';
+  const isViewMode = mode === 'view';
+  const isEditMode = mode === 'edit';
 
   // Handle file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      // Validate file
+      if (!PROGRAM_MANAGER_FIELD_CONFIG.FILE_VALIDATION.ACCEPTED_TYPES.includes(file.type)) {
+        toast({
+          title: PROGRAM_MANAGER_STRINGS.TOAST.INVALID_FILE_TYPE_TITLE,
+          description: PROGRAM_MANAGER_STRINGS.VALIDATION.INVALID_FILE_TYPE,
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      if (file.size > PROGRAM_MANAGER_FIELD_CONFIG.FILE_VALIDATION.MAX_SIZE_BYTES) {
+        toast({
+          title: PROGRAM_MANAGER_STRINGS.TOAST.FILE_TOO_LARGE_TITLE,
+          description: PROGRAM_MANAGER_STRINGS.VALIDATION.FILE_TOO_LARGE,
+          variant: "destructive"
+        });
+        return;
+      }
+
       setValue('programManagerLogo', file);
-      setIsTableDataChanged(true);
+      setIsDataChanged(true);
     }
   };
 
+  // Watch for form changes
+  React.useEffect(() => {
+    const subscription = watch(() => {
+      if (!isViewMode) {
+        setIsDataChanged(true);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, isViewMode]);
+
   return (
-    <div className="space-y-6">
+    <div className={`space-y-6 ${className}`}>
       <Card className="shadow-glass border-border/50">
         <CardHeader className="border-b border-border/50 bg-muted/30">
           <div className="flex items-center justify-between">
@@ -165,7 +231,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
               <div>
                 <CardTitle className="text-xl font-semibold">{getFormTitle()}</CardTitle>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Configure a new program manager with all required details
+                  {PROGRAM_MANAGER_STRINGS.DESCRIPTIONS.FORM}
                 </p>
               </div>
             </div>
@@ -176,7 +242,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
         </CardHeader>
         <CardContent className="p-6">
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-8">
               
               {/* Basic Information Section */}
               <div className="space-y-4">
@@ -184,19 +250,19 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                   <div className="p-1 rounded bg-primary/10">
                     <Info className="h-4 w-4 text-primary" />
                   </div>
-                  <h3 className="text-lg font-medium">Basic Information</h3>
+                  <h3 className="text-lg font-medium">{PROGRAM_MANAGER_STRINGS.SECTIONS.BASIC_INFORMATION}</h3>
                 </div>
                 <Separator className="border-border/50" />
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="programManagerName" className="text-sm font-medium">
-                      Program Manager Name <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.PROGRAM_MANAGER_NAME} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="programManagerName"
                       type="text"
-                      placeholder="Enter program manager name"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_PROGRAM_MANAGER_NAME}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('programManagerName')}
@@ -210,12 +276,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="companyName" className="text-sm font-medium">
-                      Company Name <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.COMPANY_NAME} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="companyName"
                       type="text"
-                      placeholder="Enter company name"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_COMPANY_NAME}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('companyName')}
@@ -229,12 +295,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="businessEntityName" className="text-sm font-medium">
-                      Business Entity Name <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.BUSINESS_ENTITY_NAME} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="businessEntityName"
                       type="text"
-                      placeholder="Enter business entity name"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_BUSINESS_ENTITY_NAME}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('businessEntityName')}
@@ -248,12 +314,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="contactPerson" className="text-sm font-medium">
-                      Contact Person <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.CONTACT_PERSON} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="contactPerson"
                       type="text"
-                      placeholder="Enter contact person"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_CONTACT_PERSON}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('contactPerson')}
@@ -269,17 +335,17 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
               {/* Contact Details Section */}
               <div className="space-y-4">
-                <h4 className="text-md font-medium text-muted-foreground">Contact Details</h4>
+                <h4 className="text-md font-medium text-muted-foreground">{PROGRAM_MANAGER_STRINGS.SECTIONS.CONTACT_DETAILS}</h4>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="phoneNumber" className="text-sm font-medium">
-                      Phone Number <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.PHONE_NUMBER} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="phoneNumber"
                       type="tel"
-                      placeholder="Enter phone number"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_PHONE_NUMBER}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('phoneNumber')}
@@ -293,12 +359,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="extension" className="text-sm font-medium">
-                      Extension
+                      {PROGRAM_MANAGER_STRINGS.LABELS.EXTENSION}
                     </Label>
                     <Input
                       id="extension"
                       type="text"
-                      placeholder="Enter extension"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_EXTENSION}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('extension')}
@@ -307,12 +373,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="emailId" className="text-sm font-medium">
-                      Email ID <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.EMAIL_ID} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="emailId"
                       type="email"
-                      placeholder="Enter email address"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_EMAIL_ADDRESS}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('emailId')}
@@ -326,24 +392,25 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="currency" className="text-sm font-medium">
-                      Currency <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.CURRENCY} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Select
                       disabled={isViewMode || loading}
                       onValueChange={(value) => {
                         setValue('currency', value);
-                        setIsTableDataChanged(true);
+                        setIsDataChanged(true);
                       }}
                       value={watch('currency') || ''}
                     >
                       <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Select currency" />
+                        <SelectValue placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.SELECT_CURRENCY} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="USD">USD</SelectItem>
-                        <SelectItem value="EUR">EUR</SelectItem>
-                        <SelectItem value="INR">INR</SelectItem>
-                        <SelectItem value="GBP">GBP</SelectItem>
+                        {PROGRAM_MANAGER_DROPDOWN_OPTIONS.CURRENCIES.map((currency) => (
+                          <SelectItem key={currency.value} value={currency.value}>
+                            {currency.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     {errors.currency && (
@@ -361,31 +428,32 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                   <div className="p-1 rounded bg-primary/10">
                     <Info className="h-4 w-4 text-primary" />
                   </div>
-                  <h3 className="text-lg font-medium">Location & Configuration</h3>
+                  <h3 className="text-lg font-medium">{PROGRAM_MANAGER_STRINGS.SECTIONS.LOCATION_CONFIGURATION}</h3>
                 </div>
                 <Separator className="border-border/50" />
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="country" className="text-sm font-medium">
-                      Country <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.COUNTRY} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Select
                       disabled={isViewMode || loading}
                       onValueChange={(value) => {
                         setValue('country', value);
-                        setIsTableDataChanged(true);
+                        setIsDataChanged(true);
                       }}
                       value={watch('country') || ''}
                     >
                       <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Select country" />
+                        <SelectValue placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.SELECT_COUNTRY} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="US">United States</SelectItem>
-                        <SelectItem value="DE">Germany</SelectItem>
-                        <SelectItem value="IN">India</SelectItem>
-                        <SelectItem value="UK">United Kingdom</SelectItem>
+                        {PROGRAM_MANAGER_DROPDOWN_OPTIONS.COUNTRIES.map((country) => (
+                          <SelectItem key={country.value} value={country.value}>
+                            {country.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     {errors.country && (
@@ -397,24 +465,25 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="state" className="text-sm font-medium">
-                      State <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.STATE} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Select
                       disabled={isViewMode || loading}
                       onValueChange={(value) => {
                         setValue('state', value);
-                        setIsTableDataChanged(true);
+                        setIsDataChanged(true);
                       }}
                       value={watch('state') || ''}
                     >
                       <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Select state" />
+                        <SelectValue placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.SELECT_STATE} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="CA">California</SelectItem>
-                        <SelectItem value="NY">New York</SelectItem>
-                        <SelectItem value="TX">Texas</SelectItem>
-                        <SelectItem value="FL">Florida</SelectItem>
+                        {PROGRAM_MANAGER_DROPDOWN_OPTIONS.STATES.map((state) => (
+                          <SelectItem key={state.value} value={state.value}>
+                            {state.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     {errors.state && (
@@ -426,36 +495,37 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="programManagerTimeZone" className="text-sm font-medium">
-                      Program Manager Time Zone <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.PROGRAM_MANAGER_TIME_ZONE} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Select
                       disabled={isViewMode || loading}
                       onValueChange={(value) => {
                         setValue('programManagerTimeZone', value);
-                        setIsTableDataChanged(true);
+                        setIsDataChanged(true);
                       }}
                       value={watch('programManagerTimeZone') || ''}
                     >
                       <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Select timezone" />
+                        <SelectValue placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.SELECT_TIMEZONE} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="UTC-8">UTC-08:00 (PST)</SelectItem>
-                        <SelectItem value="UTC-5">UTC-05:00 (EST)</SelectItem>
-                        <SelectItem value="UTC+0">UTC+00:00 (GMT)</SelectItem>
-                        <SelectItem value="UTC+5:30">UTC+05:30 (IST)</SelectItem>
+                        {PROGRAM_MANAGER_DROPDOWN_OPTIONS.TIME_ZONES.map((timezone) => (
+                          <SelectItem key={timezone.value} value={timezone.value}>
+                            {timezone.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="batchPrefix" className="text-sm font-medium">
-                      Batch Prefix <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.BATCH_PREFIX} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="batchPrefix"
                       type="text"
-                      placeholder="Enter batch prefix"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_BATCH_PREFIX}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('batchPrefix')}
@@ -470,14 +540,14 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                   <div className="p-1 rounded bg-primary/10">
                     <Info className="h-4 w-4 text-primary" />
                   </div>
-                  <h3 className="text-lg font-medium">Scheduler & Logo</h3>
+                  <h3 className="text-lg font-medium">{PROGRAM_MANAGER_STRINGS.SECTIONS.SCHEDULER_LOGO}</h3>
                 </div>
                 <Separator className="border-border/50" />
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="schedulerRunTime" className="text-sm font-medium">
-                      Scheduler Run Time <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.SCHEDULER_RUN_TIME} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="schedulerRunTime"
@@ -490,12 +560,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label htmlFor="associatedBankNames" className="text-sm font-medium">
-                      Associated Bank Name(s) <span className="text-destructive">*</span>
+                      {PROGRAM_MANAGER_STRINGS.LABELS.ASSOCIATED_BANK_NAMES} <span className="text-destructive">{PROGRAM_MANAGER_STRINGS.REQUIRED_INDICATOR}</span>
                     </Label>
                     <Input
                       id="associatedBankNames"
                       type="text"
-                      placeholder="Enter bank names (comma separated)"
+                      placeholder={PROGRAM_MANAGER_STRINGS.PLACEHOLDERS.ENTER_BANK_NAMES}
                       disabled={isViewMode || loading}
                       className="h-11"
                       {...register('associatedBankNames')}
@@ -509,7 +579,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
 
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">
-                      Program Manager Logo
+                      {PROGRAM_MANAGER_STRINGS.LABELS.PROGRAM_MANAGER_LOGO}
                     </Label>
                     <div className="flex items-center space-x-2">
                       <Button
@@ -521,7 +591,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                         className="h-11 px-3"
                       >
                         <Upload className="h-4 w-4 mr-2" />
-                        Browse
+                        {PROGRAM_MANAGER_STRINGS.BUTTONS.BROWSE}
                       </Button>
                       <input
                         id="logoUpload"
@@ -531,7 +601,9 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                         className="hidden"
                       />
                       <span className="text-sm text-muted-foreground">
-                        {watch('programManagerLogo') ? 'File selected' : 'No file chosen'}
+                        {watch('programManagerLogo') 
+                          ? PROGRAM_MANAGER_STRINGS.FILES.FILE_SELECTED 
+                          : PROGRAM_MANAGER_STRINGS.FILES.NO_FILE_CHOSEN}
                       </span>
                     </div>
                   </div>
@@ -548,7 +620,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                   className="min-w-[100px]"
                 >
                   <X className="mr-2 h-4 w-4" />
-                  {tableActionState === 'view' ? 'Back' : 'Cancel'}
+                  {isViewMode ? PROGRAM_MANAGER_STRINGS.BUTTONS.BACK : PROGRAM_MANAGER_STRINGS.BUTTONS.CANCEL}
                 </Button>
 
                 {!isViewMode && (
@@ -560,7 +632,7 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                     className="min-w-[100px]"
                   >
                     <RotateCcw className="mr-2 h-4 w-4" />
-                    Reset
+                    {PROGRAM_MANAGER_STRINGS.BUTTONS.RESET}
                   </Button>
                 )}
 
@@ -573,12 +645,12 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
                     {loading ? (
                       <div className="flex items-center space-x-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></div>
-                        <span>Saving...</span>
+                        <span>{PROGRAM_MANAGER_STRINGS.LOADING.SAVING}</span>
                       </div>
                     ) : (
                       <>
                         <Save className="mr-2 h-4 w-4" />
-                        {tableActionState === 'edit' ? 'Update' : 'Create'}
+                        {isEditMode ? PROGRAM_MANAGER_STRINGS.BUTTONS.UPDATE : PROGRAM_MANAGER_STRINGS.BUTTONS.CREATE}
                       </>
                     )}
                   </Button>
@@ -592,4 +664,4 @@ export const ProgramManagerCreateComponent: React.FC<ProgramManagerCreateProps> 
   );
 };
 
-export default ProgramManagerCreateComponent;
+export default ProgramManagerForm;

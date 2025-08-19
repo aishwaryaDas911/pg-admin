@@ -6,7 +6,7 @@ import { Dashboard } from '@/components/admin/Dashboard';
 import { TabContent } from '@/components/admin/TabContent';
 import { menuItems } from '@/config/menuConfig';
 import FormGeneratorExample from '@/examples/FormGeneratorExample';
-import ProgramManagerManagement from '@/components/admin/Manage/ProgramManager';
+import { ProgramManagerManagement } from '@/components/admin/Manage/programManager';
 import ISOIndexManagement from '@/components/admin/Manage/ISO';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';

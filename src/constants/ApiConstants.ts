@@ -1,9 +1,17 @@
+// Environment detection
+const IS_DEVELOPMENT = typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' ||
+   window.location.hostname === '127.0.0.1' ||
+   window.location.hostname.includes('preview'));
+
 // API Constants for external services
 export const API_CONSTANTS = {
-  // Base URLs for different services
+  // Base URLs for different services with environment-aware fallbacks
   USER_ROLE_SERVICE: {
-    // Always use direct URL to external API
-    BASE_URL: 'http://192.168.12.7:9996',
+    // Use environment-aware URLs with fallback for development
+    BASE_URL: IS_DEVELOPMENT
+      ? (import.meta.env.VITE_USER_SERVICE_URL || 'http://192.168.12.7:9996')
+      : 'http://192.168.12.7:9996',
     PATHS: {
       USER_SERVICE: '/user-role-service/userservice',
       AUTHENTICATE: '/authenticate'
@@ -12,20 +20,37 @@ export const API_CONSTANTS = {
 
   // Merchant Entity Service
   MERCHANT_ENTITY_SERVICE: {
-    BASE_URL: 'http://192.168.12.7:9086',
+    BASE_URL: IS_DEVELOPMENT
+      ? (import.meta.env.VITE_MERCHANT_SERVICE_URL || 'http://192.168.12.7:9086')
+      : 'http://192.168.12.7:9086',
     PATHS: {
       PROGRAM_MANAGER: '/merchant-entity-service/programmanager',
       SEARCH_PROGRAM_MANAGER: '/processSearchProgramManager'
     }
   },
 
-  // Request configuration
+  // Environment settings
+  ENVIRONMENT: {
+    IS_DEVELOPMENT,
+    ENABLE_FALLBACK: IS_DEVELOPMENT,
+    ENABLE_MOCK_DATA: IS_DEVELOPMENT && import.meta.env.VITE_ENABLE_MOCK !== 'false',
+  },
+
+  // Request configuration with CORS support
   REQUEST_CONFIG: {
     TIMEOUT: 30000,
     CREDENTIALS: 'include' as RequestCredentials,
+    MODE: 'cors' as RequestMode,
+    CACHE: 'no-cache' as RequestCache,
     HEADERS: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      ...(IS_DEVELOPMENT && {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      })
     }
   },
   
