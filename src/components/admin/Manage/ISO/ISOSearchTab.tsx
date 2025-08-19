@@ -310,6 +310,10 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
               }
               return field;
             })}
+            tableDataConfig={{
+              columns: isoConfig.tableConfig.columns,
+              rows: searchResults
+            }}
             onSubmit={handleSearch}
             className="w-full"
           />
