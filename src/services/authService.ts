@@ -76,12 +76,23 @@ export const authenticateUser = async (username: string, password: string): Prom
     // Make the API call
     console.log('Attempting authentication with:', loginUrl);
 
-    const response = await fetch(loginUrl, {
+    // Determine headers based on environment
+    const headers = API_CONFIG.IS_DEVELOPMENT
+      ? { ...REQUEST_CONFIG.HEADERS, ...API_CONFIG.HEADERS.DEVELOPMENT }
+      : REQUEST_CONFIG.HEADERS;
+
+    const requestOptions: RequestInit = {
       method: 'POST',
-      headers: REQUEST_CONFIG.HEADERS,
-      credentials: REQUEST_CONFIG.CREDENTIALS,
+      headers,
+      credentials: API_CONFIG.CORS.CREDENTIALS,
+      mode: API_CONFIG.CORS.MODE,
+      cache: API_CONFIG.CORS.CACHE,
       body: JSON.stringify(payload)
-    });
+    };
+
+    console.log('Request options:', requestOptions);
+
+    const response = await fetch(loginUrl, requestOptions);
 
     // Check if request was successful
     if (!response.ok) {

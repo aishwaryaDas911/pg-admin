@@ -73,12 +73,24 @@ export class ProgramManagerService {
         recordsPerPage: searchParams.recordsPerPage || '10'
       };
       
-      const response = await fetch(searchUrl, {
+      // Import API_CONFIG for better configuration
+      const API_CONFIG = await import('@/config/apiConfig').then(m => m.API_CONFIG);
+
+      // Determine headers based on environment
+      const headers = API_CONFIG.IS_DEVELOPMENT
+        ? { ...REQUEST_CONFIG.HEADERS, ...API_CONFIG.HEADERS.DEVELOPMENT }
+        : REQUEST_CONFIG.HEADERS;
+
+      const requestOptions: RequestInit = {
         method: 'POST',
-        headers: REQUEST_CONFIG.HEADERS,
-        credentials: REQUEST_CONFIG.CREDENTIALS,
+        headers,
+        credentials: API_CONFIG.CORS.CREDENTIALS,
+        mode: API_CONFIG.CORS.MODE,
+        cache: API_CONFIG.CORS.CACHE,
         body: JSON.stringify(requestPayload)
-      });
+      };
+
+      const response = await fetch(searchUrl, requestOptions);
       
       console.log('📡 API Response Status:', response.status);
       
