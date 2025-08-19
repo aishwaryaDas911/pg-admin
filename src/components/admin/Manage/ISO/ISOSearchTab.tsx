@@ -69,12 +69,10 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
       }
 
       setSearchResults(filteredData);
-      setTotalRecords(filteredData.length);
-      setCurrentPage(1);
 
       toast({
         title: ISO_STRINGS.TOAST.SEARCH_COMPLETED_TITLE,
-        description: `Found ${filteredData.length} ${ISO_STRINGS.COMMON.RECORDS.toLowerCase()}`,
+        description: `Found ${filteredData.length} records`,
       });
     } catch (error) {
       toast({
