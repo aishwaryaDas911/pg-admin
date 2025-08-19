@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { FormGenerator } from '@/components/common/FormGenerator';
+import { FormGenerator } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,7 @@ import {
   Trash2,
   MoreHorizontal,
   RefreshCw,
+  Plus,
 } from 'lucide-react';
 import {
   DropdownMenu,
