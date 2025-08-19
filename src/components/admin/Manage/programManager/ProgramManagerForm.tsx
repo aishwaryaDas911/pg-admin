@@ -126,8 +126,7 @@ export const ProgramManagerForm: React.FC<ProgramManagerFormProps> = ({
       }
       
       // Call success callback
-      onSuccess?.(
-      });
+      onSuccess?.();
       
     } catch (error) {
       toast({
