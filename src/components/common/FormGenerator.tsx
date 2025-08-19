@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Calendar, CalendarDays } from 'lucide-react';
+import { Calendar, CalendarDays, ChevronDown, ChevronRight, Filter } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   Select,
   SelectContent,
@@ -88,6 +90,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   const { register, setValue, watch, formState: { errors }, reset } = methods;
   const [showTable, setShowTable] = useState(false);
   const [rows, setRows] = useState<Array<Record<string, any>>>([]);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(true);
 
   // Filter out button fields and hidden fields for the form grid
   const formFields = fields.filter((f) => !f.button && f.hide === false);
@@ -225,9 +228,28 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <form className={cn("form-container", className)} onSubmit={methods.handleSubmit(handleFormSubmit)}>
-        {/* Fields Grid */}
-        <div className="form-grid">
+      <div className={cn("form-container", className)}>
+        {/* Search Filters Section */}
+        <Card className="mb-6">
+          <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
+            <CollapsibleTrigger asChild>
+              <CardHeader className="cursor-pointer hover:bg-muted/50 transition-colors">
+                <div className="flex items-center space-x-2">
+                  <Filter className="h-4 w-4" />
+                  <span className="font-medium">Search Filters</span>
+                  {isFiltersOpen ? (
+                    <ChevronDown className="h-4 w-4" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4" />
+                  )}
+                </div>
+              </CardHeader>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CardContent>
+                <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
+                  {/* Fields Grid */}
+                  <div className="form-grid">
           {formFields.map((field) => {
             if (field?.input) {
               return (
@@ -274,27 +296,32 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
             }
             return null;
           })}
-        </div>
+                  </div>
 
-        {/* Buttons Row (Separate from Fields) */}
-        {mainFormButtons.length > 0 && (
-          <div className="form-buttons-row">
-            <div className="form-buttons-wrapper">
-              {mainFormButtons.map((field) => (
-                <Button
-                  key={field.button!.name}
-                  variant={field.button!.variant || 'default'}
-                  size={field.button!.size || 'default'}
-                  onClick={(e) => handleButtonClick(e, field.button)}
-                  className="button-spacing"
-                  type="button"
-                >
-                  {field.button!.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
+                  {/* Buttons Row (Separate from Fields) */}
+                  {mainFormButtons.length > 0 && (
+                    <div className="form-buttons-row">
+                      <div className="form-buttons-wrapper">
+                        {mainFormButtons.map((field) => (
+                          <Button
+                            key={field.button!.name}
+                            variant={field.button!.variant || 'default'}
+                            size={field.button!.size || 'default'}
+                            onClick={(e) => handleButtonClick(e, field.button)}
+                            className="button-spacing"
+                            type="button"
+                          >
+                            {field.button!.label}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </CardContent>
+            </CollapsibleContent>
+          </Collapsible>
+        </Card>
 
         {/* Table Display */}
         {showTable && tableDataConfig.columns && rows.length > 0 && (
@@ -363,7 +390,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
             </Table>
           </div>
         )}
-      </form>
+      </div>
     </FormProvider>
   );
 };

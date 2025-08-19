@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import FormGenerator from '@/components/common/FormGenerator';
 import { getModuleConfig, getMockDataForModule } from '@/config/fieldConfigurations';
 import { AcquirerProtocolForm } from './Manage/AcquirerProtocol';
@@ -19,7 +21,8 @@ import {
   Eye,
   Pause,
   Edit,
-  Trash2
+  Trash2,
+  RotateCcw
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ADMIN_STRINGS } from '@/constants/adminConstants';
@@ -34,6 +37,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
   const [activeTab, setActiveTab] = useState('search');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [createData, setCreateData] = useState<any>({});
 
   // Get dynamic configuration for this module
   const moduleConfig = getModuleConfig(title);
@@ -145,6 +149,19 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       description: actionMessages[action as keyof typeof actionMessages],
       variant: action === 'delete' ? 'destructive' : 'default'
     });
+  };
+
+  const handleCreate = () => {
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      toast({
+        title: "Created Successfully",
+        description: "New record has been created successfully",
+      });
+      setCreateData({});
+    }, 1000);
   };
 
   const renderActionButton = (type: string, row: any) => {

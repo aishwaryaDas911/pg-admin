@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import { ProgramManagerConfig } from '../config/ProgramManagerConfig';
+import { ProgramManagerService, ProgramManagerSearchParams } from '@/services/programManagerService';
 import { Search, RotateCcw, FileText, Download, Eye, Edit, Trash2 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -36,6 +37,7 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
   const config = ProgramManagerConfig({ tableActionState });
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   
   const { register, handleSubmit, reset, setValue, watch } = useForm({
     defaultValues: {
@@ -47,53 +49,130 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
     }
   });
 
-  // Handle search functionality
-  const handleSearch = (data: any) => {
+  // Handle search functionality using the API service
+  const handleSearch = async (data: any) => {
     setLoading(true);
-    
-    setTimeout(() => {
-      // Filter results based on search criteria
+    setHasSearched(true);
+
+    try {
+      console.log('🔍 Starting Program Manager search with data:', data);
+      console.log('🌐 API URL:', ProgramManagerService.getApiUrl());
+
+      // Prepare search parameters for the API
+      const searchParams: ProgramManagerSearchParams = {
+        programManagerName: data.programManagerName || undefined,
+        companyName: data.companyName || undefined,
+        bankName: data.bankName || undefined,
+        status: data.status || undefined,
+        recordsPerPage: data.recordsPerPage || '10',
+        pageNumber: 1, // Start with first page
+        sortBy: 'programManagerName',
+        sortOrder: 'asc'
+      };
+
+      // Call the API service
+      const response = await ProgramManagerService.searchProgramManagers(searchParams);
+      console.log('📦 Full API Response:', response);
+
+      if (response.success && response.data) {
+        console.log('✅ API Response Success - Data received:', response.data);
+        console.log('📁 Data type:', typeof response.data, 'Is Array:', Array.isArray(response.data));
+
+        // Handle different response formats
+        let resultsArray = [];
+        if (Array.isArray(response.data)) {
+          resultsArray = response.data;
+        } else if (response.data.programManagersList && Array.isArray(response.data.programManagersList)) {
+          // Handle if API returns {programManagersList: [...]}
+          resultsArray = response.data.programManagersList;
+          console.log('📁 Found programManagersList array:', resultsArray);
+        } else if (response.data.results && Array.isArray(response.data.results)) {
+          // Handle if API returns {results: [...]}
+          resultsArray = response.data.results;
+        } else {
+          // Single object response
+          resultsArray = [response.data];
+        }
+
+        console.log('📊 Final results array:', resultsArray);
+        console.log('📊 Results count:', resultsArray.length);
+
+        setSearchResults(resultsArray);
+        onSearchClick();
+
+        toast({
+          title: "Search Completed Successfully",
+          description: `Found ${resultsArray.length} Program Manager(s)${response.totalRecords ? ` out of ${response.totalRecords} total records` : ''}`,
+        });
+      } else {
+        // API call failed, fall back to mock data for development
+        console.warn('⚠️ API search failed, falling back to mock data');
+
+        let filteredResults = config.mockData;
+
+        if (data.programManagerName) {
+          filteredResults = filteredResults.filter(item =>
+            item.programManagerName.toLowerCase().includes(data.programManagerName.toLowerCase())
+          );
+        }
+
+        if (data.companyName) {
+          filteredResults = filteredResults.filter(item =>
+            item.companyName.toLowerCase().includes(data.companyName.toLowerCase())
+          );
+        }
+
+        if (data.status) {
+          filteredResults = filteredResults.filter(item =>
+            item.status.toLowerCase() === data.status.toLowerCase()
+          );
+        }
+
+        if (data.bankName) {
+          filteredResults = filteredResults.filter(item =>
+            item.associatedBankNames.toLowerCase().includes(data.bankName.toLowerCase())
+          );
+        }
+
+        setSearchResults(filteredResults);
+        onSearchClick();
+
+        toast({
+          title: "Search Completed (Demo Mode)",
+          description: `Found ${filteredResults.length} Program Manager(s) - ${response.error || 'API unavailable, using sample data'}`,
+          variant: "secondary"
+        });
+      }
+    } catch (error) {
+      console.error('❌ Search error:', error);
+
+      // On any error, fall back to mock data
       let filteredResults = config.mockData;
-      
+
       if (data.programManagerName) {
         filteredResults = filteredResults.filter(item =>
           item.programManagerName.toLowerCase().includes(data.programManagerName.toLowerCase())
         );
       }
-      
-      if (data.companyName) {
-        filteredResults = filteredResults.filter(item =>
-          item.companyName.toLowerCase().includes(data.companyName.toLowerCase())
-        );
-      }
-      
-      if (data.status) {
-        filteredResults = filteredResults.filter(item => 
-          item.status.toLowerCase() === data.status.toLowerCase()
-        );
-      }
-      
-      if (data.bankName) {
-        filteredResults = filteredResults.filter(item =>
-          item.associatedBankNames.toLowerCase().includes(data.bankName.toLowerCase())
-        );
-      }
 
       setSearchResults(filteredResults);
-      setLoading(false);
       onSearchClick();
-      
+
       toast({
-        title: "Search Completed",
-        description: `Found ${filteredResults.length} Program Managers`,
+        title: "Search Error - Using Demo Data",
+        description: `API error occurred, showing ${filteredResults.length} sample records`,
+        variant: "destructive"
       });
-    }, 1000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Handle reset
   const handleReset = () => {
     reset();
     setSearchResults([]);
+    setHasSearched(false);
     toast({
       title: "Filters Reset",
       description: "All search filters have been cleared",
@@ -319,34 +398,36 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
         </CardContent>
       </Card>
 
-      {/* Search Results Section */}
-      {searchResults.length > 0 && (
+      {/* Search Results Section - Show after search is performed */}
+      {hasSearched && (
         <Card className="shadow-sm border-border/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-base font-medium">
-                Search Results ({searchResults.length} found)
+                {loading ? 'Searching...' : `Search Results (${searchResults.length} found)`}
               </h3>
-              <div className="flex items-center space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={exportToPDF}
-                  className="text-sm"
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  PDF
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={exportToCSV}
-                  className="text-sm"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  CSV
-                </Button>
-              </div>
+              {searchResults.length > 0 && (
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportToPDF}
+                    className="text-sm"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    PDF
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportToCSV}
+                    className="text-sm"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    CSV
+                  </Button>
+                </div>
+              )}
             </div>
 
             {/* Results Table */}
@@ -356,90 +437,107 @@ export const ProgramManagerSearchComponent: React.FC<ProgramManagerSearchProps> 
                   <TableRow className="bg-muted/50">
                     <TableHead className="text-xs font-medium">Program Manager Name</TableHead>
                     <TableHead className="text-xs font-medium">Company Name</TableHead>
-                    <TableHead className="text-xs font-medium">Contact Person</TableHead>
-                    <TableHead className="text-xs font-medium">Phone</TableHead>
-                    <TableHead className="text-xs font-medium">Email</TableHead>
-                    <TableHead className="text-xs font-medium">Associated Bank Name(s)</TableHead>
+                    <TableHead className="text-xs font-medium">Business Entity Name</TableHead>
                     <TableHead className="text-xs font-medium">Status</TableHead>
                     <TableHead className="text-xs font-medium">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {searchResults.map((row, index) => (
-                    <TableRow key={row.id || index} className="hover:bg-muted/30">
-                      <TableCell className="font-medium text-sm">{row.programManagerName}</TableCell>
-                      <TableCell className="text-sm">{row.companyName}</TableCell>
-                      <TableCell className="text-sm">{row.contactPerson}</TableCell>
-                      <TableCell className="text-sm">{row.phoneNumber}</TableCell>
-                      <TableCell className="text-sm font-mono text-xs">{row.emailId}</TableCell>
-                      <TableCell className="text-sm">{row.associatedBankNames}</TableCell>
-                      <TableCell>
-                        <Badge 
-                          variant={row.status === 'ACTIVE' ? 'default' : 'secondary'}
-                          className={`text-xs ${
-                            row.status === 'ACTIVE' 
-                              ? 'bg-green-100 text-green-800 border-green-200' 
-                              : row.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
-                              : 'bg-gray-100 text-gray-800 border-gray-200'
-                          }`}
-                        >
-                          {row.status.toLowerCase()}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center space-x-1">
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                                  onClick={() => handleAction('view', row)}
-                                >
-                                  <Eye className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>View</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50"
-                                  onClick={() => handleAction('edit', row)}
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Edit</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
-                                  onClick={() => handleAction('delete', row)}
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>Delete</TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                  {loading ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center py-8">
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                          <span className="text-muted-foreground">Searching...</span>
                         </div>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : searchResults.length > 0 ? (
+                    searchResults.map((row, index) => (
+                      <TableRow key={row.id || index} className="hover:bg-muted/30">
+                        <TableCell className="font-medium text-sm">{row.programManagerName || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.companyName || '-'}</TableCell>
+                        <TableCell className="text-sm">{row.businessName || '-'}</TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={row.status === 'Active' ? 'default' : 'secondary'}
+                            className={`text-xs ${
+                              row.status === 'Active'
+                                ? 'bg-green-100 text-green-800 border-green-200'
+                                : row.status === 'Inactive'
+                                ? 'bg-red-100 text-red-800 border-red-200'
+                                : row.status === 'Pending'
+                                ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                                : 'bg-gray-100 text-gray-800 border-gray-200'
+                            }`}
+                          >
+                            {row.status || 'Unknown'}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-1">
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                                    onClick={() => handleAction('view', row)}
+                                  >
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>View</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-50"
+                                    onClick={() => handleAction('edit', row)}
+                                  >
+                                    <Edit className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Edit</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50"
+                                    onClick={() => handleAction('delete', row)}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Delete</TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center py-12">
+                        <div className="flex flex-col items-center space-y-2">
+                          <Search className="h-8 w-8 text-muted-foreground" />
+                          <span className="text-muted-foreground font-medium">No records found</span>
+                          <span className="text-sm text-muted-foreground">Try adjusting your search criteria</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </div>

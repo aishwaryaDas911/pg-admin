@@ -4,9 +4,18 @@
   @apply w-full space-y-6;
 }
 
+/* Search Filters Card */
+.search-filters-card {
+  @apply border border-border rounded-lg bg-card;
+}
+
+.search-filters-header {
+  @apply p-4 border-b border-border bg-muted/30;
+}
+
 /* Form Grid Layout */
 .form-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
 }
 
 .form-item {
@@ -45,7 +54,7 @@
 
 /* Buttons Row Layout */
 .form-buttons-row {
-  @apply w-full flex justify-start items-center pt-4 border-t border-border;
+  @apply w-full flex justify-start items-center pt-6;
 }
 
 .form-buttons-wrapper {
