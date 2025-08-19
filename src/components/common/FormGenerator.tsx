@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Calendar, CalendarDays, ChevronDown, ChevronRight, Filter } from 'lucide-react';
+import { Calendar, CalendarDays, ChevronDown, ChevronRight, Filter, Eye, Edit, Trash2, MoreHorizontal } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
