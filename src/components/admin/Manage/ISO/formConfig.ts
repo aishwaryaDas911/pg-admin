@@ -118,128 +118,51 @@ export const isoTableConfig: TableConfig = {
   columns: [
     {
       key: 'isoName',
-      header: ISO_STRINGS.TABLE_HEADERS.ISO_NAME,
+      label: ISO_STRINGS.TABLE_HEADERS.ISO_NAME,
       sortable: true,
-      searchable: true,
     },
     {
       key: 'businessEntityName',
-      header: ISO_STRINGS.TABLE_HEADERS.BUSINESS_ENTITY_NAME,
+      label: ISO_STRINGS.TABLE_HEADERS.BUSINESS_ENTITY_NAME,
       sortable: true,
-      searchable: true,
     },
     {
       key: 'contactPerson',
-      header: ISO_STRINGS.TABLE_HEADERS.CONTACT_PERSON,
+      label: ISO_STRINGS.TABLE_HEADERS.CONTACT_PERSON,
       sortable: true,
-      searchable: true,
     },
     {
       key: 'emailId',
-      header: ISO_STRINGS.TABLE_HEADERS.EMAIL_ID,
+      label: ISO_STRINGS.TABLE_HEADERS.EMAIL_ID,
       sortable: true,
-      searchable: true,
     },
     {
       key: 'phoneNumber',
-      header: ISO_STRINGS.TABLE_HEADERS.PHONE_NUMBER,
+      label: ISO_STRINGS.TABLE_HEADERS.PHONE_NUMBER,
       sortable: false,
-      searchable: false,
     },
     {
       key: 'processor',
-      header: ISO_STRINGS.TABLE_HEADERS.PROCESSOR,
+      label: ISO_STRINGS.TABLE_HEADERS.PROCESSOR,
       sortable: true,
-      searchable: true,
     },
     {
       key: 'status',
-      header: ISO_STRINGS.TABLE_HEADERS.STATUS,
+      label: ISO_STRINGS.TABLE_HEADERS.STATUS,
       sortable: true,
-      searchable: false,
-      render: (value: string) => {
-        const statusColors = {
-          active: 'bg-green-100 text-green-800',
-          inactive: 'bg-gray-100 text-gray-800',
-          pending: 'bg-yellow-100 text-yellow-800',
-          suspended: 'bg-red-100 text-red-800',
-        };
-        return `<span class="px-2 py-1 rounded-full text-xs font-medium ${statusColors[value as keyof typeof statusColors] || statusColors.inactive}">${value}</span>`;
-      },
     },
     {
       key: 'createdDate',
-      header: ISO_STRINGS.TABLE_HEADERS.CREATED_DATE,
+      label: ISO_STRINGS.TABLE_HEADERS.CREATED_DATE,
       sortable: true,
-      searchable: false,
-      render: (value: string) => {
-        return new Date(value).toLocaleDateString();
-      },
     },
     {
       key: 'actions',
-      header: ISO_STRINGS.TABLE_HEADERS.ACTIONS,
+      label: ISO_STRINGS.TABLE_HEADERS.ACTIONS,
       sortable: false,
-      searchable: false,
-      render: (value: any, row: any) => 'actions', // This will be handled by the component
     },
   ],
-  pagination: {
-    enabled: true,
-    pageSize: 10,
-    pageSizeOptions: [10, 25, 50, 100],
-  },
-  selection: {
-    enabled: true,
-    multiple: true,
-  },
-  sorting: {
-    enabled: true,
-    defaultSort: { key: 'createdDate', direction: 'desc' },
-  },
-  filtering: {
-    enabled: true,
-    globalSearch: true,
-  },
-  actions: [
-    {
-      name: 'view',
-      label: ISO_STRINGS.ACTIONS.VIEW_DETAILS,
-      icon: 'Eye',
-      variant: 'ghost',
-      onClick: (row: any) => console.log('View:', row),
-    },
-    {
-      name: 'edit',
-      label: ISO_STRINGS.ACTIONS.EDIT_ISO,
-      icon: 'Edit',
-      variant: 'ghost',
-      onClick: (row: any) => console.log('Edit:', row),
-    },
-    {
-      name: 'duplicate',
-      label: ISO_STRINGS.ACTIONS.DUPLICATE_ISO,
-      icon: 'Copy',
-      variant: 'ghost',
-      onClick: (row: any) => console.log('Duplicate:', row),
-    },
-    {
-      name: 'suspend',
-      label: ISO_STRINGS.ACTIONS.SUSPEND_ISO,
-      icon: 'Ban',
-      variant: 'ghost',
-      condition: (row: any) => row.status === 'active',
-      onClick: (row: any) => console.log('Suspend:', row),
-    },
-    {
-      name: 'delete',
-      label: ISO_STRINGS.ACTIONS.DELETE_ISO,
-      icon: 'Trash2',
-      variant: 'ghost',
-      destructive: true,
-      onClick: (row: any) => console.log('Delete:', row),
-    },
-  ],
+  rows: [], // This will be populated dynamically
 };
 
 /**
