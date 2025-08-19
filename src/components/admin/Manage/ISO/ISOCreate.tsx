@@ -166,6 +166,8 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
   };
 
   const onSubmit = async (data: ISOFormData) => {
+    if (isReadOnly) return;
+
     setIsSubmitting(true);
     try {
       // Prepare form data for submission
@@ -182,22 +184,32 @@ export const ISOCreate: React.FC<ISOCreateProps> = ({
         formData.append('isoLogo', logoFile);
       }
 
-      // Submit to service
-      await isoService.create(data);
-
-      toast({
-        title: ISO_STRINGS.TOAST.ISO_CREATED_TITLE,
-        description: ISO_STRINGS.TOAST.ISO_CREATED_DESCRIPTION,
-      });
+      if (mode === 'edit' && initialData?.id) {
+        // Update existing ISO
+        await isoService.update(initialData.id, data);
+        toast({
+          title: ISO_STRINGS.TOAST.ISO_UPDATED_TITLE,
+          description: ISO_STRINGS.TOAST.ISO_UPDATED_DESCRIPTION,
+        });
+      } else {
+        // Create new ISO
+        await isoService.create(data);
+        toast({
+          title: ISO_STRINGS.TOAST.ISO_CREATED_TITLE,
+          description: ISO_STRINGS.TOAST.ISO_CREATED_DESCRIPTION,
+        });
+      }
 
       // Reset form and call success callback
-      reset();
-      removeFile();
+      if (mode === 'create') {
+        reset();
+        removeFile();
+      }
       onSuccess?.();
     } catch (error) {
       toast({
         title: ISO_STRINGS.TOAST.VALIDATION_ERROR_TITLE,
-        description: 'Failed to create ISO. Please try again.',
+        description: `Failed to ${mode} ISO. Please try again.`,
         variant: 'destructive',
       });
     } finally {
