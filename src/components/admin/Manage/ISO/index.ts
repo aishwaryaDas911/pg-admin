@@ -1,6 +1,3 @@
-// Legacy ISO Form (maintained for backward compatibility)
-export { ISOForm } from './ISOForm';
-
 // New Modular ISO Management Components
 export { default as ISOCreate } from './ISOCreate';
 export { default as ISOSearchTab } from './ISOSearchTab';
