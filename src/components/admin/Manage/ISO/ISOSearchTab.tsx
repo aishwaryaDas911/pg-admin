@@ -203,6 +203,9 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
               rows: searchResults
             } : { columns: [], rows: [] }}
             onSubmit={handleSearch}
+            onView={handleView}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
             className="w-full"
           />
         </CardContent>
