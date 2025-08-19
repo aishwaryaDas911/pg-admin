@@ -35,6 +35,7 @@ export const ISOSearchTab: React.FC<ISOSearchTabProps> = ({
   // Handle form submission for search
   const handleSearch = useCallback(async (formData: SearchFilters) => {
     setIsLoading(true);
+    setHasSearched(true);
     try {
       // Filter mock data based on search criteria
       let filteredData = isoMockData;
