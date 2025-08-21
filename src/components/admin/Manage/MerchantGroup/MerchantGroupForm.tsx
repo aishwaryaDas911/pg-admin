@@ -642,3 +642,5 @@ export const MerchantGroupForm: React.FC<MerchantGroupFormProps> = ({
     </Card>
   );
 };
+
+export default MerchantGroupForm;
