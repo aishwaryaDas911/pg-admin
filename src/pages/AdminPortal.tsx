@@ -9,6 +9,7 @@ import FormGeneratorExample from '@/examples/FormGeneratorExample';
 import { ProgramManagerManagement } from '@/components/admin/Manage/programManager';
 import ISOIndexManagement from '@/components/admin/Manage/ISO';
 import { MerchantGroupIndexManagement } from '@/components/admin/Manage/MerchantGroup';
+import { BankIndexManagement } from '@/components/admin/Manage/Bank';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -48,7 +49,7 @@ const AdminPortal: React.FC = () => {
     items.forEach(item => {
       if (item.children) {
         item.children.forEach(child => {
-          if (child.path && child.path !== '/manage/iso' && child.path !== '/manage/merchant-group') { // Skip ISO and MerchantGroup routes - handled explicitly
+          if (child.path && child.path !== '/manage/iso' && child.path !== '/manage/merchant-group' && child.path !== '/manage/bank') { // Skip ISO, MerchantGroup, and Bank routes - handled explicitly
             routes.push(
               <Route
                 key={child.path}
@@ -113,6 +114,7 @@ const AdminPortal: React.FC = () => {
             <Route path="/program-manager-management" element={<ProgramManagerManagement />} />
             <Route path="/manage/iso" element={<ISOIndexManagement />} />
             <Route path="/manage/merchant-group" element={<MerchantGroupIndexManagement />} />
+            <Route path="/manage/bank" element={<BankIndexManagement />} />
             {generateRoutes(menuItems)}
             <Route path="*" element={
               <div className="flex items-center justify-center h-96">
