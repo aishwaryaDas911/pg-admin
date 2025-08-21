@@ -172,14 +172,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="name"
+                  type="category"
+                  scale="auto"
                   tick={{ fontSize: 12 }}
                   tickLine={{ stroke: '#e5e7eb' }}
                   axisLine={{ stroke: '#e5e7eb' }}
+                  interval="preserveStartEnd"
                 />
                 <YAxis
+                  type="number"
+                  scale="auto"
                   tick={{ fontSize: 12 }}
                   tickLine={{ stroke: '#e5e7eb' }}
                   axisLine={{ stroke: '#e5e7eb' }}
+                  width={50}
                 />
                 <Tooltip />
                 <Bar dataKey="value" fill="hsl(var(--mb-blue))" />
