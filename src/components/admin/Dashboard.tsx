@@ -235,12 +235,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
         <CardContent>
           <div className="space-y-4">
             {[
-              { user: 'admin@mb.com', action: 'Updated device configuration', time: '2 minutes ago' },
-              { user: 'system', action: 'Automatic backup completed', time: '15 minutes ago' },
-              { user: 'manager@mb.com', action: 'Created new merchant group', time: '1 hour ago' },
-              { user: 'admin@mb.com', action: 'Deployed software update', time: '2 hours ago' },
-            ].map((activity, index) => (
-              <div key={index} className="flex items-center space-x-4 p-4 rounded-lg bg-muted/30">
+              { id: 'activity-1', user: 'admin@mb.com', action: 'Updated device configuration', time: '2 minutes ago' },
+              { id: 'activity-2', user: 'system', action: 'Automatic backup completed', time: '15 minutes ago' },
+              { id: 'activity-3', user: 'manager@mb.com', action: 'Created new merchant group', time: '1 hour ago' },
+              { id: 'activity-4', user: 'admin@mb.com', action: 'Deployed software update', time: '2 hours ago' },
+            ].map((activity) => (
+              <div key={activity.id} className="flex items-center space-x-4 p-4 rounded-lg bg-muted/30">
                 <div className="h-2 w-2 rounded-full bg-mb-blue"></div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{activity.action}</p>
