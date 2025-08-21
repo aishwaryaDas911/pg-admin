@@ -42,6 +42,12 @@ export const authenticateUser = async (username: string, password: string): Prom
     return false;
   }
 
+  // For development mode, try fallback first if configured
+  if (API_CONFIG.IS_DEVELOPMENT && import.meta.env.VITE_USE_FALLBACK_AUTH === 'true') {
+    console.log('🔄 Development mode: Using fallback authentication directly');
+    return await handleDevelopmentFallback(username, password);
+  }
+
   // Debug: Check if API_CONFIG is loaded correctly
   console.log('API_CONFIG:', API_CONFIG);
   console.log('EXTERNAL_AUTH:', API_CONFIG.EXTERNAL_AUTH);
@@ -59,8 +65,8 @@ export const authenticateUser = async (username: string, password: string): Prom
   console.log('Using login URL:', loginUrl);
 
   if (!loginUrl) {
-    console.error('Could not determine login URL');
-    return false;
+    console.error('Could not determine login URL, trying fallback authentication');
+    return await handleDevelopmentFallback(username, password);
   }
 
   try {
@@ -88,7 +94,9 @@ export const authenticateUser = async (username: string, password: string): Prom
       credentials: API_CONFIG.CORS.CREDENTIALS,
       mode: API_CONFIG.CORS.MODE,
       cache: API_CONFIG.CORS.CACHE,
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      // Add timeout to prevent hanging requests
+      signal: AbortSignal.timeout(API_CONFIG.TIMEOUT)
     };
 
     console.log('Request options:', requestOptions);
@@ -130,49 +138,15 @@ export const authenticateUser = async (username: string, password: string): Prom
     // Use the network diagnostics utility for better error guidance
     displayErrorGuidance(error);
 
-    // Handle specific error types
-    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-
-      // Always use fallback for fetch errors in development
-      console.log('🔄 Activating fallback authentication...');
-      try {
-        const fallbackResult = await handleDevelopmentFallback(username, password);
-        console.log('📝 Fallback authentication result:', fallbackResult);
-        return fallbackResult;
-      } catch (fallbackError) {
-        console.error('🚨 Fallback authentication also failed:', fallbackError);
-        return false;
-      }
-    } else if (error instanceof SyntaxError) {
-      console.error('Response parsing error: Invalid JSON response from server');
-      // Try fallback for parsing errors too
-      console.log('🔄 Trying fallback due to parsing error...');
-      try {
-        return await handleDevelopmentFallback(username, password);
-      } catch (fallbackError) {
-        console.error('Fallback failed for parsing error:', fallbackError);
-        return false;
-      }
-    } else if (error instanceof Error && error.name === 'AbortError') {
-      console.error('Request timeout: Authentication request took too long');
-      // Try fallback for timeout errors too
-      console.log('🔄 Trying fallback due to timeout...');
-      try {
-        return await handleDevelopmentFallback(username, password);
-      } catch (fallbackError) {
-        console.error('Fallback failed for timeout error:', fallbackError);
-        return false;
-      }
-    } else {
-      console.error('Unexpected error during authentication:', error);
-      // Try fallback for any unexpected errors
-      console.log('🔄 Trying fallback due to unexpected error...');
-      try {
-        return await handleDevelopmentFallback(username, password);
-      } catch (fallbackError) {
-        console.error('Fallback failed for unexpected error:', fallbackError);
-        return false;
-      }
+    // Always use fallback authentication when external API fails
+    console.log('🔄 External API failed, activating fallback authentication...');
+    try {
+      const fallbackResult = await handleDevelopmentFallback(username, password);
+      console.log('📝 Fallback authentication result:', fallbackResult);
+      return fallbackResult;
+    } catch (fallbackError) {
+      console.error('🚨 Fallback authentication also failed:', fallbackError);
+      return false;
     }
   }
 };
@@ -232,44 +206,49 @@ const handleDevelopmentFallback = async (username: string, password: string): Pr
   console.log('   - Shruthi / Subhas@321');
   console.log('📝 Attempting login with:', username);
 
-  // Simple demo credentials for development
-  const validCredentials = [
-    { username: 'admin', password: 'password' },
-    { username: 'demo', password: 'demo123' },
-    { username: 'test', password: 'test123' },
-    // Add any credentials the user might try
-    { username: 'Shruthi', password: 'Subhas@321' }
-  ];
+  try {
+    // Simple demo credentials for development
+    const validCredentials = [
+      { username: 'admin', password: 'password' },
+      { username: 'demo', password: 'demo123' },
+      { username: 'test', password: 'test123' },
+      // Add any credentials the user might try
+      { username: 'Shruthi', password: 'Subhas@321' }
+    ];
 
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-  const isValid = validCredentials.some(cred =>
-    cred.username === username && cred.password === password
-  );
-
-  if (isValid) {
-    console.log('✅ Development authentication successful');
-
-    // Create development user data
-    const userData: AuthUserData = {
-      id: 'dev-' + username,
-      username: username,
-      loginTime: new Date(),
-      isAuthenticated: true,
-      isDevelopmentMode: true
-    };
-
-    // Save user data to localStorage
-    localStorage.setItem('authUser', JSON.stringify(userData));
-
-    return true;
-  } else {
-    console.log('❌ Development authentication failed');
-    console.log('Valid demo credentials:');
-    validCredentials.forEach(cred =>
-      console.log(`- Username: ${cred.username}, Password: ${cred.password}`)
+    const isValid = validCredentials.some(cred =>
+      cred.username === username && cred.password === password
     );
+
+    if (isValid) {
+      console.log('✅ Development authentication successful');
+
+      // Create development user data
+      const userData: AuthUserData = {
+        id: 'dev-' + username,
+        username: username,
+        loginTime: new Date(),
+        isAuthenticated: true,
+        isDevelopmentMode: true
+      };
+
+      // Save user data to localStorage
+      localStorage.setItem('authUser', JSON.stringify(userData));
+
+      return true;
+    } else {
+      console.log('❌ Development authentication failed');
+      console.log('Valid demo credentials:');
+      validCredentials.forEach(cred =>
+        console.log(`- Username: ${cred.username}, Password: ${cred.password}`)
+      );
+      return false;
+    }
+  } catch (error) {
+    console.error('Error in fallback authentication:', error);
     return false;
   }
 };
