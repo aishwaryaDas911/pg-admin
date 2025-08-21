@@ -1,4 +1,4 @@
-import { FormField, TableConfig } from '@/components/common/FormGenerator';
+import { FormField, TableConfig } from '@/components/common';
 import { DROPDOWN_OPTIONS } from '@/constants/adminConstants';
 
 // Define the structure for module configurations
