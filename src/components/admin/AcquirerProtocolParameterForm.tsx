@@ -22,6 +22,7 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
   onReset
 }) => {
   const [startTime, setStartTime] = React.useState<Date>();
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,21 +32,19 @@ export const AcquirerProtocolParameterForm: React.FC<AcquirerProtocolParameterFo
   };
 
   const handleReset = () => {
-    const form = document.querySelector('form') as HTMLFormElement;
-    form?.reset();
+    formRef.current?.reset();
     setStartTime(undefined);
     onReset?.();
   };
 
   const selectOptions = [
-    "Select...",
     "Option 1",
     "Option 2", 
     "Option 3"
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
       {/* Acquirer Protocol Section */}
       <Card>
         <CardHeader className="bg-muted/30">
