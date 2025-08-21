@@ -31,38 +31,17 @@ export const MerchantGroupIndexManagement: React.FC = () => {
     try {
       setIsLoading(true);
       setSelectedMerchantGroupId(id);
-      
-      // For development, use mock data
-      const mockData = {
-        id,
-        merchantGroupName: 'Global Retail Solutions',
-        corporateLegalName: 'GRS Holdings LLC',
-        contactName: 'John Smith',
-        contactPhone: '+1-555-0123',
-        contactEmailId: 'john.smith@grs.com',
-        address1: '123 Commerce Street',
-        address2: 'Suite 400',
-        address3: 'Building A',
-        pinCode: '10001',
-        country: 'United States',
-        state: 'New York',
-        city: 'New York',
-        routingProfileName: 'Standard Routing',
-        paymentType: 'Bank Transfer',
-        bankName: 'Chase Bank',
-        branchName: 'Manhattan Branch',
-        nameOnAccount: 'GRS Holdings LLC',
-        accountType: 'Business Checking',
-        accountNumber: '****1234',
-        bankCode: 'CHASUS33',
-        bankState: 'NY',
-        bankCity: 'New York',
-        status: 'active',
-        createdDate: '2024-01-15T10:30:00Z',
-      };
-      
-      setSelectedMerchantGroupData(mockData);
-      setCurrentView('view');
+
+      // For development, find the data from mock data by ID
+      const { merchantGroupMockData } = await import('./formConfig');
+      const foundData = merchantGroupMockData.find(item => item.id === id);
+
+      if (foundData) {
+        setSelectedMerchantGroupData(foundData);
+        setCurrentView('view');
+      } else {
+        throw new Error('Merchant group not found');
+      }
 
       // Uncomment this when API is ready
       // const data = await merchantGroupService.getById(id);
@@ -84,38 +63,22 @@ export const MerchantGroupIndexManagement: React.FC = () => {
     try {
       setIsLoading(true);
       setSelectedMerchantGroupId(id);
-      
-      // For development, use mock data
-      const mockData = {
-        id,
-        merchantGroupName: 'Global Retail Solutions',
-        corporateLegalName: 'GRS Holdings LLC',
-        contactName: 'John Smith',
-        contactPhone: '+1-555-0123',
-        contactEmailId: 'john.smith@grs.com',
-        address1: '123 Commerce Street',
-        address2: 'Suite 400',
-        address3: 'Building A',
-        pinCode: '10001',
-        country: 'United States',
-        state: 'New York',
-        city: 'New York',
-        routingProfileName: 'Standard Routing',
-        paymentType: 'Bank Transfer',
-        bankName: 'Chase Bank',
-        branchName: 'Manhattan Branch',
-        nameOnAccount: 'GRS Holdings LLC',
-        accountType: 'Business Checking',
-        accountNumber: '1234567890123456',
-        bankCode: 'CHASUS33',
-        bankState: 'NY',
-        bankCity: 'New York',
-        status: 'active',
-        createdDate: '2024-01-15T10:30:00Z',
-      };
-      
-      setSelectedMerchantGroupData(mockData);
-      setCurrentView('edit');
+
+      // For development, find the data from mock data by ID
+      const { merchantGroupMockData } = await import('./formConfig');
+      const foundData = merchantGroupMockData.find(item => item.id === id);
+
+      if (foundData) {
+        // Convert masked account number to full number for editing
+        const editableData = {
+          ...foundData,
+          accountNumber: foundData.accountNumber.replace('****', '1234567890')
+        };
+        setSelectedMerchantGroupData(editableData);
+        setCurrentView('edit');
+      } else {
+        throw new Error('Merchant group not found');
+      }
 
       // Uncomment this when API is ready
       // const data = await merchantGroupService.getById(id);
