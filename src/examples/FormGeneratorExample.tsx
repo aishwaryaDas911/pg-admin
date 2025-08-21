@@ -1,5 +1,5 @@
 import React from 'react';
-import FormGenerator, { FormField, TableConfig } from '@/components/common/FormGenerator';
+import FormGenerator, { FormField, TableConfig } from '@/components/common';
 
 const FormGeneratorExample: React.FC = () => {
   // Example field configuration
