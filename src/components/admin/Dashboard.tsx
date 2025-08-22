@@ -178,6 +178,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
                   tickLine={{ stroke: '#e5e7eb' }}
                   axisLine={{ stroke: '#e5e7eb' }}
                   interval="preserveStartEnd"
+                  height={60}
+                  orientation="bottom"
+                  mirror={false}
+                  tickSize={6}
+                  minTickGap={5}
                 />
                 <YAxis
                   type="number"
@@ -186,6 +191,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ className = '' }) => {
                   tickLine={{ stroke: '#e5e7eb' }}
                   axisLine={{ stroke: '#e5e7eb' }}
                   width={50}
+                  orientation="left"
+                  mirror={false}
+                  tickSize={6}
+                  minTickGap={5}
                 />
                 <Tooltip />
                 <Bar dataKey="value" fill="hsl(var(--mb-blue))" />
