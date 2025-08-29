@@ -410,27 +410,7 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
               }}
             />
           ) : title === 'Fee Program' ? (
-            <FeeProgramForm
-              onSubmit={(data) => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATED,
-                });
-                console.log('Fee Program data:', data);
-              }}
-              onCancel={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CANCELLED,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATION_CANCELLED,
-                });
-              }}
-              onReset={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_FIELDS_CLEARED,
-                });
-              }}
-            />
+            <FeeProgramManagement />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
