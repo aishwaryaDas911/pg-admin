@@ -49,25 +49,7 @@ export const feeProgramSearchFields: FormField[] = [
       label: FEE_PROGRAM_STRINGS.BUTTONS.RESET,
       variant: 'outline',
     },
-  },
-  {
-    label: FEE_PROGRAM_STRINGS.BUTTONS.EXPORT_PDF,
-    hide: false,
-    button: {
-      name: 'exportPDF',
-      label: FEE_PROGRAM_STRINGS.BUTTONS.EXPORT_PDF,
-      variant: 'secondary'
-    },
-  },
-  {
-    label: FEE_PROGRAM_STRINGS.BUTTONS.EXPORT_CSV,
-    hide: false,
-    button: {
-      name: 'exportCSV',
-      label: FEE_PROGRAM_STRINGS.BUTTONS.EXPORT_CSV,
-      variant: 'secondary'
-    },
-  },
+  }
 ];
 
 export const feeProgramTableConfig: TableConfig = {
