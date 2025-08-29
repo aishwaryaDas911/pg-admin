@@ -11,7 +11,7 @@ import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
 import { BankForm } from './Manage/Bank';
-import { FeeProgramForm } from './Programs/FeeProgram';
+import { FeeProgramManagement } from './Programs/FeeProgram';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
