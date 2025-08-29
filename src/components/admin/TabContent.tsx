@@ -11,7 +11,7 @@ import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
 import { BankForm } from './Manage/Bank';
-import { FeeProgramManagement } from './Programs/FeeProgram';
+import { FeeProgramForm, FeeProgramSearchTab } from './Programs/FeeProgram';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
@@ -232,7 +232,9 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         </TabsList>
 
         <TabsContent value="search" className="space-y-6">
-          {title === 'Program Manager' ? (
+          {title === 'Fee Program' ? (
+            <FeeProgramSearchTab />
+          ) : title === 'Program Manager' ? (
             // Use the new structured component for Program Manager
             <div>
               <p className="text-muted-foreground mb-4">
@@ -410,7 +412,19 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
               }}
             />
           ) : title === 'Fee Program' ? (
-            <FeeProgramManagement />
+            <FeeProgramForm
+              mode="create"
+              onSubmit={(data) => {
+                toast({ title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATED });
+                console.log('Fee Program data:', data);
+              }}
+              onCancel={() => {
+                toast({ title: ADMIN_STRINGS.TOAST.CANCELLED, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATION_CANCELLED });
+              }}
+              onReset={() => {
+                toast({ title: ADMIN_STRINGS.TOAST.FORM_RESET, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_FIELDS_CLEARED });
+              }}
+            />
           ) : (
             <Card className="shadow-glass">
               <CardHeader>
