@@ -1,4 +1,4 @@
-export { BankForm } from './Bank';
+export { BankManagement, BankForm, BankSearchTab } from './Bank';
 export { MerchantForm } from './Merchant';
 export { MerchantGroupForm } from './MerchantGroup';
 export { ProgramManagerManagement, ProgramManagerForm } from './programManager';

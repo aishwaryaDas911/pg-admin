@@ -11,7 +11,7 @@ import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
 import { BankForm } from './Manage/Bank';
-import { FeeProgramForm } from './Programs/FeeProgram';
+import { FeeProgramManagement } from './Programs/FeeProgram';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
@@ -210,6 +210,20 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
     );
   };
 
+  if (title === 'Fee Program') {
+    return (
+      <div className={`space-y-6 animate-fade-in ${className}`}>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+          <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
+            {ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}
+          </Badge>
+        </div>
+        <FeeProgramManagement />
+      </div>
+    );
+  }
+
   return (
     <div className={`space-y-6 animate-fade-in ${className}`}>
       <div className="flex items-center justify-between">
@@ -232,7 +246,9 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
         </TabsList>
 
         <TabsContent value="search" className="space-y-6">
-          {title === 'Program Manager' ? (
+          {title === 'Fee Program' ? (
+            <FeeProgramSearchTab />
+          ) : title === 'Program Manager' ? (
             // Use the new structured component for Program Manager
             <div>
               <p className="text-muted-foreground mb-4">
@@ -411,24 +427,16 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
             />
           ) : title === 'Fee Program' ? (
             <FeeProgramForm
+              mode="create"
               onSubmit={(data) => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATED,
-                });
+                toast({ title: ADMIN_STRINGS.TOAST.CREATED_SUCCESS, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATED });
                 console.log('Fee Program data:', data);
               }}
               onCancel={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.CANCELLED,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATION_CANCELLED,
-                });
+                toast({ title: ADMIN_STRINGS.TOAST.CANCELLED, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_CREATION_CANCELLED });
               }}
               onReset={() => {
-                toast({
-                  title: ADMIN_STRINGS.TOAST.FORM_RESET,
-                  description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_FIELDS_CLEARED,
-                });
+                toast({ title: ADMIN_STRINGS.TOAST.FORM_RESET, description: ADMIN_STRINGS.TOAST.FEE_PROGRAM_FIELDS_CLEARED });
               }}
             />
           ) : (
