@@ -11,7 +11,7 @@ import { MerchantGroupForm } from './Manage/MerchantGroup';
 import { MerchantForm } from './Manage/Merchant';
 import { SubMerchantForm } from './Manage/SubMerchant';
 import { BankForm } from './Manage/Bank';
-import { FeeProgramForm, FeeProgramSearchTab } from './Programs/FeeProgram';
+import { FeeProgramManagement } from './Programs/FeeProgram';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
@@ -209,6 +209,20 @@ export const TabContent: React.FC<TabContentProps> = ({ title, className = '' })
       </TooltipProvider>
     );
   };
+
+  if (title === 'Fee Program') {
+    return (
+      <div className={`space-y-6 animate-fade-in ${className}`}>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+          <Badge variant="secondary" className="bg-mb-blue/10 text-mb-blue border-mb-blue/20">
+            {ADMIN_STRINGS.NAVIGATION.ADMIN_PORTAL}
+          </Badge>
+        </div>
+        <FeeProgramManagement />
+      </div>
+    );
+  }
 
   return (
     <div className={`space-y-6 animate-fade-in ${className}`}>
